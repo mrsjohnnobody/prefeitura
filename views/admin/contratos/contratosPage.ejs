@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'contrato'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %>
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Contratos' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+      
+          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                aria-describedby="button-addon2">
+
+              <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addContratoModal">
+                + Contrato
+              </a>
+            </div>
+          </div>
+    
+          <!--TABLE-->
+          <div class="card m-5 mt-0 d-flex justify-content" style="border-style: solid; border-color: var(--secondary-color)">
+            <div class="card-header" style="background-color: var(--secondary-color); color: white">
+              <div class="row">
+                <div class="col-12">
+                  <h3>Contratos</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table id="contratoTable" class="table table-bordered">
+                <thead class="table" style="background-color: var(--secondary-color); color: white">
+                  <tr>
+                    <th class="col-1" scope="col">Número</th>
+                    <th class="col-1" scope="col">Data</th>
+                    <th class="col-1" scope="col">Contratado</th>
+                    <th class="col-1" scope="col">Objeto</th>
+                    <th class="col-1" scope="col">Valor</th>
+                    <th class="col-1" scope="col">Visualizar</th>
+                    <th class="col-1" scope="col">Ações</th>
+                  </tr>
+                </thead>
+                <tbody style="color: var(--secondary-color) color">
+                  <% for(var i=0; i < contratos.length; i++) {%>
+                    <tr id="contratoIdItem_<%=contratos[i].id %>">
+                      <th scope="row"><%=contratos[i].Numero%></th>
+                      <th scope="row">
+                        <%= contratos[i].DataExercicio ? new Date(contratos[i].DataExercicio).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                      </th>
+                      <th scope="row"><%=contratos[i].NomeContratado%></th>
+                      <th scope="row"><%=contratos[i].Objetivo%></th>
+                      <th scope="row"><%=contratos[i].ValorTotal%></th>
+                      <th scope="row" class="d-flex justify-content-around">
+                        <a href="/<%=contratos[i].path %>" target="_blank" style="text-decoration: none;">
+                          <img title="Abrir arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
+                        </a>
+                        <a href="/licitacoes/<%=contratos[i].LicitacaoId %>" target="_blank" style="text-decoration: none;">
+                          <img title="Ver licitação" src="/icons/tag-fill-black.svg" alt="Ver licitação" height="20rem">
+                        </a>
+                      </th>
+                      <th scope="row">
+                        <span style="text-decoration: none; cursor: pointer;" onclick="setIdForRemoveContrato('<%=contratos[i].id %>')" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img title="Remover item" src="/icons/x-circle-fill.svg" alt="Remover item" height="20rem"> 
+                        </span>
+                      </th>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+    
+          <!--MODAL ADD CONTRATO-->
+          <div class="modal fade" id="addContratoModal" tabindex="-1" aria-labelledby="addContratoLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddContratoLabel">Cadastrar novo contrato</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="contratoForm" class="needs-validation" method="POST" enctype="multipart/form-data">
+                    <h5 class="mt-3">Selecione um arquivo em formato PDF</h5>
+                    <div class="input-group my-3">
+                      <input class="form-control" required type="file" name="pdfFile" class="form-control">
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <label for="dataExercicio" class="col-form-label">Data de exercício do contrato:</label>
+                        <input id="dataExercicio" required name="dataExercicio" class="form-control" type="date">
+                      </div>
+                      <div class="col-6">
+                        <label for="objetivo" class="col-form-label">Valor total do contrato:</label>
+                        <input id="valorTotal" required name="valorTotal" placeholder="R$ 0,00" class="form-control" type="text">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="licitacaoId" class="col-form-label">Licitação correspondente:</label>
+                      <select name="licitacaoId" required class="form-select" aria-label=".form-select-sm" id="licitacaoId">
+                        <option value="" selected>selecione</option>
+                        <% for(var i=0; i < licitacoes.length; i++) {%>
+                          <option value="<%=licitacoes[i].id%>"><%=licitacoes[i].ProcessNumber%></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label for="numero" class="col-form-label">Número do contrato:</label>
+                      <input id="numero" required name="numero" class="form-control" type="text">
+                    </div>
+                    <div class="col-12">
+                      <label for="nomeContratado" class="col-form-label">Nome do contratado:</label>
+                      <input id="nomeContratado"required  name="nomeContratado" class="form-control" type="text">
+                    </div>
+                    <div class="col-12">
+                      <label for="objetivo" class="col-form-label">Objetivo do contrato:</label>
+                      <textarea type="text" required class="form-control" rows="2" id="objetivo" name="objetivo"></textarea>
+                    </div>
+                    <div class="mb-1">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Modal DELETE CONTRATO-->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Excluir Contrato</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Realmente deseja excluir este Contrato?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+      </div>
+    </div>
+
+
+  <script src="/script/admin/global/global.js"></script>
+  <script src="/script/admin/contratos/contratos.js"></script>
+
+  </body>
+
+</html>

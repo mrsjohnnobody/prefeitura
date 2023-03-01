@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'eSic'}); %>
+
+  <body style="font-family: 'Roboto', sans-serif;
+  ">
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Institucional-Esic" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!-- FILTROS -->
+            <div class="container-fluid">
+              <div class="row mx-0">
+                <div class="col-12 p-5 d-flex justify-content-end">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                      aria-describedby="button-addon2">
+
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card text m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>E-SIC</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card text-center">
+                  <p class="card-header text-center fw-bold fs-3">Informações do E-Sic
+                  </p>
+                  <div class="card-body">
+                    <p class="card-text fw-bold fs-4">
+                      Atenção
+                    </p>
+                    <p class="card-text">
+                      Antes de solicitar uma informação esclareça suas dúvidas ou acesse nossa transparência ativa.
+                      Lembrando que criticas, denúncias, elogios, reclamações e sugestões é através da ouvidoria.
+                    </p>
+                    <div class="buttonsInLine">
+                      <a class="btn btn-primary btn-lg" href="/transparencia" target="blank">Acesso a Informação</a>
+                      <a class="btn btn-primary btn-lg" href="/ouvidoria" target="blank">Ouvidoria</a>
+                      <a class="btn btn-primary btn-lg" href="/perguntas" target="blank">Perguntas e Respostas</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

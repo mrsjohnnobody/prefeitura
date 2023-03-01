@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'dadosAbertos'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Dados Abertos" }); %>
+
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card text m-5 mt-5 d-flex justify-content-center">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>DADOS ABERTOS</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text text-break">
+                      O Portal da Câmara Municipal de Crateús foi desenvolvido seguindo
+                      as diretrizes e a metodologia do W3C - World Wide Web Consortium,
+                      apresentadas no documento Web Content Accessibility Guidelines.
+                      Procuramos atender as exigências do decreto 5.296, publicado em
+                      dezembro de 2004, que torna obrigatória a acessibilidade nos
+                      portais e sítios eletrônicos da administração pública na rede
+                      mundial de computadores para o uso das pessoas com necessidades
+                      especiais, garantindo-lhes o pleno acesso aos conteúdos
+                      disponíveis.
+                    </p>
+                    <p class="card-text text-break">
+                      Além de validações automáticas, foram realizados testes em
+                      diversos navegadores e através do utilitário de acesso a Internet
+                      do DOSVOX, sistema operacional destinado deficientes visuais.
+                    </p>
+                    <p class="card-text text-break mb-1">
+                      Para auxiliar a navegação, foram inseridas algumas teclas de
+                      atalho (accesskey) em alguns links. São eles:
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Voltar para a página inicial (Home Page):</strong>ALT+H
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Voltar ao Início (topo da página):</strong>ALT+9
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Saltar para o Conteúdo:</strong>ALT+C
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Acessibilidade do Site:</strong>ALT+SHIFT+1
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Aumentar Letras:</strong>ALT+A
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Diminuir Letras:</strong>ALT+SHIFT+D
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Tamanho Normal das Letras:</strong>ALT+N
+                    </p>
+                    <p class="card-text m-0">
+                      <i class="fa fa-square"></i>
+                      <strong>Contraste na página:</strong>ALT+3
+                    </p>
+                    <p class="card-text text-break mt-2">
+                      O acesso por esses atalhos varia conforme o navegador utilizado.
+                      Alguns utilizam "ALT + Tecla de Atalho" outros "ALT + SHIFT +
+                      Tecla de Atalho".
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

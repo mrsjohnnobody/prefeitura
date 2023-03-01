@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'infoCamara'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Institucional-InfoCâmara" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!--TABLE-->
+            <div class="container-fluid mt-5">
+              <div class="card text m-5 mt-0 d-flex justify-content-center">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>PAPEL DA CÂMARA</h3>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text fw-bold fs-5">O que é a câmara?</p>
+                    <p class="card-text text-break">
+                      Em primeiro plano, apresenta-se a função de representar os
+                      diversos segmentos e setores da sociedade, pois o vereador é um
+                      representante dos eleitores. A câmara municipal, portanto, deve
+                      reproduzir a diversidade de interesses, valores e ideologias da
+                      população da cidade.
+                    </p>
+                    <p class="card-text text-break">
+                      A câmara deverá produzir as leis e demais normas jurídicas que
+                      irão regular a vida em sociedade da população, observando os
+                      limites de atuação definidos na Constituição federal e as normas
+                      locais de interesse da comunidade. Entre essas normas, destaca-se
+                      a Lei Orgânica do município, que assume ares de Constituição
+                      municipal, e a Lei Orçamentária, que tem a função de disciplinar a
+                      utilização dos recursos financeiros do município.
+                    </p>
+                    <p class="card-text text-break">
+                      Dada a importância do orçamento municipal na vida da cidade,
+                      fiscalizar e controlar a aplicação dos recursos reveste-se numa
+                      função vital atribuída às câmaras municipais. A função julgadora
+                      decorre da competência da câmara municipal em julgar o prefeito
+                      por crime de responsabilidade, o que poderá culminar na cassação
+                      do chefe do Poder Executivo. Além dessas funções, as câmaras
+                      municipais exercem uma série de ações indispensáveis na interação
+                      com a sociedade, muitas delas de forma combinada com as funções
+                      legislativa e fiscalizadora.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

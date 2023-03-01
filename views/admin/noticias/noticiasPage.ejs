@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'Noticias' }); %>
+
+<body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %>
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+        <div class="row">
+            <div class="col-3">
+                <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Notícias' })%>
+            </div>
+            <!-- CONTENT PAGE -->
+            <div class="col-9" style="background-color: var(--background-color);">
+
+                <div class="px-1">
+                    <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+                      <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Pesquisar por título da notícia" aria-label="Pesquisar"
+                          aria-describedby="button-addon2">
+          
+                        <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addNoticiaModal">
+                          <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+                          Cadastrar notícia
+                        </a>
+                      </div>
+                    </div>
+          
+                    <div class="card text-center m-5 my-0 d-flex justify-content-center" style="border-style: solid;border-color: var(--secondary-color)">
+                      <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                        <div class="row">
+                          <div class="col-12">
+                            <h3>
+                              NOTÍCIAS CADASTRADAS
+                            </h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          
+                    <div class="row mx-5 mb-5 p-3 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+                      <!-- LISTA NOTICIAS -->
+                      <div id="noticiasList" class="row">
+                        <% for(var i=0; i < news.length; i++) {%>
+                            <div id="noticiaId_<%=news[i].id%>" class="col-xl-4 col-12 col-lg-6">
+                                <div class="profile-card-2">
+                                    <a href="/admin/noticia/<%=news[i].id%>" style="text-decoration: none; color: inherit;">
+                                        <img src="/<%=news[i].image%>" alt="Capa da notícia" class="img-fluid">
+                                    </a>
+                                    <div>
+                                        <div class="card-body mt-0 pt-0">
+                                            <div class="row p-2">
+                                                <div class="my-2 text-start">
+                                                    <span class="fw-bold">
+                                                        <%=news[i].title%>
+                                                    </span>
+                                                </div>
+                                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    onclick="setIdModal('<%= news[i].id %>')">EXCLUIR</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Modal DELETE NOTICIA-->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Remover notícia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        Realmente deseja excluir esta notícia?
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!--MODAL ADD NOTICIA-->
+                <div class="modal fade" id="addNoticiaModal" tabindex="-1" aria-labelledby="addNoticiaLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="addNoticiaLabel">Cadastrar Notícia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form id="addNoticiaForm" class="needs-validation" enctype="multipart/form-data" method="post">
+                            <div class="mb-1">
+                                <label for="image" class="col-form-label">Selecione uma imagem para a capa:</label>
+                                <input required name="image" class="form-control" type="file" class="form-control" id="image">
+                            </div>
+                
+                            <div class="mb-1">
+                                <label for="title" class="col-form-label">Título da notícia:</label>
+                                <input name="title" required type="name" class="form-control" id="title">
+                            </div>
+
+                            <div class="mb-1">
+                                <label for="content" class="col-form-label">Contéudo da notícia:</label>
+                                <textarea required class="form-control" name="content" id="content" rows="6"></textarea>
+                            </div>
+                
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/noticias/noticias.js"></script>
+</body>
+</html>

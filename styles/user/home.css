@@ -1,0 +1,44 @@
+.carrousel-size {
+    height: 60vh;
+  }
+
+#home-carousel-inner a {
+    padding: 7rem;
+}
+
+#cardGroupHome {
+    background-color:  var(--grey-color)
+}
+
+.homeDocumentosDivisor {
+    border-top: solid; 
+    border-color:  var(--grey-color);
+}
+
+.card a {
+    text-decoration: none; 
+    color: inherit;
+}
+
+.containerItem{
+    background-color: var(--grey-color); 
+    border-radius: 10px;
+}
+
+.card-body{
+    background-color: var(--background-color);
+}
+
+.texto {
+    color: #000;
+    text-shadow: 
+             -1px -1px 0px #FFF, 
+             -1px 1px 0px #FFF,                    
+              1px -1px 0px #FFF,                  
+              1px 0px 0px #FFF;
+}
+
+.ultimasSessoesItem:hover{
+    background-color: var(--secondary-color);
+    color: var(--text-white-color);
+}

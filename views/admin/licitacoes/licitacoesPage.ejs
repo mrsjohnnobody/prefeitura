@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'licitacoes'}); %> 
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %>
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+        <div class="row">
+          <div class="col-3">
+            <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Licitações' })%>
+          </div>
+          <!-- CONTENT PAGE -->
+          <div class="col-9" style="background-color: var(--background-color);">
+
+            <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Pesquisar por nome" aria-label="Pesquisar"
+                    aria-describedby="button-addon2">
+      
+                  <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addLicitacaoModal">
+                    <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+                    Cadastrar nova Licitação
+                  </a>
+                </div>
+            </div>
+        
+            <!--TABLE-->
+            <div class="card text-center m-5 mt-0 d-flex justify-content-center shadow"
+            style="border-style: solid;border-color: var(--secondary-color)">
+            <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                <div class="row">
+                <div class="col-12">
+                    <h3>
+                    Últimas Licitações
+                    </h3>
+                </div>
+                </div>
+    
+    
+            </div>
+            <div class="card-body">
+                <table id="licitacaoTable" class="table table-bordered table-striped">
+                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                        <tr>
+                        <th class="col-1 text-nowrap" scope="col">Número do Processo</th>
+                        <th class="col-1" scope="col">Modalidade</th>
+                        <th class="col-6" scope="col">Objeto</th>
+                        <th class="col-1 text-nowrap" scope="col">Data de Abertura</th>
+                        <th class="col-1" scope="col">Situação</th>
+                        <th class="col-2" scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color:var(--secondary-color) color">
+                        <% for(var i=0; i < licitacoes.length; i++) {%>
+                            <tr id="leiIdItem_<%=licitacoes[i].id %>">
+                                <th scope="row"><%=licitacoes[i].ProcessNumber%></th>
+                                <th scope="row"><%=licitacoes[i].Modality%></th>
+                                <th scope="row"><%=licitacoes[i].Objective%></th>
+                                <th scope="row">
+                                    <%= licitacoes[i].OpeningDate ? new Date(licitacoes[i].OpeningDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                </th>
+                                <th scope="row"><%=licitacoes[i].Situation%></th>
+                                <th scope="row">
+                                    <a href="/admin/editLicitacao/<%=licitacoes[i].id%>" style="text-decoration: none;">
+                                        <img title="Editar Licitação" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                    </a>
+                                    &nbsp;
+                                    <span style="text-decoration: none; cursor: pointer;" onClick="setIdForRemoveLei('<%=licitacoes[i].id%>')" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <img title="Excluir licitação" src="/icons/x-circle-fill.svg" alt="Excluir licitação" height="20rem">
+                                    </span>
+                                </th>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        
+            <!-- Modal ADD LICITAÇÃO-->
+            <div class="modal fade" id="addLicitacaoModal" tabindex="-1" aria-labelledby="AddLicitacaoLabel" aria-hidden="true" style="color: black">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="AddLicitacaoLabel">Cadastrar Licitação</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="licitacaoForm" class="needs-validation" action="/admin/addLicitacao" method="post">
+                                <div class="mb-1">
+                                    <div class="row">
+                                        <div>
+                                            <label for="number" class="col-form-label">Número do processo:</label>
+                                            <input name="number" required type="text" class="form-control" id="number"/>
+                                        </div>
+                                        <div>
+                                            <label for="modality" class="col-form-label">Modalidade:</label>
+                                            <select name="modality" required class="form-select" aria-label=".form-select-sm" id="modality">
+                                                <option value="" selected>Selecione</option>
+                                                <option value="1">Concorrência</option>
+                                                <option value="2">Tomada de preços</option>
+                                                <option value="3">Convite</option>
+                                                <option value="4">Concurso</option>
+                                                <option value="5">Concurso</option>
+                                                <option value="6">Pregão</option>
+                                                <option value="7">Chamada pública</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="objective" class="col-form-label">Objetivo:</label>
+                                            <textarea name="objective" required type="text" rows="3" class="form-control" id="objective"></textarea>
+                                        </div>
+                                        <div>
+                                            <label for="date" class="col-form-label">Data de abertura:</label>
+                                            <input name="date" required type="date" class="form-control" id="date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button id="btnSubmit" type="submit" class="btn btn-success">Cadastrar nova Licitação</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Modal DELETE Licitação-->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Excluir Licitação</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Realmente deseja excluir esta Licitação?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    
+          </div>
+        </div>
+    </div>
+
+
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/licitacoes/licitacoes.js"></script>
+  </body>
+</html>

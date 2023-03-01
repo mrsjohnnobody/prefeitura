@@ -1,0 +1,35 @@
+.carrousel-size {
+    height: 60vh;
+  }
+
+#home-carousel-inner a {
+    padding: 7rem;
+}
+
+#cardGroupHome {
+    background-color:  var(--grey-color)
+}
+
+.homeDocumentosDivisor {
+    border-top: solid; 
+    border-color:  var(--grey-color);
+}
+
+.card a {
+    text-decoration: none; 
+    color: inherit;
+}
+
+.containerItem{
+    background-color: var(--grey-color); 
+    border-radius: 10px;
+}
+
+.card-body{
+    background-color: var(--background-color);
+}
+
+.ultimasSessoesItem:hover{
+    background-color: var(--secondary-color);
+    color: var(--text-white-color);
+}

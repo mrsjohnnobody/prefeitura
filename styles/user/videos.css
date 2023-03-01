@@ -1,0 +1,14 @@
+.videosCard {
+    text-decoration: none;
+    color: var(--text-black-color)
+}
+
+.videosCard:hover {
+  -webkit-transform: scale(1.03);
+  -moz-transform: scale(1.03);
+  -o-transform: scale(1.03);
+  -ms-transform: scale(1.03);
+  transform: scale(1.03);
+  background-color: var(--grey-color);
+  color: var(--text-black-color)
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'sessoesId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", {activeNavItem: 'sessaoIdPage'}); %>
+
+    <div class="p-5 pb-0">
+      <input id="sessaoId" value="<%=sessao.id%>" hidden>
+      <nav class="navSessoes shadow-sm mb-4">
+          <div class="nav nav-tabs" id="nav-tab" role="tablist" style="background-color: var(--secondary-color); color: white; border-radius: 5px 5px 0px 0px;">
+              <button class="nav-link active item-nav-tab" id="nav-infoSessoes-tab" data-bs-toggle="tab" data-bs-target="#nav-infoSessoes" type="button" role="tab" aria-controls="nav-infoSessoes" aria-selected="true">Informações da sessão</button>
+              <button class="nav-link item-nav-tab" id="nav-chamada-tab" data-bs-toggle="tab" data-bs-target="#nav-chamada" type="button" role="tab" aria-controls="nav-chamada" aria-selected="false">Vereadores presentes</button>
+              <button class="nav-link item-nav-tab" id="nav-materia-tab" data-bs-toggle="tab" data-bs-target="#nav-materia" type="button" role="tab" aria-controls="nav-materia" aria-selected="false">Leitura das Matérias</button>
+              <button class="nav-link item-nav-tab" id="nav-ordem-tab" data-bs-toggle="tab" data-bs-target="#nav-ordem" type="button" role="tab" aria-controls="nav-ordem" aria-selected="false">Ordem do dia</button>
+
+          </div>
+          <div class="tab-content" id="nav-tabContent" style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px">
+              <div class="tab-pane fade show active" id="nav-infoSessoes" role="tabpanel" aria-labelledby="nav-infoSessoes-tab">
+                  <div class="p-5">
+                      <div class="row">
+                          <label for="floatingTextarea" class="fw-bold">Número da sessão:</label>
+                          <div class="col-10">
+                              <input id="sessaoNumero" class="form-control" type="text" value="<%=sessao.Numero ? sessao.Numero : null%>" aria-label="Disabled input example" disabled readonly>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">Tipo da sessão:</label>
+                        <div class="col-10">
+                          <select id="tipo" name="tipo" required class="form-select" aria-label=".form-select-sm" disabled readonly>
+                              <option value="" <%=sessao.Tipo ?  null : "selected" %> >Selecione</option>
+                              <option value="1" <%=sessao.Tipo == "Extra-Ordinária" ?  "selected" :  null%> >Extra-Ordinária</option>
+                              <option value="2" <%=sessao.Tipo == "Audiência pública" ?  "selected" :  null%> >Audiência pública</option>
+                              <option value="3" <%=sessao.Tipo == "Solene" ?  "selected" :  null%> >Solene</option>
+                              <option value="4" <%=sessao.Tipo == "Abertura de período legislativo" ?  "selected" :  null%> >Abertura de período legislativo</option>
+                              <option value="5" <%=sessao.Tipo == "Encerramento de período legislativo" ?  "selected" :  null%> >Encerramento de período legislativo</option>
+                              <option value="6" <%=sessao.Tipo == "Intinerante" ?  "selected" :  null%> >Intinerante</option>
+                              <option value="7" <%=sessao.Tipo == "Sessão administrativa" ?  "selected" :  null%> >Sessão administrativa</option>
+                              <option value="8" <%=sessao.Tipo == "Sessão especial" ?  "selected" :  null%> >Sessão especial</option>
+                              <option value="9" <%=sessao.Tipo == "Ordinária" ?  "selected" :  null%> >Ordinária</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">Situação da sessão:</label>
+                        <div class="col-10">
+                          <select id="situacao" name="modality" required class="form-select" aria-label=".form-select-sm" disabled readonly>
+                              <option value="" <%=sessao.Situacao ?  null : "selected" %> >Selecione</option>
+                              <option value="1" <%=sessao.Situacao == "Aberta" ?  "selected" :  null%> >Aberta</option>
+                              <option value="2" <%=sessao.Situacao == "Fechada" ?  "selected" :  null%> >Fechada</option>
+                            </select>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">Data da sessão:</label>
+                        <div class="col-10">
+                            <input id="sessaoData" class="form-control" type="date" value="<%=sessao.Data ? sessao.Data : null%>" aria-label="Disabled input example" disabled readonly>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">Descrição da sessão:</label>
+                        <div class="col-10">
+                            <textarea id="sessaoDescricao" rows="4" class="form-control" type="text" aria-label="Disabled input example" disabled readonly><%=sessao.Descricao%></textarea>
+                        </div>
+                      </div>
+                      
+                  </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-chamada" role="tabpanel" aria-labelledby="nav-chamada-tab">
+                  <div class="p-5">
+
+                      <table id="tableChamadaForm" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                          <thead class="table" style="background-color:var(--secondary-color); color: white">
+                              <tr>
+                                  <th class="col-3 text-nowrap" scope="col">Cargo</th>
+                                  <th class="col-6" scope="col">Nome</th>
+                                  <th class="col-2" scope="col">Situação</th>
+                              </tr>
+                          </thead>
+                          <tbody style="color:var(--secondary-color) color">
+                              <% for(var i=0; i < parlamentares.length; i++) {%>
+                                <tr>
+                                  <td><%= parlamentares[i].occupation %></td>
+                                  <td><%= parlamentares[i].nickname ? ('(' + parlamentares[i].nickname + ')') : null %> <%= parlamentares[i].name %> </td>
+                                  <td>
+                                    <input class="parlamentarIdChamada" type="text" value="<%=parlamentares[i].id%>" hidden>
+                                    <select class="situacaoChamada form-select disabled" aria-label="Default select" disabled>
+                                      <% if (sessao.SessaoChamadas.length > 0) { %>
+                                        
+                                        <% sessao.SessaoChamadas.forEach(SessaoChamada => { %>
+
+                                          <% if (SessaoChamada.ParlamentarId == parlamentares[i].id) { %>
+                                        
+                                            <% if (SessaoChamada.Situacao == 'Presente') { %>
+                                              <option value="">Ausente</option>
+                                              <option selected value="1">Presente</option> 
+                                              <option value="2">Ausente</option>
+                                              <option value="3">Licença</option>
+                                            <% } %>
+
+                                            <% if (SessaoChamada.Situacao == 'Ausente') { %>
+                                              <option value="">Ausente</option>
+                                              <option value="1">Presente</option>
+                                              <option selected value="2">Ausente</option>
+                                              <option value="3">Licença</option>
+                                            <% } %>
+
+                                            <% if (SessaoChamada.Situacao == 'Licença') { %>
+                                              <option value="">Ausente</option>
+                                              <option value="1">Presente</option>
+                                              <option value="2">Ausente</option>
+                                              <option selected value="3">Licença</option>
+                                            <% } %>
+
+                                          <% } %>
+
+                                        <% }) %>
+
+                                        <% 
+                                          var noHasSessaoChamada = false;
+                                          sessao.SessaoChamadas.forEach(SessaoChamada => {
+                                            if (SessaoChamada.ParlamentarId == parlamentares[i].id)
+                                              noHasSessaoChamada = true
+                                          })
+                                        %>
+
+                                        <% if (!noHasSessaoChamada) { %>
+                                          <option selected>Ausente</option>
+                                          <option value="1">Presente</option>
+                                          <option value="2">Ausente</option>
+                                          <option value="3">Licença</option>
+                                        <% } %>
+
+                                      <% } else { %>
+                                        <option selected>Ausente</option>
+                                        <option value="1">Presente</option>
+                                        <option value="2">Ausente</option>
+                                        <option value="3">Licença</option>
+                                      <% } %>
+                                       
+                                    </select>
+                                  </td>
+                                </tr>
+                              <% } %>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+              <div class="tab-pane fade" id="nav-materia" role="tabpanel" aria-labelledby="nav-materia-tab">
+                <div class="p-5">
+
+                    <table id="materiaTable" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                        <thead class="table" style="background-color:var(--secondary-color); color: white">
+                            <tr>
+                                <th class="col-3 text-nowrap" scope="col">Tipo</th>
+                                <th class="col-1" scope="col">N°</th>
+                                <th class="col-5" scope="col">Resumo</th>
+                                <th class="col-2" scope="col">Situação</th>
+                                <th class="col-2" scope="col">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color:var(--secondary-color) color">
+                          <% if (sessao.Materia.length < 1) { %>
+                            <tr>
+                              <td colspan="5">
+                                <div class="fw-bold p-3 text-center">
+                                  Não há matérias cadastradas para essa sessão
+                                </div>
+                              </td>
+                            </tr> 
+                          <% } %>
+                            <% for(var i=0; i < sessao.Materia.length; i++) {%>
+                              <tr id="materiaIdItem_<%=sessao.Materia[i].id %>">
+                                <td><%= sessao.Materia[i].Tipo %></td>
+                                <td><%= sessao.Materia[i].Numero %></td>
+                                <td><%= sessao.Materia[i].Resumo %></td>
+                                <td>Em tramitação</td>
+                                <td>
+                                  <a href="/materia/<%=sessao.Materia[i].id%>" style="cursor: pointer">
+                                    <img title="Ver matéria" src="/icons/eye-fill.svg" alt="Ver matéria" height="20rem">
+                                  </a>
+                                </td>
+                              </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-ordem" role="tabpanel" aria-labelledby="nav-ordem-tab">
+              <div class="p-5">
+
+                  <table id="materiaTable" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                      <thead class="table" style="background-color:var(--secondary-color); color: white">
+                          <tr>
+                              <th class="col-3 text-nowrap" scope="col">Tipo</th>
+                              <th class="col-1" scope="col">N°</th>
+                              <th class="col-5" scope="col">Resumo</th>
+                              <th class="col-2" scope="col">Situação</th>
+                              <th class="col-2" scope="col">Ver</th>
+                          </tr>
+                      </thead>
+                      <tbody style="color:var(--secondary-color) color">
+                        <% if (sessao.Materia.length < 1) { %>
+                          <tr>
+                            <td colspan="5">
+                              <div class="fw-bold p-3 text-center">
+                                Não há matérias cadastradas para essa sessão
+                              </div>
+                            </td>
+                          </tr> 
+                        <% } %>
+                          <% for(var i=0; i < sessao.Materia.length; i++) {%>
+
+                            <% if (sessao.Materia[i].Tramites.length > 0) { %>
+
+                              <% for( let j = 0; j < sessao.Materia[i].Tramites.length; j++ ) { %>
+                              
+                                <% if (sessao.Materia[i].Tramites[j].Situacao != "Em tramitação") { %>
+                                  <tr id="materiaIdItem_<%=sessao.Materia[i].id %>">
+                                    <td><%= sessao.Materia[i].Tipo %></td>
+                                    <td><%= sessao.Materia[i].Numero %></td>
+                                    <td><%= sessao.Materia[i].Resumo %></td>
+                                    <td><%= sessao.Materia[i].Tramites.length > 0 ? sessao.Materia[i].Tramites[j].Situacao : null%></td>
+                                    <td>
+                                      <a href="/materia/<%=sessao.Materia[i].id%>" style="cursor: pointer">
+                                        <img title="Ver matéria" src="/icons/eye-fill.svg" alt="Ver matéria" height="20rem">
+                                      </a>
+                                    </td>
+                                  </tr>
+                                <% } %>  
+
+                              <% } %>
+
+                            <% } %>
+
+                          <% } %>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+          </div>
+      </nav>
+
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/sessoes/sessoesIdPage.js"></script>
+
+    <style>
+      .nav-tabs .item-nav-tab{
+        color: white;
+        border: none
+      }
+
+      .nav-tabs .nav-link.active{
+        background-color: var(--primary-color);
+        color: white;
+        border: none
+      }
+
+      .nav-tabs .item-nav-tab:hover{
+        background-color: var(--primary-color);
+        border: none
+      }
+
+      nav .navSessoes {
+        border: none
+      }
+    </style>
+
+  </body>
+</html>

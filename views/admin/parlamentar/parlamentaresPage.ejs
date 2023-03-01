@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'parlamentares'}); %> 
+
+<body style="font-family: 'Source Sans Pro', sans-serif;">
+  <%- include("../../partialViews/toastNotifications"); %>
+  <%- include("../../partialViews/spinner"); %> 
+
+  <div class="container-fluid" style="background-color: var(--secondary-color);">
+    <div class="row">
+      <div class="col-3">
+        <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Parlamentares' })%>
+      </div>
+      <!-- CONTENT PAGE -->
+      <div class="col-9" style="background-color: var(--background-color);">
+      
+        <div class="px-1">
+          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Pesquisar por nome do parlamentar" aria-label="Pesquisar"
+                aria-describedby="button-addon2">
+
+              <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AddParlamenteryModal">
+                <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+                Cadastrar parlamentar
+              </a>
+            </div>
+          </div>
+
+          <div class="card text-center m-5 my-0 d-flex justify-content-center" style="border-style: solid;border-color: var(--secondary-color)">
+            <div class="card-header" style="background-color: var(--secondary-color); color: white">
+              <div class="row">
+                <div class="col-12">
+                  <h3>
+                    PARLAMENTARES CADASTRADOS
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mx-5 mb-5 p-3 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!-- LISTA PARLAMENTAR -->
+            <div id="parlamentarFilter" class="row">
+              <% for(var i=0; i < parlamentares.length; i++) {%>
+                <div class="col-xl-4 col-12 col-lg-6">
+                    <div class="profile-card-2">
+                      <img src="/<%=parlamentares[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                      <div class="profile-name"><%=parlamentares[i].nickname ? parlamentares[i].nickname : parlamentares[i].name%></div>
+                      <div class="profile-occupation"><%=parlamentares[i].occupation%></div>
+                      <div>
+                        <div class="card-body mt-0 pt-0">
+                          <div class="row p-2">
+                            <button class="btn btn-outline-info" disabled><%= parlamentares[i].legislatura %></button>
+                            <button class="my-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#changeParlamenteryModal"
+                              onclick="setInfosModal('<%= parlamentares[i].id %>', '<%= parlamentares[i].name %>', '<%= parlamentares[i].nickname %>', '<%= parlamentares[i].occupation %>', '<%= parlamentares[i].birthdate %>', '<%= parlamentares[i].email %>', '<%= parlamentares[i].phoneNumber %>', '<%= parlamentares[i].legislatura %>')">EDITAR</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                              onclick="setIdModal('<%= parlamentares[i].id %>')">EXCLUIR</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      
+        <!--MODAL ADD Parlamentar-->
+        <div class="modal fade" id="AddParlamenteryModal" tabindex="-1" aria-labelledby="AddParlamenteryLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="AddParlamenteryLabel">Cadastrar Parlamentar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="AddParlamenteryForm" class="needs-validation" enctype="multipart/form-data"
+                  method="post">
+                  
+                  <div class="mb-1">
+                    <label for="image" class="col-form-label">Selecione a imagem para o perfil:</label>
+                    <input name="image" class="form-control" type="file" class="form-control" id="inputGroupFile01">
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="name" class="col-form-label">Nome Completo:</label>
+                    <input name="name" required type="name" class="form-control" id="name">
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6 mb-1">
+                      <label for="name" class="col-form-label">Apelido (opcional):</label>
+                      <input name="nickname" type="text" class="form-control" id="nickname">
+                    </div>
+        
+                    <div class="col-6 mb-1">
+                      <label for="email" class="col-form-label">Email:</label>
+                      <input name="email" type="email" class="form-control" id="email">
+                    </div>
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6 mb-1">
+                      <label for="phoneNumber" class="col-form-label">Telefone:</label>
+                      <input name="phoneNumber" type="phone" class="form-control" id="phoneNumber">
+                    </div>
+                    <div class="col-6 mb-1">
+                      <label for="birthdate" class="col-1 col-form-label text-nowrap bd-highlight">
+                        Data de nascimento:
+                      </label>
+                      <input name="birthdate" type="date" class="form-control" id="date" />
+                    </div>
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="legislatura" class="col-form-label">Selecione a Legislatura:</label>
+                    <select name="legislatura" required id="legislatura" class="form-select" aria-label=".form-select-sm"
+                      id="selectLegislatura">
+                      <option value="" selected>selecione</option>
+                      <% for(var i=1992; i < new Date().getFullYear(); i+=4) {%>
+                        <option value="(<%= i+1 %> - <%= i+4 %>)">Legislatura (<%= i+1 %> - <%= i+4 %>)</option>
+                        <% } %>
+                    </select>
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="occupation" class="col-form-label">Selecione o cargo:</label>
+                    <select name="occupation" required id="occupation" class="form-select" aria-label=".form-select-sm">
+                      <option value="" selected>selecione</option>
+                      <option value="VEREADOR">VEREADOR(A)</option>
+                      <option value="PRESIDENTE">PRESIDENTE</option>
+                      <option value="1° VICE-PRESIDENTE">1° VICE-PRESIDENTE</option>
+                      <option value="2° VICE-PRESIDENTE">2° VICE-PRESIDENTE</option>
+                      <option value="1° SECRETÁRIO">1° SECRETÁRIO</option>
+                      <option value="2° SECRETÁRIO">2° SECRETÁRIO</option>
+                      <option value="3° SECRETÁRIO">3° SECRETÁRIO</option>
+                      <option value="4° SECRETÁRIO">4° SECRETÁRIO</option>
+                      <option value="SUPLENTE">SUPLENTE</option>
+                    </select>
+                  </div>
+      
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!--MODAL CHANGE Parlamentar-->
+        <div class="modal fade" id="changeParlamenteryModal" tabindex="-1" aria-labelledby="changeParlamenteryLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="changeParlamenteryLabel">Editar Parlamentar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="EditParlamenteryForm" class="needs-validation" enctype="multipart/form-data"
+                  method="post">
+                  
+                  <input hidden id="editParlamentarId" type="text" value="">
+      
+                  <div class="mb-1">
+                    <label for="changeImage" class="col-form-label">Selecione a imagem para o perfil:</label>
+                    <input name="changeImage" class="form-control" type="file" class="form-control" id="changeImage">
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="changeName" class="col-form-label">Nome Completo:</label>
+                    <input name="changeName" required type="text" class="form-control" id="changeName">
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6 mb-1">
+                      <label for="changeNickname" class="col-form-label">Apelido (opcional):</label>
+                      <input name="changeNickname" type="text" class="form-control" id="changeNickname">
+                    </div>
+        
+                    <div class="col-6 mb-1">
+                      <label for="changeEmail" class="col-form-label">Email:</label>
+                      <input name="changeEmail" type="email" class="form-control" id="changeEmail">
+                    </div>
+                  </div>
+      
+                  <div class="row">
+                    <div class="col-6 mb-1">
+                      <label for="changePhoneNumber" class="col-form-label">Telefone:</label>
+                      <input name="changePhoneNumber" type="phone" class="form-control" id="changePhoneNumber">
+                    </div>
+                    <div class="col-6 mb-1">
+                      <label for="changeBirthdate" class="col-1 col-form-label text-nowrap bd-highlight">
+                        Data de nascimento:
+                      </label>
+                      <input name="changeBirthdate" type="date" class="form-control" id="changeBirthdate" />
+                    </div>
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="changeLegislatura" class="col-form-label">Selecione a Legislatura:</label>
+                    <select name="changeLegislatura" required id="changeLegislatura" class="form-select" aria-label=".form-select-sm">
+                      <option value="" >selecione</option>
+                      <% for(var i=1992; i < new Date().getFullYear(); i+=4) {%>
+                        <option value="(<%= i+1 %> - <%= i+4 %>)">Legislatura (<%= i+1 %> - <%= i+4 %>)</option>
+                        <% } %>
+                    </select>
+                  </div>
+      
+                  <div class="mb-1">
+                    <label for="changeOccupation" class="col-form-label">Selecione o cargo:</label>
+                    <select name="changeOccupation" required id="changeOccupation" class="form-select" aria-label=".form-select-sm">
+                      <option value="" selected>selecione</option>
+                      <option value="VEREADOR">VEREADOR(A)</option>
+                      <option value="PRESIDENTE">PRESIDENTE</option>
+                      <option value="1° VICE-PRESIDENTE">1° VICE-PRESIDENTE</option>
+                      <option value="2° VICE-PRESIDENTE">2° VICE-PRESIDENTE</option>
+                      <option value="1° SECRETÁRIO">1° SECRETÁRIO</option>
+                      <option value="2° SECRETÁRIO">2° SECRETÁRIO</option>
+                      <option value="3° SECRETÁRIO">3° SECRETÁRIO</option>
+                      <option value="4° SECRETÁRIO">4° SECRETÁRIO</option>
+                      <option value="SUPLENTE">SUPLENTE</option>
+                    </select>
+                  </div>
+      
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Modal DELETE PARLAMENTAR-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Remover Parlamentar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Realmente deseja excluir este parlamentar?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <style>
+    .table tr td a:hover {
+      -webkit-transform: scale(1.1);
+      -moz-transform: scale(1.1);
+      -o-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      transform: scale(1.1);
+    }
+
+    .input-group-append {
+      cursor: pointer;
+    }
+  </style>
+
+  <script src="/script/admin/parlamentar/parlamentar.js"></script>
+
+  <!--link datepicker-->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js'></script>
+
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+.card {
+    border-style: solid;
+    border-color: var(--secondary-color);
+}
+
+.card-header {
+    background-color: var(--secondary-color);
+    color: var(--text-white-color);
+}
+
+#diariasTable .table{
+    background-color: var(--secondary-color);
+    color: var(--text-white-color);
+}
+
+#diariasItems{
+    color: var(--secondary-color) color;
+}
+
+.table{
+    background-color: var(--background-color);
+    color: var(--text-white-color) color;
+}

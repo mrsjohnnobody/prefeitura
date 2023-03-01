@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'faleConosco'}); %>
+
+  <body style="font-family: 'Roboto', sans-serif;
+  ">
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Fale Conosco" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!-- FILTROS -->
+
+            <!--TABLE-->
+            <div class="container-fluid mt-5">
+              <div class="card text m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Fale Conosco</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <p class="card-header text-center fw-bold fs-5">Preencha o Formulário</p>
+                  <div class="card-body">
+                    <p class="card-text">
+                    <form class="row g-3">
+                      <div class="col-md-6">
+                        <label for="inputName" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="inputName">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputName" class="form-label">Endereço:</label>
+                        <input type="text" class="form-control" id="inputName">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputState" class="form-label">Estado:</label>
+                        <select id="inputState" class="form-select">
+                          <option selected></option>
+                          <option value='AC'>Acre</option>
+                          <option value='AL'>Alagoas</option>
+                          <option value='AP'>Amapá</option>
+                          <option value='AM'>Amazonas</option>
+                          <option value='BA'>Bahia</option>
+                          <option value='CE'>Ceará</option>
+                          <option value='DF'>Distrito Federal</option>
+                          <option value='ES'>Espírito Santo</option>
+                          <option value='GO'>Goiás</option>
+                          <option value='MA'>Maranhão</option>
+                          <option value='MT'>Mato Grosso</option>
+                          <option value='MG'>Minas Gerais</option>
+                          <option value='PA'>Pará</option>
+                          <option value='PB'>Paraíba</option>
+                          <option value='PR'>Paraná</option>
+                          <option value='PE'>Pernambuco</option>
+                          <option value='PI'>Piauí</option>
+                          <option value='RJ'>Rio de Janeiro</option>
+                          <option value='RN'>Rio Grande do Norte</option>
+                          <option value='RS'>Rio Grande do Sul</option>
+                          <option value='SC'>Rondônia</option>
+                          <option value='RR'>Santa Catarina</option>
+                          <option value='SP'>São Paulo</option>
+                          <option value='SE'>Sergipe</option>
+                          <option value='TO'>Tocantins</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputState" class="form-label">Município:</label>
+                        <select id="inputState" class="form-select">
+                          <option selected>...</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputTelefone" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="inputTelefone">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                      </div>
+                      <div class="col-12">
+                        <label for="inputAddress" class="form-label">Mensagem:</label>
+                        <textarea class="form-control" id="inputMessage" rows="6" placeholder=""></textarea>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary text-center">Enviar mensagem</button>
+                      </div>
+                    </form>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

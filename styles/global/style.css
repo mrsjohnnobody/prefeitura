@@ -1,0 +1,61 @@
+:root {
+  --primary-color: #b0a8b9;
+  --secondary-color: #4b4453;
+  --text-white-color: white;
+  --text-black-color: #202020;
+  --grey-color: #e9e9e9;
+  --background-color: white;
+}
+
+.dark-mode:root {
+  --primary-color: black;
+  --secondary-color: #4e4e4e;
+  --text-white-color: white;
+  --text-black-color: white;
+  --grey-color: black;
+  --background-color: black;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-black-color);
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) var(--primary-color);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 20px;
+  border: 0px;
+}
+
+#footerLinks .list-unstyled li a {
+  font-weight: 350;
+  text-decoration: none;
+}
+
+#footerLinks .list-unstyled li a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  background-color: var(--primary-color);
+}
+
+#headerDiv {
+  background-image: url("https://www.crateus.ce.gov.br/imagens/top/Background4.png");
+}

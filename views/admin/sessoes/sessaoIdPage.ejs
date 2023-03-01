@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'sessoesId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Sessões' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+  
+          <div class="card text-center m-5 mb-0 d-flex justify-content-center" style="border-style: solid;border-color: var(--secondary-color)">
+            <div class="card-header" style="background-color: var(--secondary-color); color: white">
+              <div class="row">
+                <div class="col-12">
+                  <h3>
+                    EDIÇÃO DE SESSÃO
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input id="sessaoId" value="<%=sessao.id%>" hidden>
+          <nav class="navSessoes shadow-sm mx-5">
+              <div class="nav nav-tabs" id="nav-tab" role="tablist" style="background-color: var(--secondary-color); color: white; border-radius: 5px 5px 0px 0px;">
+                  <button class="nav-link active item-nav-tab" id="nav-infoSessoes-tab" data-bs-toggle="tab" data-bs-target="#nav-infoSessoes" type="button" role="tab" aria-controls="nav-infoSessoes" aria-selected="true">Informações da sessão</button>
+                  <button class="nav-link item-nav-tab" id="nav-chamada-tab" data-bs-toggle="tab" data-bs-target="#nav-chamada" type="button" role="tab" aria-controls="nav-chamada" aria-selected="false">Vereadores presentes</button>
+                  <button class="nav-link item-nav-tab" id="nav-materia-tab" data-bs-toggle="tab" data-bs-target="#nav-materia" type="button" role="tab" aria-controls="nav-materia" aria-selected="false">Matérias</button>
+              </div>
+              <div class="tab-content" id="nav-tabContent" style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px">
+                  <div class="tab-pane fade show active" id="nav-infoSessoes" role="tabpanel" aria-labelledby="nav-infoSessoes-tab">
+                      <div class="p-5">
+                          <h4 class="fw-bold">Editar informações da sessão:</h4>
+                          
+                          <div class="row">
+                              <label for="floatingTextarea" class="fw-bold">Número da sessão:</label>
+                              <div class="col-10">
+                                  <input id="sessaoNumero" class="form-control" type="text" value="<%=sessao.Numero ? sessao.Numero : null%>" aria-label="Disabled input example" disabled readonly>
+                              </div>
+                              <div class="col-2">
+                                  <a href="#" id="editSessaoNumero">
+                                      <img class="sessaoBtnEdit" title="Editar número da sessão" src="/icons/pencil-fill.svg" alt="Editar número da sessão" height="20rem">
+                                  </a>
+                              </div>
+                          </div>
+    
+                          <div class="row">
+                            <label for="floatingTextarea" class="fw-bold">Tipo da sessão:</label>
+                            <div class="col-10">
+                              <select id="tipo" name="tipo" required class="form-select" aria-label=".form-select-sm" disabled readonly>
+                                  <option value="" <%=sessao.Tipo ?  null : "selected" %> >Selecione</option>
+                                  <option value="1" <%=sessao.Tipo == "Extra-Ordinária" ?  "selected" :  null%> >Extra-Ordinária</option>
+                                  <option value="2" <%=sessao.Tipo == "Audiência pública" ?  "selected" :  null%> >Audiência pública</option>
+                                  <option value="3" <%=sessao.Tipo == "Solene" ?  "selected" :  null%> >Solene</option>
+                                  <option value="4" <%=sessao.Tipo == "Abertura de período legislativo" ?  "selected" :  null%> >Abertura de período legislativo</option>
+                                  <option value="5" <%=sessao.Tipo == "Encerramento de período legislativo" ?  "selected" :  null%> >Encerramento de período legislativo</option>
+                                  <option value="6" <%=sessao.Tipo == "Intinerante" ?  "selected" :  null%> >Intinerante</option>
+                                  <option value="7" <%=sessao.Tipo == "Sessão administrativa" ?  "selected" :  null%> >Sessão administrativa</option>
+                                  <option value="8" <%=sessao.Tipo == "Sessão especial" ?  "selected" :  null%> >Sessão especial</option>
+                                  <option value="9" <%=sessao.Tipo == "Ordinária" ?  "selected" :  null%> >Ordinária</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <a href="#" id="editSessaoTipo">
+                                    <img class="sessaoBtnEdit" title="Editar tipo da sessão" src="/icons/pencil-fill.svg" alt="Editar tipo da sessão" height="20rem">
+                                </a>
+                            </div>
+                          </div>
+    
+                          <div class="row">
+                            <label for="floatingTextarea" class="fw-bold">Situação da sessão:</label>
+                            <div class="col-10">
+                              <select id="situacao" name="modality" required class="form-select" aria-label=".form-select-sm" disabled readonly>
+                                  <option value="" <%=sessao.Situacao ?  null : "selected" %> >Selecione</option>
+                                  <option value="1" <%=sessao.Situacao == "Aberta" ?  "selected" :  null%> >Aberta</option>
+                                  <option value="2" <%=sessao.Situacao == "Fechada" ?  "selected" :  null%> >Fechada</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <a href="#" id="editSessaoSituacao">
+                                    <img class="sessaoBtnEdit" title="Editar situação da sessão" src="/icons/pencil-fill.svg" alt="Editar situação da sessão" height="20rem">
+                                </a>
+                            </div>
+                          </div>
+    
+                          <div class="row">
+                            <label for="floatingTextarea" class="fw-bold">Data da sessão:</label>
+                            <div class="col-10">
+                                <input id="sessaoData" class="form-control" type="date" value="<%=sessao.Data ? sessao.Data : null%>" aria-label="Disabled input example" disabled readonly>
+                            </div>
+                            <div class="col-2">
+                                <a href="#" id="editSessaoData">
+                                    <img class="sessaoBtnEdit" title="Editar data da sessão" src="/icons/pencil-fill.svg" alt="Editar data da sessão" height="20rem">
+                                </a>
+                            </div>
+                          </div>
+    
+                          <div class="row">
+                            <label for="floatingTextarea" class="fw-bold">Descrição da sessão:</label>
+                            <div class="col-10">
+                                <textarea id="sessaoDescricao" rows="4" class="form-control" type="text" aria-label="Disabled input example" disabled readonly><%=sessao.Descricao%></textarea>
+                            </div>
+                            <div class="col-2">
+                                <a href="#" id="editSessaoDescricao">
+                                    <img class="sessaoBtnEdit" title="Editar descrição da sessão" src="/icons/pencil-fill.svg" alt="Editar descrição da sessão" height="20rem">
+                                </a>
+                            </div>
+                          </div>
+                          
+                      </div>
+                  </div>
+    
+                  <div class="tab-pane fade" id="nav-chamada" role="tabpanel" aria-labelledby="nav-chamada-tab">
+                      <div class="p-5">
+    
+                          <h4 class="fw-bold">Editar vereadores presentes:</h4>
+    
+                          <table id="tableChamadaForm" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                              <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                  <tr>
+                                      <th class="col-3 text-nowrap" scope="col">Cargo</th>
+                                      <th class="col-6" scope="col">Nome</th>
+                                      <th class="col-2" scope="col">Situação</th>
+                                  </tr>
+                              </thead>
+                              <tbody style="color:var(--secondary-color) color">
+                                  <% for(var i=0; i < parlamentares.length; i++) {%>
+                                    <tr>
+                                      <td><%= parlamentares[i].occupation %></td>
+                                      <td><%= parlamentares[i].nickname ? ('(' + parlamentares[i].nickname + ')') : null %> <%= parlamentares[i].name %> </td>
+                                      <td>
+                                        <input class="parlamentarIdChamada" type="text" value="<%=parlamentares[i].id%>" hidden>
+                                        <select class="situacaoChamada form-select" aria-label="Default select">
+                                          <% if (sessao.SessaoChamadas.length > 0) { %>
+                                            
+                                            <% sessao.SessaoChamadas.forEach(SessaoChamada => { %>
+    
+                                              <% if (SessaoChamada.ParlamentarId == parlamentares[i].id) { %>
+                                            
+                                                <% if (SessaoChamada.Situacao == 'Presente') { %>
+                                                  <option value="">selecione</option>
+                                                  <option selected value="1">Presente</option> 
+                                                  <option value="2">Ausente</option>
+                                                  <option value="3">Licença</option>
+                                                <% } %>
+    
+                                                <% if (SessaoChamada.Situacao == 'Ausente') { %>
+                                                  <option value="">selecione</option>
+                                                  <option value="1">Presente</option>
+                                                  <option selected value="2">Ausente</option>
+                                                  <option value="3">Licença</option>
+                                                <% } %>
+    
+                                                <% if (SessaoChamada.Situacao == 'Licença') { %>
+                                                  <option value="">selecione</option>
+                                                  <option value="1">Presente</option>
+                                                  <option value="2">Ausente</option>
+                                                  <option selected value="3">Licença</option>
+                                                <% } %>
+    
+                                              <% } %>
+    
+                                            <% }) %>
+    
+                                            <% 
+                                              var noHasSessaoChamada = false;
+                                              sessao.SessaoChamadas.forEach(SessaoChamada => {
+                                                if (SessaoChamada.ParlamentarId == parlamentares[i].id)
+                                                  noHasSessaoChamada = true
+                                              })
+                                            %>
+    
+                                            <% if (!noHasSessaoChamada) { %>
+                                              <option selected>selecione</option>
+                                              <option value="1">Presente</option>
+                                              <option value="2">Ausente</option>
+                                              <option value="3">Licença</option>
+                                            <% } %>
+    
+                                          <% } else { %>
+                                            <option selected>selecione</option>
+                                            <option value="1">Presente</option>
+                                            <option value="2">Ausente</option>
+                                            <option value="3">Licença</option>
+                                          <% } %>
+                                            
+                                        </select>
+                                      </td>
+                                    </tr>
+                                  <% } %>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+    
+                  <div class="tab-pane fade" id="nav-materia" role="tabpanel" aria-labelledby="nav-materia-tab">
+                    <div class="p-5">
+    
+                        <h4 class="fw-bold">Editar matérias:</h4>
+    
+                        <table id="materiaTable" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                            <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                <tr>
+                                    <th class="col-3 text-nowrap" scope="col">Tipo</th>
+                                    <th class="col-1" scope="col">N°</th>
+                                    <th class="col-5" scope="col">Resumo</th>
+                                    <th class="col-2" scope="col">Situação</th>
+                                    <th class="col-2" scope="col">Editar</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color:var(--secondary-color) color">
+                                <% for(var i=0; i < sessao.Materia.length; i++) {%>
+                                  <tr id="materiaIdItem_<%=sessao.Materia[i].id %>">
+                                    <td><%= sessao.Materia[i].Tipo %></td>
+                                    <td><%= sessao.Materia[i].Numero %></td>
+                                    <td><%= sessao.Materia[i].Resumo %></td>
+                                    <td><%= sessao.Materia[i].Tramites.length > 0 ? sessao.Materia[i].Tramites[sessao.Materia[i].Tramites.length - 1].Situacao : null%></td>
+                                    <td>
+                                      <span data-bs-toggle="modal" data-bs-target="#confirmRedirectModal" onclick="setIdForRedirectModal('<%= sessao.Materia[i].id %>')" style="cursor: pointer">
+                                        <img title="Editar matéria" src="/icons/pencil-fill.svg" alt="Editar matéria" height="20rem">
+                                      </span>
+                                      <a href="#" style="text-decoration: none;" data-bs-toggle="modal"
+                                      data-bs-target="#deleteModal" 
+                                      onclick="setIdForRemoveMateria('<%=sessao.Materia[i].id %>')">
+                                        <img title="Excluir Matéria" src="/icons/x-circle-fill.svg" alt="Excluir Matéria" height="20rem">
+                                      </a>
+                                    </td>
+                                  </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+    
+                        <div class="justify-content-end">
+                          <button type="button" class="btn btn-success m-0"
+                          data-bs-toggle="modal" data-bs-target="#addMateriaModal">
+                              <img src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="20rem">
+                              &nbsp;
+                              Adicionar nova matéria
+                          </button>
+                      </div>
+    
+                    </div>
+                </div>
+    
+              </div>
+          </nav>
+      
+
+          <div class="row p-5 pt-0 m-3 mt-2">
+            <div class="col-8"></div>
+            <div class="col-4 d-flex justify-content-end">
+                <button type="button" class="btn btn-danger m-0 me-3">
+                    Cancelar edição
+                </button>
+                <button id="btnSendRequest" type="button" class="btn btn-success m-0">
+                    <img title="Abrir documento principal" src="/icons/send-fill.svg" alt="Arquivo PDF" height="20rem">
+                    Salvar alterações
+                </button>
+            </div>
+          </div>
+      
+          <!-- Modal PARA CONFIRMAR REFIRECIONAMENTO-->
+          <div class="modal fade" id="confirmRedirectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmRedirectLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="confirmRedirectLabel">Lembrete para salvar alterações</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Ao selecionar a opção de "Editar Matérias" você será redirecionado para outra pagina, certifique-se de que as alterações que foram feitas
+                  foram salvas, caso contrário salve-as primeiro para não perder as suas modificações.
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a id="btnConfirmRedirect" type="button" class="btn btn-primary">Editar matérias</a>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!--MODAL ADD MATERIA-->
+          <div class="modal fade" id="addMateriaModal" tabindex="-1" aria-labelledby="AddMateriaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddMateriaLabel">Adicionar Matéria</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="addMateriaForm" class="needs-validation" action="/admin/addMateria" method="POST">
+                    <input id="sessaoId" type="text" value="<%=sessao.id%>" hidden>
+                    <div class="mb-1">
+                      <div class="row">
+                        <div class="col-12">
+                          <label for="materiaAutor" class="col-form-label">Autores:</label>
+                          <select required multiple name="materiaAutor" id="materiaAutor" class="form-select" aria-label="Default select example">
+                            <% if (prefeito) { %>
+                              <option value="prefeito_<%=prefeito.id%>">
+                                <%= prefeito.nickname ? ('(' + prefeito.nickname + ')') : null %> <%= prefeito.name %> 
+                              </option>
+                            <% } %>
+                            <% for(var i=0; i < parlamentares.length; i++) {%>
+                              <option value="<%=parlamentares[i].id%>">
+                                <%= parlamentares[i].nickname ? ('(' + parlamentares[i].nickname + ')') : null %> <%= parlamentares[i].name %> 
+                              </option>
+                            <% } %> 
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label for="materiaData" class="col-form-label">Data:</label>
+                          <input id="materiaData" required name="materiaData" class="form-control" type="date">
+                        </div>
+                        <div class="col-12">
+                          <label for="materiaNumero" class="col-form-label">N°:</label>
+                          <input id="materiaNumero" required name="materiaNumero" class="form-control" type="text">
+                        </div>
+                        <div class="col-12">
+                          <label for="materiaTipo" class="col-form-label">Tipo:</label>
+                          <select required name="materiaTipo" id="materiaTipo" class="form-select"
+                            aria-label="Default select example">
+                            <option value="" selected>Selecione</option>
+                            <option value="1">ATA</option>
+                            <option value="2">Convocações</option>
+                            <option value="3">Edital de convocação</option>
+                            <option value="4">Emendas</option>
+                            <option value="5">Indicação</option>
+                            <option value="6">Moções</option>
+                            <option value="7">Ofícios Expedidos</option>
+                            <option value="8">Ofícios Recebidos</option>
+                            <option value="9">Parecer Prévio - Contas de Governo</option>
+                            <option value="10">Pedido de Providências</option>
+                            <option value="11">Projeto de Decreto Legislativo</option>
+                            <option value="12">Projeto de Indicativo</option>
+                            <option value="13">Projeto de Lei - Executivo</option>
+                            <option value="14">Projeto de Lei - Legislativo</option>
+                            <option value="15">Projeto de resolução</option>
+                            <option value="16">Proposta de Emendas</option>
+                            <option value="17">Requerimentos</option>
+                            <option value="18">Resolução</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label for="materiaResumo" class="col-form-label">Resumo:</label>
+                          <textarea rows="4" id="materiaResumo" required name="materiaResumo" class="form-control"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-success">Adicionar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Modal DELETE MATERIA-->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Remover Matéria</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Realmente deseja excluir esta Matéria?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <script src="/script/admin/sessoes/sessoesIdPage.js"></script>
+
+    <style>
+      .nav-tabs .item-nav-tab{
+        color: white;
+        border: none
+      }
+
+      .nav-tabs .nav-link.active{
+        background-color: var(--primary-color);
+        color: white;
+        border: none
+      }
+
+      .nav-tabs .item-nav-tab:hover{
+        background-color: var(--primary-color);
+        border: none
+      }
+
+      nav .navSessoes {
+        border: none
+      }
+    </style>
+
+  </body>
+</html>

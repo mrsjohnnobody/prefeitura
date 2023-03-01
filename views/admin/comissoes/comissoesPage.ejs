@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'comissoes'}); %>
+
+<body>
+    
+  <div class="container-fluid" style="background-color: var(--secondary-color);">
+    <div class="row">
+      <div class="col-3">
+        <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Comissões' })%>
+      </div>
+      <!-- CONTENT PAGE -->
+      <div class="col-9" style="background-color: var(--background-color);">
+
+        <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Pesquisar por nome" aria-label="Pesquisar"
+              aria-describedby="button-addon2">
+
+            <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#AddComissao">
+              <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+              + Comissão
+            </a>
+          </div>
+        </div>
+      
+        <!--TABLE-->
+        <div class="card text-center m-5 mt-0 d-flex justify-content-center shadow"
+          style="border-style: solid;border-color: var(--secondary-color)">
+          <div class="card-header" style="background-color: var(--secondary-color); color: white">
+            <div class="row">
+              <div class="col-12">
+                <h3>
+                  Todas as Comissões
+                </h3>
+              </div>
+            </div>
+    
+    
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <thead class="table" style="background-color:var(--secondary-color); color: white">
+                <tr>
+                  <th class="col-5" scope="col">Descrição</th>
+                  <th class="col-2" scope="col">Tipo</th>
+                  <th class="col-2" scope="col">Período</th>
+                  <th class="col-3" scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody style="color:var(--secondary-color) color">
+                <% for(var i=0; i < comissao.length; i++) {%>
+                  <tr>
+                    <th scope="row">
+                      <%=comissao[i].Name %>
+                    </th>
+                    <td>
+                      <%=comissao[i].Type %>
+                    </td>
+                    <td>
+                      <%=(comissao[i].InitialDate !=="0000-00-00" ) ? new
+                        Date(comissao[i].InitialDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : "" %>
+    
+                        <%=(comissao[i].FinalDate !=="0000-00-00" ) ? " - " : "" %>
+                          <%=(comissao[i].FinalDate !=="0000-00-00" ) ? new
+                            Date(comissao[i].FinalDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : "" %>
+    
+                            <%=(comissao[i].InitialDate !=="0000-00-00" && comissao[i].FinalDate=="0000-00-00" )
+                              ? " - atualmente" : "" %>
+    
+                    </td>
+                    <td>
+                      <a class="me-3" href="/admin/editCommission/<%= comissao[i].id %>"
+                        style="text-decoration: none; color: inherit;">
+                        <img src="/icons/pencil-fill.svg" alt="Botão de editar" height="20rem">
+                      </a>
+                      <a href="#" style="text-decoration: none; color: inherit;" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal" onclick="setIdModal('<%= comissao[i].id %>')">
+                        <img src="/icons/x-circle-fill.svg" alt="Botão de excluir" height="20rem">
+                      </a>
+                    </td>
+                  </tr>
+                  <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      
+          <!--MODAL ADD COMISSAO-->
+          <div class="modal fade" id="AddComissao" tabindex="-1" aria-labelledby="AddParlamenteryLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddComissaoLabel">Cadastrar nova comissão</h5>
+                </div>
+                <div class="modal-body">
+                  <form class="needs-validation" action="/admin/addCommission" method="post">
+                    <div class="mb-1">
+                      <label for="comissaoName" class="col-form-label">Infome o nome da comissão:</label>
+                      <input required type="text" class="form-control" id="comissaoName" name="comissaoName">
+                    </div>
+                    <div class="mb-1">
+                      <label for="ComissaoObjetivo" class="col-form-label">Infome o objetivo da
+                        comissão (opcional):</label>
+                      <textarea type="text" class="form-control" rows="2" id="ComissaoObjetivo"
+                        name="ComissaoObjetivo"></textarea>
+                    </div>
+                    <div class="mb-1">
+                      <label for="selectType" class="col-form-label">Selecione o tipo:</label>
+                      <select name="selectType" required class="form-select" aria-label=".form-select-sm" id="selectType">
+                        <option value="" selected>selecione</option>
+                        <option value="Permanente">Permanente</option>
+                        <option value="Temporária">Temporária</option>
+                      </select>
+                    </div>
+                    <div class="row mb-2 mt-3 p-2">
+                      <label class="col-form-label">Integrantes (selecione vários):</label>
+                      <select multiple name="selectParlamentares" data-placeholder="Selecione os integrantes da comissão:" id="selectParlamentares">
+                        <% for( let i = 0; i < parlamentares.length; i++ ) { %>
+                          <option value="<%=parlamentares[i].id%>"><%=parlamentares[i].nickname ? parlamentares[i].nickname : parlamentares[i].name%></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="mb-1">
+                      <label class="col-1 col-form-label text-nowrap bd-highlight">
+                        <h5>Período da comissão(opcional):</h5>
+                      </label>
+                      <div class="row mb-3">
+                        <div class="col-6">
+                          <label for="initialDate" class="col-1 col-form-label text-nowrap bd-highlight">
+                            Início:
+                          </label>
+                          <input name="initialDate" type="date" class="form-control" id="initialDate" />
+                        </div>
+                        <div class="col-6">
+                          <label for="finalDate" class="col-1 col-form-label text-nowrap bd-highlight">
+                            Fim:
+                          </label>
+                          <input name="finalDate" type="date" class="form-control" id="finalDate" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Modal DELETE -->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Excluir Comissão</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Realmente deseja excluir essa Comissão?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/script/admin/comissoes/comissoes.js"></script>
+
+</body>
+
+</html>

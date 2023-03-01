@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'sessoes'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Sessões' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+   
+          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Pesquisar por nome" aria-label="Pesquisar"
+                aria-describedby="button-addon2">
+  
+              <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addSessaoModal">
+                <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+                Cadastrar sessão
+              </a>
+            </div>
+          </div>
+  
+          <!--TABLE-->
+          <div class="card text-center m-5 my-0 d-flex justify-content-center shadow">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-12">
+                  <h3>
+                    Sessões da câmara
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table id="sessoesTable" class="table table-bordered">
+                <thead class="table">
+                  <tr>
+                    <th class="col-1" scope="col">N°</th>
+                    <th class="col-2" scope="col">Tipo</th>
+                    <th class="col-1"scope="col">Data</th>
+                    <th class="col-5" scope="col">Descrição</th>
+                    <th class="col-2"scope="col">Situação</th>
+                    <th class="col-2"scope="col">Ver</th>
+                  </tr>
+                </thead>
+                <tbody id="sessoesItems">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!--PAGINATION-->
+          <input hidden id="totalPage" value="<%=pagination ? parseInt(pagination.totalPage) : 0 %>" />
+          <input hidden id="currentPage" value="<%=pagination ? parseInt(pagination.currentPage) : 0 %>" />
+          <input hidden id="totalItems" value="<%=pagination ? parseInt(pagination.totalItems) : 0 %>" />
+          <div class="container-fluid d-flex justify-content-center">
+            <div class="row">
+              <div class="col-10 p-3 pb-2 pt-5 d-flex justify-content">
+                <nav aria-label="Page navigation">    
+                  <ul id="pagination" class="pagination justify-content-center"></ul>
+                </nav>  
+              </div>
+            </div>
+          </div>
+  
+          <!-- Modal ADD SESSAO-->
+          <div class="modal fade" id="addSessaoModal" tabindex="-1" aria-labelledby="AddSessaoLabel" aria-hidden="true" style="color: black">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="AddSessaoLabel">Cadastrar Sessão</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="sessaoForm" class="needs-validation" action="/admin/addSessao" method="post">
+                            <div class="mb-1">
+                                <div class="row">
+                                    <div>
+                                        <label for="numero" class="col-form-label">Número:</label>
+                                        <input name="numero" required type="text" class="form-control" id="numero"/>
+                                    </div>
+                                    <div>
+                                        <label for="tipo" class="col-form-label">Tipo:</label>
+                                        <select name="tipo" required class="form-select" aria-label=".form-select-sm" id="tipo">
+                                            <option value="" selected>Selecione</option>
+                                            <option value="1">Extra-Ordinária</option>
+                                            <option value="2">Audiência pública</option>
+                                            <option value="3">Solene</option>
+                                            <option value="4">Abertura de período legislativo</option>
+                                            <option value="5">Encerramento de período legislativo</option>
+                                            <option value="6">Intinerante</option>
+                                            <option value="7">Sessão administrativa</option>
+                                            <option value="8">Sessão especial</option>
+                                            <option value="9">Ordinária</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                      <label for="data" class="col-form-label">Data:</label>
+                                      <input name="data" required type="date" class="form-control" id="data"/>
+                                    </div>
+                                    <div>
+                                        <label for="descricao" class="col-form-label">Descricao:</label>
+                                        <textarea name="descricao" required type="text" rows="3" class="form-control" id="descricao"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button id="btnSubmit" type="submit" class="btn btn-success">Cadastrar sessão</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </div>
+  
+          <!-- Modal DELETE SESSÃO-->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Excluir Sessão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Realmente deseja excluir esta Sessão?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                </div>
+                </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+    <script src="/script/admin/sessoes/sessoes.js"></script>
+  </body>
+</html>

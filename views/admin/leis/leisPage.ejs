@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'leis'}); %> 
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Leis' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+
+          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                aria-describedby="button-addon2">
+
+              <a href="/admin/addLicitacao" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addLeiModal">
+                <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF" height="20rem">
+                Cadastrar nova Lei
+              </a>
+            </div>
+          </div>
+      
+          <!--TABLE-->
+          <div
+            class="card m-5 mt-0 d-flex justify-content"
+            style="border-style: solid; border-color: var(--secondary-color)"
+          >
+            <div
+              class="card-header"
+              style="background-color: var(--secondary-color); color: white"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <h3>Leis</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table id="leisTable" class="table table-bordered">
+                <thead
+                  class="table"
+                  style="background-color: var(--secondary-color); color: white"
+                >
+                  <tr>
+                    <th class="col-1" scope="col">Nº</th>
+                    <th class="col-5" scope="col">Descrição</th>
+                    <th class="col-3" scope="col">Data</th>
+                    <th class="col-1" scope="col">Visualizar</th>
+                    <th class="col-1" scope="col">Ações</th>
+                  </tr>
+                </thead>
+                <tbody style="color: var(--secondary-color) color">
+                  <% for(var i=0; i < leis.length; i++) {%>
+                  <tr id="leiIdItem_<%=leis[i].id %>">
+                    <th scope="row"><%=leis[i].number%></th>
+                    <th scope="row"><%=leis[i].description%></th>
+                    <th scope="row">
+                      <%= leis[i].date ? new Date(leis[i].date).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                    </th>
+                    <th scope="row">
+                      <a href="/<%=leis[i].path %>" target="_blank">
+                        <img title="Abrir arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
+                      </a>
+                    </th>
+                    <th scope="row">
+                      <span style="text-decoration: none; cursor: pointer;" onclick="setIdForRemoveLei('<%=leis[i].id %>')" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                          <img class="licitacaoBtnEdit" title="Remover item" src="/icons/x-circle-fill.svg" alt="Remover item" height="20rem"> 
+                      </span>
+                    </th>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+      
+          <!-- Modal DELETE LEI-->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Excluir Lei</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      Realmente deseja excluir essa Lei?
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                  </div>
+                  </div>
+              </div>
+          </div>
+      
+          <!-- Modal ADD LEI-->
+          <div class="modal fade" id="addLeiModal" tabindex="-1" aria-labelledby="AddLeiLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="AddLeiLabel">Cadastrar Lei</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form id="leisForm" class="needs-validation" enctype="multipart/form-data">
+                              <h5 class="mt-3">Selecione um arquivo em formato PDF</h5>
+                              <div class="input-group my-3">
+                                <input class="form-control" required type="file" name="pdfFile" class="form-control">
+                              </div>
+                              <div class="mb-1">
+                                  <div class="row">
+                                      <div>
+                                          <label for="number" class="col-form-label">Número da lei:</label>
+                                          <input name="number" required type="text" class="form-control" id="number"/>
+                                      </div>
+                                      <div >
+                                          <label for="description" class="col-form-label">Descrição da lei:</label>
+                                          <input name="description" required type="text" class="form-control" id="description"/>
+                                      </div>
+                                      <div>
+                                          <label for="date" class="col-form-label">Data:</label>
+                                          <input name="date" required type="date" class="form-control" id="date"/>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                  <button id="btnSubmit" type="submit" class="btn btn-success">Cadastrar nova Lei</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      
+        </div>
+      </div>
+    </div>
+
+
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/leis/leis.js"></script>
+  </body>
+</html>

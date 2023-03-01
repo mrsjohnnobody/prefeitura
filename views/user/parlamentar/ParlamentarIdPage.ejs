@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <%- include("../global/head", {pageCss: 'parlamentarId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Parlamentares'}); %>
+
+    <div class="container-fluid">
+      <input type="text" hidden id="parlamentarId" value="<%= parlamentar.id %> ">
+      <div class="row m-2 mx-5 p-5" style="background-color: #e9e9e9; border-radius: 8px; height: 30vh;">
+        <div class="row card" style="max-height: 20vh;">
+          <div class="row g-0">
+              <div class="col-sm-2 d-flex justify-content-center align-items-center">
+                  <img class="img-thumbnail" src="/<%=parlamentar.image%>" height="250vh" width="120">
+              </div>
+              <div class="col-sm-10">
+                  <div class="card-body">
+                    <h4><%= parlamentar.name %></h4>
+                    <h6><%= parlamentar.nickname %></h6>
+                    <span>
+                      <strong>Cargo:</strong>
+                      <%= parlamentar.occupation %><br />
+                    </span>
+                    <span>
+                      <strong>Data de nascimento:</strong>
+                      <%= parlamentar.birthdate ? new
+                      Date(parlamentar.birthdate).toLocaleDateString('pt-BR', { timeZone:
+                      'UTC' }) : null %>
+                      <br />
+                    </span>
+                    <span>
+                      <strong>Número de telefone:</strong>
+                      <%= parlamentar.phoneNumber %><br />
+                    </span>
+                    <span>
+                      <strong>E-mail:</strong>
+                      <%= parlamentar.email %><br />
+                    </span>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="m-2 mx-5 p-5 pb-3" style="background-color: #e9e9e9; border-radius: 8px;">
+
+            <!--TABLE-->
+            <div class="m-0 p-0">
+              <div class="container-fluid">
+                <div class="card text mb-0 mt-0 d-flex justify-content-center"
+                  style="border-style: solid; border-color: var(--secondary-color)">
+                  <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                    <div class="row">
+                      <div class="col-12">
+                        <h3>MATÉRIAS</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="m-0 p-0" id="materiaItems"></div>
+
+            <!--PAGINATION-->
+            <input hidden id="totalPage" value="<%=pagination ? parseInt(pagination.totalPage) : 0 %>" />
+            <input hidden id="currentPage" value="<%=pagination ? parseInt(pagination.currentPage) : 0 %>" />
+            <input hidden id="totalItems" value="<%=pagination ? parseInt(pagination.totalItems) : 0 %>" />
+            <div class="container-fluid d-flex justify-content-center">
+              <div class="row">
+                <div class="col-10 p-3 pb-0 pt-2 d-flex justify-content">
+                  <nav aria-label="Page navigation">    
+                    <ul id="pagination" class="pagination justify-content-center"></ul>
+                  </nav>  
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="m-2 mx-5 p-3 row d-flex justify-content-center align-items-center" style="background-color: #e9e9e9; border-radius: 8px;">
+            <div class="col-6">
+              <div>
+                <h3 class="fw-bold text-center">INDICATIVO DE PREPOSIÇÕES E MATÉRIAS (PERCENTUAL)</h4>
+                <div class="chart-container m-3">
+                  <canvas id="chart1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="m-2 mx-5 p-5 row d-flex justify-content-center align-items-center" style="background-color: #e9e9e9; border-radius: 8px;">
+            <div class="col-6">
+              <div>
+                <h3 class="fw-bold text-center">INDICATIVO DE PREPOSIÇÕES E MATÉRIAS (PERCENTUAL)</h4>
+                <div class="chart-container m-5">
+                  <canvas id="chart2"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+    <script src='/script/utilities/chartjs/chart.js'></script>
+    <script src="/script/user/parlamentar/parlamentarId.js"></script>
+  </body>
+</html>

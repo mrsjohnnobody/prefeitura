@@ -1,0 +1,112 @@
+<div class="sticky-top p-3" style="height: 100vh; color: var(--text-white-color);" >
+  <div class="text-center" style="background-color: rgb(97, 97, 19); color: var(--text-white-color);">
+  PORTAL ADMINISTRADOR
+  </div>
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <span class="">
+      <img src="<%= camara.LogoPath %>" height="100px" alt="" />
+    </span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a href="/admin/home" class="nav-link link-light <%- activeNavItem == "Início" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+        Início
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/noticias" class="nav-link link-light <%- activeNavItem == "Notícias" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+        Notícias
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/parlamentares" class="nav-link link-light <%- activeNavItem == "Parlamentares" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+        Parlamentares
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/gestaofiscal" class="nav-link link-light <%- activeNavItem == "Gestão Fiscal" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+        Gestão Fiscal
+      </a>
+    </li>
+    <li class="nav-item"> 
+      <a href="/admin/commission" class="nav-link link-light <%- activeNavItem == "Comissões" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Comissões
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/licitacoes" class="nav-link link-light <%- activeNavItem == "Licitações" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Licitações
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/sessoes" class="nav-link link-light <%- activeNavItem == "Sessões" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Sessões
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/contratos" class="nav-link link-light <%- activeNavItem == "Contratos" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Contratos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/leis" class="nav-link link-light <%- activeNavItem == "Leis" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Leis
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/diarias" class="nav-link link-light <%- activeNavItem == "Diárias" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Diárias
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/prestacaocontas" class="nav-link link-light <%- activeNavItem == "Prestação de Contas" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Prestação de Contas
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/veiculos" class="nav-link link-light <%- activeNavItem == "Prestação de Contas" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Veiculos
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/admin/obras" class="nav-link link-light <%- activeNavItem == "Prestação de Contas" ? 'active activeNavItem' : null %>">
+        <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+        Obras
+      </a>
+    </li>
+  </ul>
+  <hr >
+  <span class="sidebar_bottom">
+    <hr >
+    Copyright © 2022 <span class="fw-bold">JV & Lele.</span>
+  </span>
+</div>
+
+<style>
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link .activeNavItem{
+    background-color: var(--primary-color);
+  }
+
+  .nav-link:hover{
+    background-color: var(--primary-color);
+  }
+
+  .sidebar_bottom {
+    position: absolute;
+    bottom: 2vh;
+  }
+</style>
+

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'mesaDiretora'}); %>
+
+<body>
+  <%- include("../../partialViews/header"); %>
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Legislativo-MesaDiretora' }); %>
+
+      <div class="px-5">
+        <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+          <!--TABLE-->
+          <div class="container-fluid mt-5">
+            <% for(var i=0; i < legislaturas.length; i++) {%>
+              <div class="mesaDiretoraItem card text-center m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                
+                <% for(var j=0; j < parlamentares.length; j++) {%>
+                  <% if(parlamentares[j].legislatura == legislaturas[i]){ %>
+                    <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                      <div class="row">
+                        <div class="col-12">
+                          <h3>
+                            Mesa Diretora - Legislatura <%= legislaturas[i] %>
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+                    <% break %> 
+                  <% } %>
+                <% } %>
+
+                <div class="card-body">
+                  <div class="row">
+                    <% for(var j=0; j < parlamentares.length; j++) {%>
+                        <% if(parlamentares[j].legislatura == legislaturas[i]){ %>
+                          <div class="col-xl-4 col-12 col-lg-6">
+                            <a href="/user/parlamentar/<%= parlamentares[j].id %>" style="text-decoration: none; color: inherit;">
+                              <div class="profile-card-2">
+                                <img src="/<%=parlamentares[j].image%>" alt="Foto do parlamentar" class="img-fluid">
+                                <div class="profile-name"><%=parlamentares[j].nickname ? parlamentares[j].nickname : parlamentares[j].name%></div>
+                                <div class="profile-occupation"><%=parlamentares[j].occupation%></div>
+                              </div>
+                            </a>
+                          </div>
+                        <% } %>
+                    <% } %>
+                  </div>
+                </div>
+
+              </div>
+              <% } %>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <%- include("../../partialViews/footer"); %>
+
+        <style>
+          .table tr td a:hover {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+          }
+
+          .input-group-append {
+            cursor: pointer;
+          }
+
+          .parlamentaresMesaDiretora:hover {
+            background-color: #dddddd;
+          }
+        </style>
+        
+        <script src="/script/user/global/global.js"></script>
+        <script src="/script/user/mesaDiretora/mesaDiretora.js"></script>
+</body>
+
+</html>

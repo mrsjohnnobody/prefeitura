@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'videos'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", { activeNavItem: 'Publicacoes-Videos'}); %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 p-5 d-flex justify-content-end">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pesquisar vídeos"
+              aria-label="Pesquisar vídeos"
+              aria-describedby="button-addon2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-5 mb-3 p-5" style="background-color: #e9e9e9; border-radius: 10px">
+        <div id="glossarioItems" class="row justify-content-center">
+        </div>
+      </div>
+
+            <!--PAGINATION-->
+            <input hidden id="anterior" value="<%=pagination ? pagination.anterior : '' %>" />
+            <input hidden id="proximo" value="<%=pagination ? pagination.proximo : '' %>" />
+            <div class="container-fluid d-flex justify-content-center">
+              <div class="row">
+                <div class="col-10 p-3 pb-2 pt-5 d-flex justify-content">
+                  <nav aria-label="...">
+                    <ul class="pagination">
+                      <li id="paginaInicio" class="page-item"> <a class="page-link" href="#" tabindex="-1">Início</a></li>
+                      <li id="paginaAnterior" class="page-item"><a class="page-link" href="#" tabindex="-1">Anterior</a></li>
+                      <li class="page-item active"><a class="page-link" href="#">Atual<span class="sr-only">(Atual)</span></a></li>
+                      <li id="paginaProxima" class="page-item"><a class="page-link" href="#">Próximo</a></li>
+                    </ul>
+                  </nav>  
+                </div>
+              </div>
+            </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+    
+    <script src="/script/user/global/global.js"></script>
+    <script src="/script/user/videos/videos.js"></script>
+  </body>
+</html>

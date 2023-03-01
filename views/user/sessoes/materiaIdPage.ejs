@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'materia'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Legislativo-MatériasProposições'}); %>
+    
+    <!--TABLE-->
+    <div class="container-fluid">
+      <div
+      class="card m-5 mt-3 d-flex justify-content"
+      >
+        <div class="row d-flex justify-content-center">
+          <div class="col-12">
+            <div class="card text-dark bg-light mb-3">
+                <div class="card-header" style="background-color: var(--secondary-color);color: white;"><span class="fw-bold">Informações da matéria</span> </div>
+                <div class="card-body">
+
+                  <h5 class="card-title"><span class="fw-bold">Autor:</span>
+                    <% if (autores) { %>
+                      <% autores.forEach(autor => { %>
+                        
+                        <% if (autor.PrefeitoId) { %>
+                          <%=autor.PrefeitoName ? autor.PrefeitoName : null%>
+                          <%=autor.PrefeitoNickname ? '(' + autor.PrefeitoNickname + ')' : null%>,
+                          &nbsp;
+                        <% } %>
+  
+                        <% if (autor.ParlamentarId) { %>
+                          <%=autor.ParlamentarName ? autor.ParlamentarName : null%>
+                          <%=autor.ParlamentarNickname ? '(' + autor.ParlamentarNickname + ')' : null%>,
+                          &nbsp;
+                        <% } %>
+  
+                      <% }) %>
+                    <% } %>
+                  </h5>
+
+                  <h5 class="card-title"><span class="fw-bold">Data:</span>
+                    <%= materia.Data ? new Date(materia.Data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                  </h5>
+
+                  <p class="card-text"><span class="fw-bold">Resumo:</span>
+                    <%=materia.Resumo ? materia.Resumo : null%>
+                  </p>
+
+                </div>
+            </div>
+          </div>
+        </div>
+            <div
+            class="card-header"
+            style="background-color: var(--secondary-color); color: white; border-style: solid; border-color: var(--secondary-color)"
+            >
+            <div class="row">
+                <div class="col-12">
+                <h3>Trâmites</h3>
+                </div>
+            </div>
+            </div>
+            <div class="card-body">
+              <table id="tramiteTable" class="table table-bordered">
+                  <thead
+                  class="table"
+                  style="background-color: var(--secondary-color); color: white"
+                  >
+                  <tr>
+                      <th class="col-1" scope="col">Data</th>
+                      <th class="col-5" scope="col">Sessão</th>
+                      <th class="col-2" scope="col">Expediente</th>
+                      <th class="col-1" scope="col">Fase</th>
+                      <th class="col-1" scope="col">Situação</th>
+                  </tr>
+                  </thead>
+                  <tbody style="color: var(--secondary-color) color">
+                    <% for(var i=0; i < materia.Tramites.length; i++) {%>
+                      <tr id="tramiteIdItem_<%=materia.Tramites[i].id %>">
+                        <td>
+                          <%= materia.Tramites[i].Data ? new Date(materia.Tramites[i].Data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                        </td>
+                        <td><%= sessao.Descricao%></td>
+                        <td><%= materia.Tramites[i].Expediente %></td>
+                        <td><%= materia.Tramites[i].Fase %></td>
+                        <td><%= materia.Tramites[i].Situacao %></td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+
+    <script src="/script/user/sessoes/materia.js"></script>
+    <style>
+        .nav-tabs .item-nav-tab{
+          color: white;
+          border: none
+        }
+  
+        .nav-tabs .nav-link.active{
+          background-color: var(--primary-color);
+          color: white;
+          border: none
+        }
+  
+        .nav-tabs .item-nav-tab:hover{
+          background-color: var(--primary-color);
+          border: none
+        }
+  
+        nav .navMaterias {
+          border: none
+        }
+      </style>
+  </body>
+</html>

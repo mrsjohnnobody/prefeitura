@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+  <%- include("../global/head", {pageCss: 'noticias'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", { activeNavItem: 'Publicacoes-Noticias'}); %>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 p-5 d-flex justify-content-end">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pesquisar noticias"
+              aria-label="Pesquisar noticias"
+              aria-describedby="button-addon2"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include("../../partialViews/newsList", { news: news }); %> 
+    <%- include("../../partialViews/footer"); %>
+ 
+    <script src="/script/user/global/global.js"></script>
+  </body>
+</html>

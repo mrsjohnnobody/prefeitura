@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'home' }); %>
+
+  <body>
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Início' })%>
+        </div>
+
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+
+          <div class="my-3">
+
+            <div class="row px-5 ">
+              <div class="col-6 py-4 pe-0">
+                <div class="avisos" style="height: 100%;">
+                  <div class="row" style="height: 50%;">
+                    <div class="alert alert-success shadow" role="alert">
+                      <h4 class="alert-heading text-center">Bem-vindo!</h4>
+                      <p><img src="/icons/check-circle-fill.svg" alt="" /> Aqui você poderá gerenciar todas as funcionalidades do sistema para manter as informações da Câmara Municipal de Crateús sempre atualizadas.</p>
+                      <hr>
+                      <p class="mb-0">Clique <a href="#">aqui.</a> para consultar os tutoriais de uso da plataforma.</p>
+                    </div>
+                  </div>
+                  <div class="row" style="height: 50%;">
+                    <div class="alert alert-warning shadow" role="alert" style="height: 100%;">
+                      <h4 class="alert-heading text-center">Avisos do sistema</h4>
+                      <div class="d-flex align-items-center">
+                        <p><img src="/icons/exclamation-circle-fill.svg" alt="" /> Por enquanto, não há avisos cadastrados.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 d-flex justify-content-center py-4 pe-0">
+                <div class="pt-1">
+                  <h5 class="text-center fw-bold">ÚLTIMAS SESSÕES</h5>
+
+                  <div class="list-group d-flex justify-content-center align-items-center shadow bg-body rounded"
+                    style="width: 25vw;">
+                    <% for(var i=0; i < sessoes.length; i++) {%>
+                      <a href="/sessao/<%=sessoes[i].id %>"
+                        class="list-group-item list-group-item-action ultimasSessoesItem" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                          <h5 class="mb-1">Sessão <%= sessoes[i].Tipo %>
+                          </h5>
+                        </div>
+                        <small class="mb-1">
+                          <%=new Date(sessoes[i].Data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) %>
+                            - <%= sessoes[i].Situacao %>
+                        </small>
+                      </a>
+                      <% }%>
+                  </div>
+                  <div class="d-flex justify-content-center mt-3">
+                    <a class="btn btn-primary" href="/admin/sessoes">Ver todas as sessões</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--sessão pdf-->
+          <div class="card-group p-3 mb-5 rounded-3 shadow" style="background-color: #e9e9e9">
+
+            <!-- Lei de Resp. Fiscal  -->
+            <div class="card d-flex justi">
+              <div class="card-body">
+                <h5 class="card-title">Lei de Resp. Fiscal</h5>
+                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                <% for(var i=0; i < gestoesFiscais.length; i++) {%>
+                  <div class="mb-2">
+                    <a href="/<%=gestoesFiscais[i].path%>" style="text-decoration: none; color: inherit">
+                      <img src="/icons/filetype-pdf.svg" alt="" />
+                      <%=gestoesFiscais[i].nome%>
+                    </a>
+                    <br />
+                  </div>
+                  <% } %>
+              </div>
+              <div class="d-flex justify-content-center mb-3" style="color: white;">
+                <a class="btn btn-primary" href="/admin/gestaofiscal">Ver todos</a>
+              </div>
+            </div>
+
+            <!-- Licitações -->
+            <div class="card d-flex justi">
+              <div class="card-body">
+                <h5 class="card-title">Licitações</h5>
+                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                <% for(var i=0; i < licitacoes.length; i++) {%>
+                  <div class="mb-2">
+                    <a href="/admin/licitacao/<%=licitacoes[i].id%>" style="text-decoration: none; color: inherit">
+                      <img src="/icons/filetype-pdf.svg" alt="" />
+                      <%=licitacoes[i].ProcessNumber%>
+                    </a>
+                    <br />
+                  </div>
+                  <% } %>
+              </div>
+              <div class="d-flex justify-content-center mb-3" style="color: white;">
+                <a class="btn btn-primary" href="/admin/licitacoes">Ver todos</a>
+              </div>
+            </div>
+
+            <!-- Contratos -->
+            <div class="card d-flex justi">
+              <div class="card-body">
+                <h5 class="card-title">Contratos</h5>
+                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                <% for(var i=0; i < contratos.length; i++) {%>
+                  <div class="mb-2">
+                    <a href="/<%=contratos[i].path%>" style="text-decoration: none; color: inherit">
+                      <img src="/icons/filetype-pdf.svg" alt="" />
+                      <%=contratos[i].Numero%>
+                    </a>
+                    <br />
+                  </div>
+                  <% } %>
+              </div>
+              <div class="d-flex justify-content-center mb-3" style="color: white;">
+                <a class="btn btn-primary" href="/admin/contratos">Ver todos</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <script src="/script/admin/global/global.js"></script>
+    <style>
+      .carrousel-size {
+        height: 60vh;
+      }
+    </style>
+  </body>
+
+</html>

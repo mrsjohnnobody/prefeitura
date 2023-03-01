@@ -1,0 +1,120 @@
+<footer class="text-white text-center text-lg-start">
+  <div class="container-fluid p-0">
+    <iframe
+      width="100%"
+      height="100%"
+      style="border: 0"
+      loading="lazy"
+      allowfullscreen
+      src="<%= camara.ApiLocalizacao %>"
+    ></iframe>
+  </div>
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-xs-12 col-sm-12 col-md-4 mb-4 mb-md-0">
+        <a href="#">
+          <div class="d-flex justify-content-center">
+            <img src="<%= camara.LogoPath %>" height="100px" alt="" />
+          </div>
+        </a>
+        <div class="mt-2 d-flex justify-content-center">
+          <h5>Horário de atendimento</h5>
+        </div>
+        <div class="mt-0 d-flex justify-content-center">
+          <p style="font-weight: 350"><%= camara.HorarioFuncionamento %></p>
+        </div>
+        <div class="mt-2 d-flex justify-content-center">
+          <a
+            class="instagram"
+            href="<%= camara.Instagram %>"
+          >
+            <img
+              src="/img/instagram.svg"
+              alt=""
+              height="30px"
+              style="margin-left: 12px"
+            />
+          </a>
+          <a
+            class="facebook"
+            href="<%= camara.Facebook %>"
+          >
+            <img
+              src="/img/facebook.svg"
+              alt=""
+              height="30px"
+              style="margin-left: 12px"
+            />
+          </a>
+          <a
+            class="youtube"
+            href="<%= camara.Youtube %>"
+          >
+            <img
+              src="/img/youtube.svg"
+              alt=""
+              height="30px"
+              style="margin-left: 12px"
+            />
+          </a>
+        </div>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-xs-12 col-sm-12 col-md-4 mb-4 mb-md-0">
+        <div>
+          <h5>Endereço</h5>
+          <p style="font-weight: 350">
+            <%= camara.Endereco %>
+          </p>
+        </div>
+        <div>
+          <h5>Contatos</h5>
+          <p style="font-weight: 350">
+            <%= camara.Email %><br />
+            <%= camara.Telefone %>
+          </p>
+        </div>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div id="footerLinks" class="col-xs-12 col-sm-12 col-md-4 mb-4 mb-md-0">
+        <div>
+          <h5>Publicações</h5>
+
+          <ul class="list-unstyled mb-2">
+            <li>
+              <a href="/noticias" class="text-white">Noticias</a>
+            </li>
+            <li>
+              <a href="/videos" class="text-white">Vídeos</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h5>Legislativo</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="/parlamentares" class="text-white">Vereadores</a>
+            </li>
+            <li>
+              <a href="/mesadiretora" class="text-white">Mesa diretora</a>
+            </li>
+            <li>
+              <a href="/comissoes" class="text-white">Comissões</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--Grid row-->
+  </div>
+  <!-- Grid container -->
+</footer>

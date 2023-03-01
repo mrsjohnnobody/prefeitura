@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'camara' }); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Institucional-Camara" }); %>
+
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+            <!-- FILTROS -->
+            <div class="container-fluid">
+              <div class="row mx-0">
+                <div class="col-12 p-5 d-flex justify-content-end">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                      aria-describedby="button-addon2">
+
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card text m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Informações sobre a Câmara</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">Câmara Municipal de Crateus</div>
+                  <div class="card-body">
+                    <p class="card-text">
+                    <div class="titulo">
+                      <p class="card-title">
+                      <h5 class="text-secondary">Informações de endereço:</h5>
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>Endereço:</strong> RUA CARLOS ROLIM, 73 - CENTRO - CEP: 60720000 - CRATEÚS/CE
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>Horário:</strong> SEGUNDA À SEXTA: 07:30HS ÀS 13:00HS
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>Telefone:</strong> (88) 3691-3030
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>E-mail:</strong>
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>Plenário:</strong>
+                      </p>
+                    </div>
+                    <div class="conteudo">
+                      <p class="card-text"><i class="fa fa-square"></i>
+                        <strong>Lema:</strong> Trabalho com Credibilidade
+
+                      </p>
+                    </div>
+                    <div class="butoes mt-2">
+                      <a href="/uploads/leiOrganica.pdf" target="blank" button type="button"
+                        class="btn btn-outline-primary">Lei Organica</a>
+                      <a href="/uploads/regimentoInterno.pdf" target="blank" button type="button"
+                        class="btn btn-outline-primary">Regimento Interno</a>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">Mesa Diretora</div>
+                  <div class="card-body">
+                    <p class="card-text">
+                    <div class="card-group">
+                      <% for(var i=0; i < mesaDiretora.length; i++) {%>
+                        <div class="col-xl-4 col-12 col-lg-6">
+                          <a href="/user/parlamentar/<%= mesaDiretora[i].id %>" style="text-decoration: none; color: inherit;">
+                            <div class="profile-card-2">
+                              <img src="/<%=mesaDiretora[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                              <div class="profile-name"><%=mesaDiretora[i].nickname ? mesaDiretora[i].nickname : mesaDiretora[i].name%></div>
+                              <div class="profile-occupation"><%=mesaDiretora[i].occupation%></div>
+                            </div>
+                          </a>
+                        </div>
+                      <% } %>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">VEREADORES</div>
+                  <div class="card-body">
+                    <p class="card-text">
+                    <div class="card-group">
+                      <% for(var i=0; i < parlamentares.length; i++) {%>
+                        <div class="col-xl-4 col-12 col-lg-6">
+                          <a href="/user/parlamentar/<%= parlamentares[i].id %>" style="text-decoration: none; color: inherit;">
+                            <div class="profile-card-2">
+                              <img src="/<%=parlamentares[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                              <div class="profile-name"><%=parlamentares[i].nickname ? parlamentares[i].nickname : parlamentares[i].name%></div>
+                              <div class="profile-occupation"><%=parlamentares[i].occupation%></div>
+                            </div>
+                          </a>
+                        </div>
+                      <% } %>
+                    </div>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <%- include("../../partialViews/footer"); %>
+          <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

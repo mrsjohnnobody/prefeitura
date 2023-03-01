@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'contratos'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Contratos" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+            <!-- FILTROS -->
+            <div class="container-fluid">
+              <div class="row mx-0">
+                <div class="col-12 p-5 d-flex justify-content-end">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                      aria-describedby="button-addon2">
+
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card m-5 mt-0 d-flex justify-content" style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Contratos</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <table id="contratoTable" class="table table-bordered">
+                    <thead class="table" style="background-color: var(--secondary-color); color: white">
+                      <tr>
+                        <th class="col-1" scope="col">Número</th>
+                        <th class="col-1" scope="col">Data</th>
+                        <th class="col-1" scope="col">Contratado</th>
+                        <th class="col-1" scope="col">Objeto</th>
+                        <th class="col-1" scope="col">Valor</th>
+                        <th class="col-1" scope="col">Visualizar</th>
+                      </tr>
+                    </thead>
+                    <tbody style="color: var(--secondary-color) color">
+                      <% for(var i=0; i < contratos.length; i++) {%>
+                        <tr id="contratoIdItem_<%=contratos[i].id %>">
+                          <th scope="row"><%=contratos[i].Numero%></th>
+                          <th scope="row">
+                            <%= contratos[i].DataExercicio ? new Date(contratos[i].DataExercicio).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                          </th>
+                          <th scope="row"><%=contratos[i].NomeContratado%></th>
+                          <th scope="row"><%=contratos[i].Objetivo%></th>
+                          <th scope="row"><%=contratos[i].ValorTotal%></th>
+                          <th scope="row">
+                            <a href="/<%=contratos[i].path %>" target="_blank">
+                              <img title="Abrir arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
+                            </a>
+                          </th>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

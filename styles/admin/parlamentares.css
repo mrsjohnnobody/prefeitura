@@ -1,0 +1,56 @@
+.profile-card-2 {
+    max-width: 300px;
+    background-color: #FFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+    background-position: center;
+    overflow: hidden;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.profile-card-2 img {
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-name {
+    position: absolute;
+    left: 30px;
+    bottom: 185px;
+    font-size: 22px;
+    color: #FFF;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-occupation {
+    position: absolute;
+    bottom: 165px;
+    left: 30px;
+    color: #FFF;
+    font-size: 17px;
+    transition: all linear 0.25s;
+}
+
+.profile-card-2 .profile-status {
+    color: #FFF;
+    font-size: 20px;
+}
+
+.profile-card-2 .profile-icons .fa {
+    margin: 5px;
+}
+
+.profile-card-2:hover img {
+    filter: grayscale(45%);
+}
+
+.profile-card-2:hover .profile-name {
+    bottom: 195px;
+}
+
+.profile-card-2:hover .profile-occupation {
+    bottom: 175px;
+}

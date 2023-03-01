@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'parlamentares'}); %>
+
+<body>
+  <%- include("../../partialViews/header"); %>
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Parlamentares' }); %>
+
+      <div class="px-5">
+        <div class="row mx-5 mb-5 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+          <!-- FILTROS -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-5 m-1 d-flex justify-content-end">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Pesquisar por nome, cargo, email" aria-label="Pesquisar"
+                    aria-describedby="button-addon2">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LISTA PARLAMENTAR -->
+          <div id="parlamentarFilter" class="row">
+            <% for(var i=0; i < parlamentares.length; i++) {%>
+              <div class="col-xl-4 col-12 col-lg-6">
+                <a href="/user/parlamentar/<%= parlamentares[i].id %>" style="text-decoration: none; color: inherit;">
+                  <div class="profile-card-2">
+                    <img src="/<%=parlamentares[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                    <div class="profile-name"><%=parlamentares[i].nickname ? parlamentares[i].nickname : parlamentares[i].name%></div>
+                    <div class="profile-occupation"><%=parlamentares[i].occupation%></div>
+                    <div class="profile-status bg-success text-center fw-bold">Em exercício <%=parlamentares[i].legislatura%></div>
+                  </div>
+                </a>
+              </div>
+            <% } %>
+          </div>
+
+        </div>
+      </div>
+
+      <%- include("../../partialViews/footer"); %>
+
+      <script src="/script/user/global/global.js"></script>
+      <script src="/script/user/parlamentar/parlamentar.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'perguntas'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Perguntas" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+            <!-- FILTROS -->
+            <div class="container-fluid">
+              <div class="row mx-0">
+                <div class="col-12 p-5 d-flex justify-content-end">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                      aria-describedby="button-addon2">
+
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card text m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Perguntas</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    É NECESSÁRIA LEI ESPECÍFICA PARA GARANTIR O ACESSO?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Sim. Diferentes leis promulgadas nos últimos anos ampliaram a
+                      interação entre o Estado e a Sociedade, mas a aprovação da Lei de
+                      Acesso a Informações foi necessária para regulamentar obrigações,
+                      procedimentos e prazos para a divulgação de informações pelas
+                      instituições públicas, garantindo a efetividade do direito de
+                      acesso. Ao estabelecer rotinas para o atendimento ao cidadão,
+                      organiza e protege o trabalho do servidor.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    TODA INFORMAÇÃO PRODUZIDA OU GERENCIADA PELO GOVERNO É PÚBLICA?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Como princípio geral, sim, salvaguardando-se as informações
+                      pessoais e as exceções previstas na lei. A informação produzida
+                      pelo setor público deve estar disponível a quem este serve, ou
+                      seja, à sociedade, a menos que esta informação esteja
+                      expressamente protegida. Daí a necessidade de regulamentação, para
+                      que fique claro quais informações são reservadas e por quanto
+                      tempo.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    QUAIS INSTITUIÇÕES PÚBLICAS DEVEM CUMPRIR A LEI?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Os órgãos e entidades públicas dos três Poderes (Executivo,
+                      Legislativo e Judiciário), de todos os níveis de governo (federal,
+                      estadual, distrital e municipal), assim como os Tribunais e Contas
+                      e o Ministério Público, bem como as autarquias, fundações
+                      públicas, empresas públicas, sociedades de economia mista e demais
+                      entidades controladas direta ou indiretamente pela União, Estados,
+                      Distrito Federal e Municípios.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    ENTIDADES PRIVADAS TAMBÉM ESTÃO SUJEITAS À LEI?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      As entidades privadas sem fins lucrativos que recebam recursos
+                      públicos para a realização de ações de interesse público,
+                      diretamente do orçamento ou por meio de subvenções sociais,
+                      contrato de gestão, termo de parceria, convênios, acordo, ajustes
+                      e outros instrumentos similares, devem divulgar informações sobre
+                      os recursos recebidos e sua destinação.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    O QUE SÃO INFORMAÇÕES PESSOAIS?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Informações pessoais são aquelas relacionadas à pessoa natural
+                      identificada ou identificável, cujo tratamento deve ser feito de
+                      forma transparente e com respeito à intimidade, vida privada,
+                      honra e imagem das pessoas, bem como às liberdades e garantias
+                      individuais. As informações pessoais terão seu acesso restrito,
+                      independentemente de classificação de sigilo, pelo prazo máximo de
+                      100 (cem) anos a contar da sua data de produção.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    O ATENDIMENTO À NOVA LEI NÃO EXIGIRÁ INVESTIMENTO EM CAPACITAÇÃO DO
+                    SERVIDOR?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Sim. A experiência de unidades que já trabalham diretamente com o
+                      público (como o INSS, Receita Federal, entre outras) mostra ser
+                      necessário o investimento em treinamento e informatização de
+                      sistemas. A gerência de informações é sempre um desafio e requer
+                      instrumentos de gestão adequados. A lei prevê a designação de um
+                      responsável em cada órgão da Administração por acompanhar a
+                      implementação das políticas definidas.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    PROGRAMAS DE GESTÃO DE ARQUIVOS E DOCUMENTOS PRECISARÃO SER
+                    APRIMORADOS?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      A informação disponível ao público é, muitas vezes, a ponta de um
+                      processo que reúne operações de produção, tramitação, uso,
+                      avaliação e arquivamento de documentos. Para tanto, programas de
+                      gestão precisam ser sempre aprimorados e atualizados.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    O PRAZO DE VINTE DIAS, PRORROGÁVEIS POR MAIS DEZ, PARA A ENTREGA DA
+                    RESPOSTA AO PEDIDO DE INFORMAÇÃO, NÃO É CURTO?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Os prazos são necessários para a garantia do direito ? a maior
+                      parte das leis de acesso à informação no mundo prevê uma
+                      delimitação de tempo, e a do Brasil não foge à regra. O prazo foi
+                      pensado para garantir um equilíbrio entre a necessidade do cidadão
+                      e a capacidade de entrega por parte da Administração.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    EM QUE CASOS O SERVIDOR PODE SER RESPONSABILIZADO?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text text-break">
+                      O servidor público é passível de responsabilização quando:
+                    </p>
+                    <p class="card-text m-0">
+                      recusar-se a fornecer informação requerida nos termos da Lei de
+                      Acesso a Informações, retardar deliberadamente o seu fornecimento
+                      ou fornecê-la intencionalmente de forma incorreta, incompleta ou
+                      imprecisa;
+                    </p>
+                    <p class="card-text m-0">
+                      utilizar indevidamente, bem como subtrair, destruir, inutilizar,
+                      desfigurar, alterar ou ocultar, total ou parcialmente, informação
+                      que se encontre sob sua guarda ou a que tenha acesso ou
+                      conhecimento em razão do exercício das atribuições de cargo,
+                      emprego ou função pública;
+                    </p>
+                    <p class="card-text m-0">
+                      agir com dolo ou má-fé na análise das solicitações de acesso à
+                      informação;
+                    </p>
+                    <p class="card-text m-0">
+                      adivulgar ou permitir a divulgação ou acessar ou permitir acesso
+                      indevido à informação sigilosa ou informação pessoal;
+                    </p>
+                    <p class="card-text m-0">
+                      impor sigilo à informação para obter proveito pessoal ou de
+                      terceiro, ou para fins de ocultação de ato ilegal cometido por si
+                      ou por outrem;
+                    </p>
+                    <p class="card-text m-0">
+                      ocultar da revisão de autoridade superior competente informação
+                      sigilosa para beneficiar a si ou a outrem, ou em prejuízo de
+                      terceiros; e
+                    </p>
+                    <p class="card-text">
+                      destruir ou subtrair, por qualquer meio, documentos concernentes a
+                      possíveis violações de direitos humanos por parte de agentes do
+                      Estado.
+                    </p>
+                    <p class="card-text text-break">
+                      Contudo, a nova lei estabelece um procedimento importante: nenhum
+                      servidor poderá ser responsabilizado civil, penal ou
+                      administrativamente por dar ciência, a quem de direito, de
+                      informação concernente à prática de crimes ou improbidade.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    E SE A PESSOA FIZER MAU USO DA INFORMAÇÃO PÚBLICA OBTIDA?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      Nos mais diversos países é consenso de que, ao constituir um
+                      direito básico, o pedido não precisa ser justificado: aquela
+                      informação solicitada já pertence ao requerente. O Estado apenas
+                      presta um serviço ao atender à demanda. De posse da informação
+                      (que afinal, é pública), cabe ao indivíduo escolher o que fará
+                      dela.
+                    </p>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header fw-bold fs-6">
+                    COMO SERÁ, EM CADA ÓRGÃO, O ACOMPANHAMENTO DA IMPLEMENTAÇÃO DA LEI
+                    DE ACESSO A INFORMAÇÃO?
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">
+                      De acordo com a Lei, o dirigente máximo de cada órgão da
+                      Administração Pública designará um responsável para acompanhar a
+                      implementação e desenvolvimento dos procedimentos previstos, bem
+                      como orientar sobre a aplicação das normas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

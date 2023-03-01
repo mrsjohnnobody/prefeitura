@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'licitacao'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Licitação" }); %>
+
+    <!-- TABS -->
+    <div class="px-5">
+        <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <div class="p-5">
+                <input id="licitacaoId" value="<%=licitacao.id%>" hidden>
+                <nav class="navLicitacao shadow-sm">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist" style="background-color: var(--secondary-color); color: white; border-radius: 5px 5px 0px 0px;">
+                        <button class="nav-link active item-nav-tab" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Informações principais</button>
+                        <button class="nav-link item-nav-tab" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Formas de publicação</button>
+                        <button class="nav-link item-nav-tab" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Responsáveis</button>
+                        <button class="nav-link item-nav-tab" id="nav-progress-tab" data-bs-toggle="tab" data-bs-target="#nav-progress" type="button" role="tab" aria-controls="nav-progress" aria-selected="false">Andamentos</button>
+                        <button class="nav-link item-nav-tab" id="nav-filesavailable-tab" data-bs-toggle="tab" data-bs-target="#nav-filesavailable" type="button" role="tab" aria-controls="nav-filesavailable" aria-selected="false">Arquivos disponíveis</button>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent" style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="p-5">
+                                <h4 class="fw-bold">Informações principais:</h4>
+                                
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Número do processo:</label>
+                                    <div class="col-10">
+                                        <%=licitacao.ProcessNumber ? licitacao.ProcessNumber : null%>
+                                    </div>
+                                </div>
+                                
+                                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="floatingTextarea" class="fw-bold">Tipo:</label>
+                                        <%=licitacao.Type ? licitacao.Type : null%>
+                                    </div>
+                                </div>
+
+                                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+                                
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="floatingTextarea" class="fw-bold">Data abertura:</label>
+                                        <%= licitacao.OpeningDate ? new Date(licitacao.OpeningDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                    </div>
+                                </div>
+
+                                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="floatingTextarea" class="fw-bold">Data da publicação do edital:</label>
+                                        <%= licitacao.PublicNoticeDate ? new Date(licitacao.PublicNoticeDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                    </div>
+                                </div>
+
+                                <div class="my-2" style="border-top: solid; border-color: #b7b3b3"></div>
+
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Informações do objeto:</label>
+                                    <div class="col-10">
+                                        <%=licitacao.Objective ? licitacao.Objective : null%>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="p-5 pb-2">
+
+                                <h4 class="fw-bold">Formas de publicação:</h4>
+
+                                <table id="tablePublicationForm" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-2 text-nowrap" scope="col">publicação</th>
+                                            <th class="col-5" scope="col">Tipo</th>
+                                            <th class="col-4" scope="col">Descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoPublicacaos.length; i++) {%>
+                                            <tr class="publicationFormTr notNewPublicationFormDate" id="addPublicationFormTrId_<%=licitacao.LicitacaoPublicacaos[i].id %>">
+                                                <th scope="row">
+                                                    <span class="publicationFormDate" id="addPublicationForm_<%=licitacao.LicitacaoPublicacaos[i].id %>">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Date ? new Date(licitacao.LicitacaoPublicacaos[i].Date).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="publicationFormType">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Type %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="publicationFormDescription">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Description %>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="p-5 pb-2">
+
+                                <h4 class="fw-bold">Informações dos responsáveis:</h4>
+
+                                <table id="tableResponsible" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-5 text-nowrap" scope="col">Responsabilidade</th>
+                                            <th class="col-6" scope="col">Agente</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoResponsaveis.length; i++) {%>
+                                            <tr id="addResponsibleTrId_<%=licitacao.LicitacaoResponsaveis[i].id %>" class="responsibleTr notNewResponsible">
+                                                <th scope="row">
+                                                    <span class="responsibleType">
+                                                        <%=licitacao.LicitacaoResponsaveis[i].Type %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="responsibleName">
+                                                        <%=licitacao.LicitacaoResponsaveis[i].Name %>
+                                                    </span>
+                                                    <input class="responsiblesInput form-control" type="text" value="<%=licitacao.LicitacaoResponsaveis[i].Name %>" hidden disabled readonly>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-progress" role="tabpanel" aria-labelledby="nav-progress-tab">
+                            <div class="p-5 pb-2">
+
+                                <h4 class="fw-bold">Informações dos andamentos:</h4>
+
+                                <table id="tableProgress" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-2 text-nowrap" scope="col">Data/Hora</th>
+                                            <th class="col-3" scope="col">Fase</th>
+                                            <th class="col-2" scope="col">Situação</th>
+                                            <th class="col-4" scope="col">Responsável</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoAndamentos.length; i++) {%>
+                                            <tr id="ProgressId_<%=licitacao.LicitacaoAndamentos[i].id %>" class="progressTr notNewProgress">
+                                                <th scope="row">
+                                                    <span class="ProgressDateTime">
+                                                        <%= licitacao.LicitacaoAndamentos[i].DateTime ? new Date(licitacao.LicitacaoAndamentos[i].DateTime).toLocaleString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressPhase">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Phase %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressSituation">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Situation %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressResponsible">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Responsible %>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="nav-filesavailable" role="tabpanel" aria-labelledby="nav-filesavailable-tab">
+                            <div class="p-5 pb-2">
+
+                                <h4 class="fw-bold">Arquivos disponíveis:</h4>
+
+                                <table id="tableFilesAvailable" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-8" scope="col">Descrição</th>
+                                            <th class="col-1" scope="col">Tamanho</th>
+                                            <th class="col-1" scope="col">Extensão</th>
+                                            <th class="col-1" scope="col">Arquivo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoFiles.length; i++) {%>
+                                            <tr id="FilesAvailableId_<%=licitacao.LicitacaoFiles[i].id %>" class="notNewFilesAvailable">
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Description %>
+                                                </th>
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Size %>
+                                                </th>
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Extension %>
+                                                </th>
+                                                <th scope="row">
+                                                    <a href="/<%=licitacao.LicitacaoFiles[i].Path %>" style="text-decoration: none;" target="_blank">
+                                                        <img title="Ver arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </nav>
+
+            </div>
+        <d/iv>
+    </div>
+
+      <%- include("../../partialViews/footer"); %>
+      <script src="/script/user/global/global.js"></script>
+
+  </body>
+  <style>
+    .nav-tabs .item-nav-tab{
+        color: white;
+        border: none
+    }
+    .nav-tabs .nav-link.active{
+        background-color: var(--primary-color);
+        color: white;
+        border: none
+    }
+    .nav-tabs .item-nav-tab:hover{
+        background-color: var(--primary-color);
+        border: none
+    }
+    nav .navLicitacao {
+        border: none
+    }
+    .licitacaoBtnEdit:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  </style>
+
+</html>

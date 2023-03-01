@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'ouvidoria'}); %>
+
+  <body style="font-family: 'Roboto', sans-serif;
+  ">
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Institucional-Ouvidoria" }); %>
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!-- FILTROS -->
+            <div class="container-fluid">
+              <div class="row mx-0">
+                <div class="col-12 p-5 d-flex justify-content-end">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                      aria-describedby="button-addon2">
+
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--TABLE-->
+            <div class="container-fluid">
+              <div class="card text m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Ouvidoria</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <p class="card-header text-center fw-bold fs-3">Formulário para Manifestação</p>
+                  <div class="card-body">
+                    <p class="card-text text-center fw-bold fs-5">Informações Pessoais</p>
+                    <p class="card-text">
+                    <form class="row g-3">
+                      <div class="col-md-6">
+                        <label for="inputName" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="inputName">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Sexo:</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option value="1">Masculino</option>
+                          <option value="2">Feminino</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputBirthDate" class="form-label">Data de Nascimento:</label>
+                        <input type="text" class="form-control" id="" placeholder="00/00/0000">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputBirthDate" class="form-label">Data de Nascimento:</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option value="1">ANALFABETO, INCLUSIVE O QUE, EMBORA TENHA RECEBIDO INSTRUÇÃO, NÃO SE
+                            ALFABETIZOU
+                          </option>
+                          <option value="2">ATÉ O 5º ANO INCOMPLETO DO ENSINO FUNDAMENTAL (ANTIGA 4ª SÉRIE) QUE SE TENHA
+                            ALFABETIZADO SEM TER FREQÜENTADO ESCOLA REGULAR</option>
+                          <option value="3">5º ANO COMPLETO DO ENSINO FUNDAMENTAL</option>
+                          <option value="4">DO 6º AO 9º ANO DO ENSINO FUNDAMENTAL INCOMPLETO (ANTIGA 5ª À 8ª SÉRIE)
+                          </option>
+                          <option value="5">ENSINO FUNDAMENTAL COMPLETO</option>
+                          <option value="6">ENSINO MÉDIO INCOMPLETO</option>
+                          <option value="7">ENSINO MÉDIO COMPLETO</option>
+                          <option value="8">EDUCAÇÃO SUPERIOR INCOMPLETA</option>
+                          <option value="9">EDUCAÇÃO SUPERIOR COMPLETA</option>
+                          <option value="10">PÓS GRADUAÇÃO INCOMPLETA</option>
+                          <option value="11">PÓS GRADUAÇÃO COMPLETA</option>
+                          <option value="12">MESTRADO COMPLETO</option>
+                          <option value="13">DOUTORADO COMPLETO</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Endereço:</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Rua, Nº">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputBairro" class="form-label">Bairro</label>
+                        <input type="text" class="form-control" id="inputBairro">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputState" class="form-label">Estado:</label>
+                        <select id="inputState" class="form-select">
+                          <option selected></option>
+                          <option value='AC'>Acre</option>
+                          <option value='AL'>Alagoas</option>
+                          <option value='AP'>Amapá</option>
+                          <option value='AM'>Amazonas</option>
+                          <option value='BA'>Bahia</option>
+                          <option value='CE'>Ceará</option>
+                          <option value='DF'>Distrito Federal</option>
+                          <option value='ES'>Espírito Santo</option>
+                          <option value='GO'>Goiás</option>
+                          <option value='MA'>Maranhão</option>
+                          <option value='MT'>Mato Grosso</option>
+                          <option value='MG'>Minas Gerais</option>
+                          <option value='PA'>Pará</option>
+                          <option value='PB'>Paraíba</option>
+                          <option value='PR'>Paraná</option>
+                          <option value='PE'>Pernambuco</option>
+                          <option value='PI'>Piauí</option>
+                          <option value='RJ'>Rio de Janeiro</option>
+                          <option value='RN'>Rio Grande do Norte</option>
+                          <option value='RS'>Rio Grande do Sul</option>
+                          <option value='SC'>Rondônia</option>
+                          <option value='RR'>Santa Catarina</option>
+                          <option value='SP'>São Paulo</option>
+                          <option value='SE'>Sergipe</option>
+                          <option value='TO'>Tocantins</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputState" class="form-label">Município:</label>
+                        <select id="inputState" class="form-select">
+                          <option hidden>...</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputEmail" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="inputEmail">
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputTelefone" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="inputTelefone">
+                      </div>
+                    </form>
+                    </p>
+                    <p class="card-text text-center fw-bold fs-5">Informações da Manifestação</p>
+                    <p class="card-text">
+                    <form class="row g-3">
+                      <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Secretaria:</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option value="1">CÂMARA MUNICIPAL DE CRATEÚS</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="inputPassword4" class="form-label">Natureza:</label>
+                        <select class="form-select" aria-label="Default select example">
+                          <option selected></option>
+                          <option value="1">
+                            CRÍTICAS
+                          </option>
+                          <option value="2">
+                            DENÚNCIAS
+                          </option>
+                          <option value="3">
+                            DÚVIDAS
+                          </option>
+                          <option value="4">
+                            ELOGIOS
+                          </option>
+                          <option value="5">
+                            FALE CONOSCO
+                          </option>
+                          <option value="6">
+                            OUTROS
+                          </option>
+                          <option value="7">
+                            RECLAMAÇÕES
+                          </option>
+                          <option value="8">
+                            SERVIÇOS
+                          </option>
+                          <option value="9">
+                            SOLICITAÇÕES
+                          </option>
+                          <option value="10">
+                            SUGESTÕES
+                          </option>
+                          <option value="11">
+                            URGÊNCIAS
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label for="inputAddress" class="form-label">Mensagem:</label>
+                        <textarea class="form-control" id="inputMessage" rows="6" placeholder=""></textarea>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck">
+                          <label class="form-check-label" for="gridCheck">
+                            <p class="mb-0">Concordo que os dados fornecidos acima serão tratados com respeito à minha
+                              privacidade.</p>
+                            <p class="mt-0">Seguindo a LGPD - Lei Geral de Proteção de Dados 13.709, de 14 de agosto de
+                              2018.</p>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <label for="formFile" class="form-label">Anexo:</label>
+                        <input class="form-control" type="file" id="formFile">
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Enviar manifestação</button>
+                      </div>
+                    </form>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

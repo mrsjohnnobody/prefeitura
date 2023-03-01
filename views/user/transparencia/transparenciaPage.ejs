@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'transparencia'}); %>
+
+<body>
+  <%- include("../../partialViews/header"); %>
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Transparencia' }); %>
+
+      <div class="row mx-5 mb-3 p-5 pt-3 mt-4 shadow-sm" style="background-color: #e9e9e9; border-radius: 8px">
+        <!-- CANAIS DE ATENDIMENTO -->
+        <div>
+          <h4 class="fw-bold d-flex justify-content-center">
+            CANAIS DE ATENDIMENTO
+          </h4>
+          <p class="d-flex justify-content-center">
+            Lei Nº 12.527 (Acesso a Informação)
+          </p>
+        </div>
+
+        <div class="row px-5">
+          <div class="col-6">
+            <div class="row">
+              <a href="/eSic"
+                class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+                <img title="SISTEMA ELETRÔNICO DE INFORMAÇÃO AO CIDADÃO" src="/icons/info-circle-fill.svg"
+                  alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">E-SIC SISTEMA ELETRÔNICO DE INFORMAÇÃO AO CIDADÃO</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/ouvidoria"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3">
+                <img title="OUVIDORIA" src="/icons/telephone-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">OUVIDORIA</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <a href="/faleConosco"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 14.5rem">
+                <img title="FALE CONOSCO" src="/icons/chat-dots-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">FALE CONOSCO</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECEITAS E DESPESAS -->
+        <div class="mt-5">
+          <h4 class="fw-bold d-flex justify-content-center">
+            RECEITAS E DESPESAS
+          </h4>
+          <p class="d-flex justify-content-center">
+            Lei Nº 12.527 (Acesso a Informação) - Lei Complementar Nº 131
+            (Transparência)
+          </p>
+        </div>
+
+        <div class="row px-5">
+          <div class="row">
+            <a href="http://sstransparenciamunicipal.net:90/transparencia/index.html?e=10" target="blank"
+              class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3">
+              <img title="RECEITAS" src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="50rem" />
+              &nbsp;
+              <span class="fw-bold">RECEITAS</span>
+            </a>
+          </div>
+          <div class="row">
+            <a href="http://sstransparenciamunicipal.net:90/transparencia/index.html?e=10" target="blank"
+              class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3">
+              <img title="DESPESAS" src="/icons/dash-circle-fill.svg" alt="Arquivo PDF" height="50rem" />
+              &nbsp;
+              <span class="fw-bold">DESPESAS</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- ATOS, PUBLICAÇÕES, PESSOAL, COMPRAS E CONVÊNIOS -->
+        <div class="mt-5">
+          <h4 class="fw-bold d-flex justify-content-center">
+            ATOS, PUBLICAÇÕES, PESSOAL, COMPRAS E CONVÊNIOS
+          </h4>
+          <p class="d-flex justify-content-center">
+            Lei Nº 12.527 (Acesso a Informação)
+          </p>
+        </div>
+
+        <div class="row px-5 align-items-center">
+          <a href="http://www.sstransparenciamunicipal.net:90/transparencia/transparenciaisapi.dll/0fjudmxTQeMfSlnHoYg3-q/PESSOAL"
+            target="blank"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="DETALHAMENTO PESSOAL" src="/icons/person-video2.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">DETALHAMENTO PESSOAL</span>
+          </a>
+          <a href="/licitacoes"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="LICITAÇÕES" src="/icons/tag-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">LICITAÇÕES</span>
+          </a>
+          <a href="/contratos"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="CONTRATOS" src="/icons/briefcase-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">CONTRATOS</span>
+          </a>
+        </div>
+        <div class="row px-5 align-items-center">
+          <a href="/leis"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="LEIS" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">LEIS</span>
+          </a>
+          <a href="/veiculos"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="VEÍCULOS" src="/icons/car-front-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">VEÍCULOS</span>
+          </a>
+          <a href="/decretos"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="DECRETOS" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">DECRETOS</span>
+          </a>
+        </div>
+        <div class="row px-5 align-items-center">
+          <a href="/portarias"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="PORTARIAS" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">PORTARIAS</span>
+          </a>
+          <a href="/diarias"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="DIÁRIAS" src="/icons/calendar-day-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">DIÁRIAS</span>
+          </a>
+          <a href="/publicacoes"
+            class="transparency col d-flex align-items-center justify-content-center mb-2 border border-2 rounded-3">
+            <img title="PUBLICAÇÕES" src="/icons/file-earmark-pdf-fill.svg" alt="Arquivo PDF" height="50rem" />
+            &nbsp;
+            <span class="fw-bold">PUBLICAÇÕES</span>
+          </a>
+        </div>
+
+        <!-- LRF - LEI DE RESPONSABILIDADE FISCAL E CONTAS PÚBLICAS -->
+        <div class="mt-5">
+          <h4 class="fw-bold d-flex justify-content-center">
+            LRF - LEI DE RESPONSABILIDADE FISCAL E CONTAS PÚBLICAS
+          </h4>
+          <p class="d-flex justify-content-center">
+            Lei complementar Nº 101 (Transparência)
+          </p>
+        </div>
+
+        <div class="row px-5">
+          <div class="col-6">
+            <div class="row">
+              <a href="/prestacaocontas"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="PRESTAÇÃO DE CONTAS DE GESTÃO" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF"
+                  height="50rem" />
+                &nbsp;
+                <span class="fw-bold">PRESTAÇÃO DE CONTAS DE GESTÃO</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="row">
+              <a href="/gestaofiscal"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="LRF - RREO, RGF, LOA, PPA, PRGFIN" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF"
+                  height="50rem" />
+                &nbsp;
+                <span class="fw-bold">LRF - RREO, RGF, LOA, PPA, PRGFIN</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGISLATIVO -->
+        <div class="mt-5">
+          <h4 class="fw-bold d-flex justify-content-center">LEGISLATIVO</h4>
+          <p class="d-flex justify-content-center">
+            Lei Nº 12.527 (Acesso a Informação)
+          </p>
+        </div>
+
+        <div class="row px-5">
+          <div class="col-2">
+            <div class="row">
+              <a href="/camara"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="A CÂMARA" src="/icons/bank2.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">A CÂMARA</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/commission"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="COMISSÕES" src="/icons/people-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">COMISSÕES</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row">
+              <a href="/perguntas"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="PERGUNTAS" src="/icons/question-circle-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">PERGUNTAS</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/legislatura"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="LEGISLATURA" src="/icons/person-video2.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">LEGISLATURA</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row">
+              <a href="/sessoes"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="SESSÕES" src="/icons/mic-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">SESSÕES</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/mapaSite"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="MAPA DO SITE" src="/icons/diagram-3-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">MAPA DO SITE</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row">
+              <a href="/parlamentar"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="VEREADORES" src="/icons/person-video2.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">VEREADORES</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/materias"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="MATERIAS" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">MATERIAS</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row">
+              <a href="/dadosAbertos"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="DADOS ABERTOS" src="/icons/pie-chart-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">DADOS ABERTOS</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/mesadiretora"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="MESA DIRETORA" src="/icons/people-fill.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">MESA DIRETORA</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-2">
+            <div class="row">
+              <a href="/regimento"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="REGIMENTO INTERNO" src="/icons/file-earmark-text-fill.svg" alt="Arquivo PDF"
+                  height="50rem" />
+                &nbsp;
+                <span class="fw-bold">REGIMENTO INTERNO</span>
+              </a>
+            </div>
+            <div class="row">
+              <a href="/glossario"
+                class="transparency col d-flex align-items-center justify-content-center border border-2 rounded-3"
+                style="height: 10rem">
+                <img title="GLOSSÁRIO" src="/icons/book-half.svg" alt="Arquivo PDF" height="50rem" />
+                &nbsp;
+                <span class="fw-bold">GLOSSÁRIO</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include("../../partialViews/footer"); %>
+      
+      <script src="/script/user/global/global.js"></script>
+</body>
+<style>
+  .transparency {
+    background-color: var(--primary-color);
+    height: 7rem;
+    width: 14rem;
+    margin-right: 3px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .transparency:hover {
+    border: 2px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    color: white;
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -o-transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    transform: scale(1.01);
+  }
+</style>
+
+</html>

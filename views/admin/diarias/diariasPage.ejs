@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'diarias' }); %>
+
+<body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %>
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+        <div class="row">
+            <div class="col-3">
+                <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Diárias' })%>
+            </div>
+            <!-- CONTENT PAGE -->
+            <div class="col-9" style="background-color: var(--background-color);">
+
+                <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                            aria-describedby="button-addon2">
+
+                        <a href="#" type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#addDiariaModal">
+                            <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg"
+                                alt="Arquivo PDF" height="20rem">
+                            Diária
+                        </a>
+                    </div>
+                </div>
+
+                <!--TABLE-->
+                <div class="card text-center m-5 my-0 d-flex justify-content-center shadow">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3>
+                                    Diárias
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="diariasTable" class="table table-bordered">
+                            <thead class="table">
+                                <tr>
+                                    <th class="col-1" scope="col">N°</th>
+                                    <th class="col-2" scope="col">Data</th>
+                                    <th class="col-6" scope="col">Beneficiário / Descrição</th>
+                                    <th class="col-2" scope="col">Valor total</th>
+                                    <th class="col-1" scope="col">Ver</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diariasItems">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--PAGINATION-->
+                <input hidden id="totalPage" value="<%=pagination ? parseInt(pagination.totalPage) : 0 %>" />
+                <input hidden id="currentPage" value="<%=pagination ? parseInt(pagination.currentPage) : 0 %>" />
+                <input hidden id="totalItems" value="<%=pagination ? parseInt(pagination.totalItems) : 0 %>" />
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="row">
+                        <div class="col-10 p-3 pb-2 pt-5 d-flex justify-content">
+                            <nav aria-label="Page navigation">
+                                <ul id="pagination" class="pagination justify-content-center"></ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal ADD DIARIA-->
+                <div class="modal fade" id="addDiariaModal" tabindex="-1" aria-labelledby="addDiariaLabel"
+                    aria-hidden="true" style="color: black">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addDiariaLabel">Cadastrar Diária</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="createDiariaForm" class="needs-validation" enctype="multipart/form-data">
+                                    <div class="mb-1">
+                                        <div class="row">
+                                            <h5 class="mt-1">Selecione um arquivo em formato PDF</h5>
+                                            <div class="input-group my-3">
+                                                <input class="form-control" type="file" name="pdfFile" class="form-control">
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="nomeAgente" class="col-form-label">Nome do Agente: (obrigatório)</label>
+                                                <input name="nomeAgente" required type="text" class="form-control" id="nomeAgente" />
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="cargoAgente" class="col-form-label">Cargo do Agente: (obrigatório)</label>
+                                                <input name="cargoAgente" required type="text" class="form-control" id="cargoAgente" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="numero" class="col-form-label">Número da diária: (obrigatório)</label>
+                                                <input name="numero" required type="text" class="form-control" id="numero" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="dataPortaria" class="col-form-label">Data da portaria:</label>
+                                                <input name="dataPortaria" type="date" class="form-control" id="dataPortaria" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="dataInicial" class="col-form-label">Data Inicial:</label>
+                                                <input name="dataInicial" type="date" class="form-control" id="dataInicial" />
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="dataFinal" class="col-form-label">Data Final:</label>
+                                                <input name="dataFinal" type="date" class="form-control" id="dataFinal" />
+                                            </div>
+                                            <div>
+                                                <label for="descricao" class="col-form-label">Descricao:</label>
+                                                <textarea name="descricao" type="text" rows="3" class="form-control" id="descricao"></textarea>
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="valorUnitario" class="col-form-label">Valor Unitário:</label>
+                                                <input id="valorUnitario" name="valorUnitario" placeholder="R$ 0,00" class="form-control" type="text">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="quantidade" class="col-form-label">Quantidade:</label>
+                                                <input id="quantidade" name="quantidade" placeholder="0.00" class="form-control" type="text">
+                                            </div>
+                                            <div>
+                                                <label for="valorTotal" class="col-form-label">Valor Total: (obrigatório)</label>
+                                                <input id="valorTotal" required name="valorTotal" placeholder="R$ 0,00" class="form-control" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Fechar</button>
+                                        <button id="btnSubmit" type="submit" class="btn btn-success">Cadastrar
+                                            sessão</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal DELETE DIARIA-->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Excluir Diária</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Realmente deseja excluir esta diária?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/diarias/diarias.js"></script>
+</body>
+</html>

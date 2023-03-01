@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'parlamentaresHistorico'}); %>
+
+<body>
+  <%- include("../../partialViews/header"); %>
+    <%- include("../../partialViews/navbar", {activeNavItem: 'Legislativo-Historico' }); %>
+
+      <div class="px-5">
+        <div class="row mx-5 mb-5 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+          <!-- FILTROS -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-5 m-1 d-flex justify-content-end">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Pesquisar por nome, cargo, email" aria-label="Pesquisar"
+                    aria-describedby="button-addon2">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LISTA PARLAMENTAR EM EXERCICIO-->
+          <div class="container-fluid px-5">
+            <div id="parlamentarFilter" class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+              <% for(var i=0; i < parlamentaresAtuais.length; i++) {%>
+                <div class="col-xl-4 col-12 col-lg-6">
+                  <a href="/user/parlamentar/<%= parlamentaresAtuais[i].id %>" style="text-decoration: none; color: inherit;">
+                    <div class="profile-card-2">
+                      <img src="/<%=parlamentaresAtuais[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                      <div class="profile-name"><%=parlamentaresAtuais[i].nickname ? parlamentaresAtuais[i].nickname : parlamentaresAtuais[i].name%></div>
+                      <div class="profile-occupation"><%=parlamentaresAtuais[i].occupation%></div>
+                      <div class="profile-status bg-success text-center fw-bold">Em exercício <%=parlamentaresAtuais[i].legislatura%></div>
+                    </div>
+                  </a>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- LISTA PARLAMENTAR ANTIGOS-->
+          <div class="container-fluid px-5">
+            <div id="parlamentarFilter" class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+              <% for(var i=0; i < parlamentaresAntigos.length; i++) {%>
+                <div class="col-xl-4 col-12 col-lg-6">
+                  <a href="/user/parlamentar/<%= parlamentaresAntigos[i].id %>" style="text-decoration: none; color: inherit;">
+                    <div class="profile-card-2">
+                      <img src="/<%=parlamentaresAntigos[i].image%>" alt="Foto do parlamentar" class="img-fluid">
+                      <div class="profile-name"><%=parlamentaresAntigos[i].nickname ? parlamentaresAntigos[i].nickname : parlamentaresAntigos[i].name%></div>
+                      <div class="profile-occupation"><%=parlamentaresAntigos[i].occupation%></div>
+                      <div class="profile-status bg-secondary text-center fw-bold">Legislatura: <%=parlamentaresAntigos[i].legislatura%></div>
+                    </div>
+                  </a>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <%- include("../../partialViews/footer"); %>
+
+      <script src="/script/user/global/global.js"></script>
+      <script src="/script/user/parlamentar/parlamentar.js"></script>
+</body>
+
+</html>

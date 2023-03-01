@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'diarias', camara }); %>
+
+<body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %>
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+        <div class="row">
+            <div class="col-3">
+                <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Diárias', camara })%>
+            </div>
+            <!-- CONTENT PAGE -->
+            <div class="col-9" style="background-color: var(--background-color);">
+
+                <button id="btn_back" class="btn btn-primary mt-2">Voltar</button>
+                
+                <!--TABLE-->
+                <div class="card m-5 mt-3 d-flex justify-content">
+                    <div class="card-header" style="background-color: var(--secondary-color);color: white;"><span class="fw-bold">Informações da diária</span> </div>
+                    <div class="card-body">
+                        <span class="fw-bold">Data da Portaria:</span> <%= diaria.DataPortaria ? new Date(diaria.DataPortaria).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %> 
+                        <hr >
+
+                        <span class="fw-bold">Agente:</span> <%= diaria.NomeAgente %> 
+                        <hr >
+
+                        <span class="fw-bold">Cargo:</span> <%= diaria.CargoAgente %> 
+                        <hr >
+
+                        <span class="fw-bold">Descrição:</span> <%= diaria.Descricao %> 
+                        <hr >
+
+                        <span class="fw-bold">Data Inicial:</span> <%= diaria.DataInicial ? new Date(diaria.DataInicial).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %> 
+                        <hr >
+
+                        <span class="fw-bold">Data Final:</span> <%= diaria.DataFinal ? new Date(diaria.DataFinal).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %> 
+                        <hr >
+
+                        <span class="fw-bold">Quantidade:</span> <%= diaria.Quantidade %> 
+                        <hr >
+
+                        <span class="fw-bold">Valor Unitário:</span> <%= diaria.ValorUnitario %> 
+                        <hr >
+
+                        <span class="fw-bold">Valor Total:</span> <%= diaria.ValorTotal %> 
+                        <hr >
+
+                        <span class="fw-bold">Documento anexado:</span>
+                        <% if (diaria.Path) { %>
+                            <a href="/<%=diaria.Path%>" class="btn btn-danger" target="_blank">Ver arquivo</a> 
+                            <hr >
+                        <% } %>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/script/admin/global/global.js"></script>
+    <script>
+        $("#btn_back").click(function () {
+            window.history.back()
+        })
+    </script>
+</body>
+</html>

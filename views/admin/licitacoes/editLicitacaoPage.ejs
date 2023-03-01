@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'editLicitacao'}); %> 
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+        <div class="row">
+          <div class="col-3">
+            <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Licitações' })%>
+          </div>
+          <!-- CONTENT PAGE -->
+          <div class="col-9" style="background-color: var(--background-color);">
+
+            <div class="card text-center m-5 mb-0 d-flex justify-content-center" style="border-style: solid;border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>
+                        EDIÇÃO DE LICITAÇÃO
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- TABS -->
+            <div class="p-5 pt-0 pb-0">
+                <input id="licitacaoId" value="<%=licitacao.id%>" hidden>
+                <nav class="navLicitacao shadow-sm">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist" style="background-color: var(--secondary-color); color: white; border-radius: 5px 5px 0px 0px;">
+                        <button class="nav-link active item-nav-tab" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Informações principais</button>
+                        <button class="nav-link item-nav-tab" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Formas de publicação</button>
+                        <button class="nav-link item-nav-tab" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Responsáveis</button>
+                        <button class="nav-link item-nav-tab" id="nav-progress-tab" data-bs-toggle="tab" data-bs-target="#nav-progress" type="button" role="tab" aria-controls="nav-progress" aria-selected="false">Andamentos</button>
+                        <button class="nav-link item-nav-tab" id="nav-filesavailable-tab" data-bs-toggle="tab" data-bs-target="#nav-filesavailable" type="button" role="tab" aria-controls="nav-filesavailable" aria-selected="false">Arquivos disponíveis</button>
+                    </div>
+                    <div class="tab-content" id="nav-tabContent" style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="p-5">
+                                <h4 class="fw-bold">Informações principais:</h4>
+                                
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Número do processo:</label>
+                                    <div class="col-10">
+                                        <input id="processNumber" class="form-control" type="text" value="<%=licitacao.ProcessNumber ? licitacao.ProcessNumber : null%>" aria-label="Disabled input example" disabled readonly>
+                                    </div>
+                                    <div class="col-2">
+                                        <a href="#" id="editProcessNumber">
+                                            <img class="licitacaoBtnEdit" title="Editar número do processo" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                        </a>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Tipo:</label>
+                                    <div class="col-10">
+                                        <select id="type" name="modality" required class="form-select" aria-label=".form-select-sm" disabled readonly>
+                                            <option value="" <%=licitacao.Type ?  null : "selected" %> >Selecione</option>
+                                            <option value="1" <%=licitacao.Type == "Menor Preço" ?  "selected" :  null%> >Menor preço</option>
+                                            <option value="2" <%=licitacao.Type == "Maior lance ou oferta" ?  "selected" :  null%> >Maior lance ou oferta</option>
+                                            <option value="3" <%=licitacao.Type == "Melhor técnica" ?  "selected" :  null%> >Melhor técnica</option>
+                                            <option value="4" <%=licitacao.Type == "Técnica e preço" ?  "selected" :  null%> >Técnica e preço</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-2" id="editType">
+                                        <img class="licitacaoBtnEdit" title="Editar Licitação" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Data abertura:</label>
+                                    <div class="col-10">
+                                        <input id="openingDate" class="form-control" type="date" value="<%=licitacao.OpeningDate ? licitacao.OpeningDate : null%>" aria-label="Disabled input example" disabled readonly>
+                                    </div>
+                                    <div class="col-2" id="editOpeningDate">
+                                        <img class="licitacaoBtnEdit" title="Editar Licitação" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Data da publicação do edital:</label>
+                                    <div class="col-10">
+                                        <input id="publicationDate" class="form-control" type="date" value="<%=licitacao.PublicNoticeDate ? licitacao.PublicNoticeDate : 0000-00-00%>" aria-label="Disabled input example" disabled readonly>
+                                    </div>
+                                    <div class="col-2" id="editPublicationDate">
+                                        <img class="licitacaoBtnEdit" title="Editar Licitação" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <label for="floatingTextarea" class="fw-bold">Informações do objeto:</label>
+                                    <div class="col-10">
+                                        <textarea id="objectInformation" class="form-control" id="floatingTextarea2" style="height: 100px" disabled readonly
+                                        ><%=licitacao.Objective ? licitacao.Objective : null%></textarea>
+                                    </div>
+                                    <div class="col-2" id="editObjectInformation">
+                                        <img class="licitacaoBtnEdit" title="Editar Licitação" src="/icons/pencil-fill.svg" alt="Editar Licitação" height="20rem">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+        
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="p-5">
+        
+                                <h4 class="fw-bold">Formas de publicação:</h4>
+        
+                                <table id="tablePublicationForm" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-2 text-nowrap" scope="col">publicação</th>
+                                            <th class="col-5" scope="col">Tipo</th>
+                                            <th class="col-4" scope="col">Descrição</th>
+                                            <th class="col-1" scope="col">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoPublicacaos.length; i++) {%>
+                                            <tr class="publicationFormTr notNewPublicationFormDate" id="addPublicationFormTrId_<%=licitacao.LicitacaoPublicacaos[i].id %>">
+                                                <th scope="row">
+                                                    <span class="publicationFormDate" id="addPublicationForm_<%=licitacao.LicitacaoPublicacaos[i].id %>">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Date ? new Date(licitacao.LicitacaoPublicacaos[i].Date).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="publicationFormType">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Type %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="publicationFormDescription">
+                                                        <%= licitacao.LicitacaoPublicacaos[i].Description %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row d-flex justify-content-center">
+                                                    <a href="#" style="text-decoration: none;" onclick="removeRowForPublicationFormTable('<%= licitacao.LicitacaoPublicacaos[i].id %>')">
+                                                        <img class="licitacaoBtnEdit" title="Remover item" src="/icons/x-circle-fill.svg" alt="Editar Licitação" height="20rem">
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <div class="justify-content-end">
+                                    <button id="addPublicationForm" type="button" class="btn btn-success m-0">
+                                        <img src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="20rem">
+                                        &nbsp;
+                                        Adicionar nova forma de publicação
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div class="p-5">
+        
+                                <h4 class="fw-bold">Informações dos responsáveis:</h4>
+        
+                                <table id="tableResponsible" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-5 text-nowrap" scope="col">Responsabilidade</th>
+                                            <th class="col-6" scope="col">Agente</th>
+                                            <th class="col-1" scope="col">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoResponsaveis.length; i++) {%>
+                                            <tr id="addResponsibleTrId_<%=licitacao.LicitacaoResponsaveis[i].id %>" class="responsibleTr notNewResponsible">
+                                                <th scope="row">
+                                                    <span class="responsibleType">
+                                                        <%=licitacao.LicitacaoResponsaveis[i].Type %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="responsibleName">
+                                                        <%=licitacao.LicitacaoResponsaveis[i].Name %>
+                                                    </span>
+                                                    <input class="responsiblesInput form-control" type="text" value="<%=licitacao.LicitacaoResponsaveis[i].Name %>" hidden disabled readonly>
+                                                </th>
+                                                <th scope="row">
+                                                    <a href="#" style="text-decoration: none;" onclick="removeRowForResponsibleTable('<%=licitacao.LicitacaoResponsaveis[i].id %>')">
+                                                        <img title="Remover item" src="/icons/x-circle-fill.svg" alt="Editar Licitação" height="20rem">
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <div class="justify-content-end">
+                                    <button id="addResponsible" type="button" class="btn btn-success m-0">
+                                        <img src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="20rem">
+                                        &nbsp;
+                                        Adicionar novo responsável
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="tab-pane fade" id="nav-progress" role="tabpanel" aria-labelledby="nav-progress-tab">
+                            <div class="p-5">
+        
+                                <h4 class="fw-bold">Informações dos andamentos:</h4>
+        
+                                <table id="tableProgress" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-2 text-nowrap" scope="col">Data/Hora</th>
+                                            <th class="col-3" scope="col">Fase</th>
+                                            <th class="col-2" scope="col">Situação</th>
+                                            <th class="col-4" scope="col">Responsável</th>
+                                            <th class="col-1" scope="col">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoAndamentos.length; i++) {%>
+                                            <tr id="ProgressId_<%=licitacao.LicitacaoAndamentos[i].id %>" class="progressTr notNewProgress">
+                                                <th scope="row">
+                                                    <span class="ProgressDateTime">
+                                                        <%= licitacao.LicitacaoAndamentos[i].DateTime ? new Date(licitacao.LicitacaoAndamentos[i].DateTime).toLocaleString('pt-BR', { timeZone: 'UTC' }) : null %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressPhase">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Phase %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressSituation">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Situation %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <span class="ProgressResponsible">
+                                                        <%=licitacao.LicitacaoAndamentos[i].Responsible %>
+                                                    </span>
+                                                </th>
+                                                <th scope="row">
+                                                    <a href="#" style="text-decoration: none;" id="editObjectInformation" onClick="removeRowForProgess('<%=licitacao.LicitacaoAndamentos[i].id %>')">
+                                                        <img class="licitacaoBtnEdit" title="Editar Licitação" src="/icons/x-circle-fill.svg" alt="Editar Licitação" height="20rem">
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                                <div class="justify-content-end">
+                                    <button id="addProgress" type="button" class="btn btn-success m-0">
+                                        <img src="/icons/plus-circle-fill.svg" alt="Adicionar andamento" height="20rem">
+                                        &nbsp;
+                                        Adicionar novo andamento
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="tab-pane fade" id="nav-filesavailable" role="tabpanel" aria-labelledby="nav-filesavailable-tab">
+                            <div class="p-5">
+        
+                                <h4 class="fw-bold">Arquivos disponíveis:</h4>
+        
+                                <table id="tableFilesAvailable" class="table table-bordered table-striped" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="table" style="background-color:var(--secondary-color); color: white">
+                                        <tr>
+                                            <th class="col-8" scope="col">Descrição</th>
+                                            <th class="col-1" scope="col">Tamanho</th>
+                                            <th class="col-1" scope="col">Extensão</th>
+                                            <th class="col-1" scope="col">Arquivo</th>
+                                            <th class="col-1" scope="col">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="color:var(--secondary-color) color">
+                                        <% for(var i=0; i < licitacao.LicitacaoFiles.length; i++) {%>
+                                            <tr id="FilesAvailableId_<%=licitacao.LicitacaoFiles[i].id %>" class="notNewFilesAvailable">
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Description %>
+                                                </th>
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Size %>
+                                                </th>
+                                                <th scope="row">
+                                                    <%=licitacao.LicitacaoFiles[i].Extension %>
+                                                </th>
+                                                <th scope="row">
+                                                    <a href="/<%=licitacao.LicitacaoFiles[i].Path %>" style="text-decoration: none;" target="_blank">
+                                                        <img title="Ver arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
+                                                    </a>
+                                                </th>
+                                                <th scope="row">
+                                                    <span style="cursor: pointer;" onclick="removeRowForFilesAvailable('<%=licitacao.LicitacaoFiles[i].id %>')">
+                                                        <img title="Remover arquivo" src="/icons/x-circle-fill.svg" alt="Remover arquivo" height="20rem">
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        <% } %>
+                                        <tr id="filesUpload" class="notNewFilesAvailable"> 
+                                            <th scope="row" colspan="3"> 
+                                                <div class="input-group">
+                                                    <form id="formUploadFiles" enctype="multipart/form-data">
+                                                        <input class="form-control" type="file" id="files" name="uploadFiles[]" multiple/> 
+                                                    </form> 
+                                                </div>
+                                            </th> 
+                                            <th> 
+                                            </th> 
+                                            <th> 
+                                            </th> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+        
+                    </div>
+                </nav>
+        
+            </div>
+            <div class="row p-5 pt-0 m-3 mt-2">
+                <div class="col-8"></div>
+                <div class="col-4 d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger m-0 me-3">
+                        Cancelar edição
+                    </button>
+                    <button id="btnSendRequest" type="button" class="btn btn-success m-0">
+                        <img title="Abrir documento principal" src="/icons/send-fill.svg" alt="Arquivo PDF" height="20rem">
+                        Salvar alterações
+                    </button>
+                </div>
+            </div>
+        
+            <!-- MODAL REMOVER FORMA DE PUBLICAÇÃO -->
+            <div class="modal fade" id="removePublicationFormModal" tabindex="-1" aria-labelledby="removePublicationFormModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removePublicationFormModalLabel">Remover forma de publicação</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Realmente deseja remover esta forma de publicação?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button id="btnRemovePublicationFormModal" type="button" class="btn btn-danger">Remover</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- MODAL REMOVER RESPONSÁVEL -->
+            <div class="modal fade" id="removeResponsibleModal" tabindex="-1" aria-labelledby="removeResponsibleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeResponsibleModalLabel">Remover responsável</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Realmente deseja remover este responsável?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button id="btnRemoveResponsibleModal" type="button" class="btn btn-danger">Remover</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- MODAL REMOVER ANDAMENTOS -->
+            <div class="modal fade" id="removeProgressModal" tabindex="-1" aria-labelledby="removeProgressModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeProgressModalLabel">Remover andamento</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Realmente deseja remover este andamento?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button id="btnRemoveProgressModal" type="button" class="btn btn-danger">Remover</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- MODAL REMOVER ARQUIVOS -->
+            <div class="modal fade" id="removeFilesAvailableModal" tabindex="-1" aria-labelledby="removeFilesAvailableModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="removeFilesAvailableModalLabel">Remover arquivo</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Realmente deseja remover este arquivo?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button id="btnRemoveFilesAvailableModal" type="button" class="btn btn-danger">Remover</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+          </div>
+        </div>
+    </div>
+
+
+    <script src="/script/admin/global/global.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/licitacoes/editLicitacao.js"></script>
+
+    <!--link datepicker-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js'></script>
+    
+  </body>
+  <style>
+    .nav-tabs .item-nav-tab{
+        color: white;
+        border: none
+    }
+    .nav-tabs .nav-link.active{
+        background-color: var(--primary-color);
+        color: white;
+        border: none
+    }
+    .nav-tabs .item-nav-tab:hover{
+        background-color: var(--primary-color);
+        border: none
+    }
+    nav .navLicitacao {
+        border: none
+    }
+    .licitacaoBtnEdit:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  </style>
+</html>

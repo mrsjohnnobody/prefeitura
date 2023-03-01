@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include("../global/head", {pageCss: 'comissoes'}); %>
+
+<body style="font-family: 'Source Sans Pro', sans-serif;">
+  <%- include("../../partialViews/header"); %>
+    <%- include("../../partialViews/navbar", { activeNavItem: 'Legislativo-Comissoes' }); %>
+
+      <div class="px-5">
+        <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+
+          <!-- FILTROS -->
+          <div class="container-fluid">
+            <div class="row mx-0">
+              <div class="col-12 p-5 d-flex justify-content-end">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                    aria-describedby="button-addon2">
+
+                  <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                    <img class="search" src="/img/search.svg" alt="" style="height:23px">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--TABLE-->
+          <div class="container-fluid">
+            <div class="card text-center m-5 mt-0 d-flex justify-content-center"
+              style="border-style: solid;border-color: var(--secondary-color)">
+              <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                <div class="row">
+                  <div class="col-12">
+                    <h3>
+                      Todas as Comissões
+                    </h3>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead class="table" style="background-color:var(--secondary-color); color: white">
+                    <tr>
+                      <th class="col-5" scope="col">Descrição</th>
+                      <th class="col-2" scope="col">Tipo</th>
+                      <th class="col-2" scope="col">Período</th>
+                    </tr>
+                  </thead>
+                  <tbody style="color:var(--secondary-color) color">
+                    <% for(var i=0; i < comissao.length; i++) {%>
+                      <tr>
+                        <th scope="row">
+                          <%=comissao[i].Name %>
+                        </th>
+                        <td>
+                          <%=comissao[i].Type %>
+                        </td>
+                        <td>
+                          <%=(comissao[i].InitialDate !=="0000-00-00" ) ? new
+                            Date(comissao[i].InitialDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : "" %>
+
+                            <%=(comissao[i].FinalDate !=="0000-00-00" ) ? " - " : "" %>
+                              <%=(comissao[i].FinalDate !=="0000-00-00" ) ? new
+                                Date(comissao[i].FinalDate).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : "" %>
+
+                                <%=(comissao[i].InitialDate !=="0000-00-00" && comissao[i].FinalDate=="0000-00-00" )
+                                  ? " - atualmente" : "" %>
+
+                        </td>
+                      </tr>
+                      <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%- include("../../partialViews/footer"); %>
+
+        <style>
+          .table tr td a:hover {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+          }
+
+          .input-group-append {
+            cursor: pointer;
+          }
+
+          .parlamentaresMesaDiretora:hover {
+            background-color: #DDDDDD
+          }
+        </style>
+        <script src="/script/user/global/global.js"></script>
+</body>
+
+</html>

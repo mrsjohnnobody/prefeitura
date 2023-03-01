@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<%- include("../global/head", {pageCss: 'publicacoes'}); %>
+
+  <body>
+    <%- include("../../partialViews/header"); %>
+      <%- include("../../partialViews/navbar", { activeNavItem: "Transparencia-Publicacao" }); %>
+
+
+        <div class="px-5">
+          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
+            <!--TABLE-->
+            <div class="container-fluid mt-5">
+              <div class="card text-center m-5 mt-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Publicações</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <table class="table table-bordered">
+                    <thead class="table" style="background-color: var(--secondary-color); color: white">
+                      <tr>
+                        <th class="col-9" scope="col">Descrição</th>
+                        <th class="col-2" scope="col">Data</th>
+                        <th class="col-2" scope="col">Arquivo</th>
+                      </tr>
+                    </thead>
+                    <tbody style="color: var(--secondary-color) color">
+                      <tr>
+                        <th scope="row">
+                          REGIMENTO INTERNO DA CÂMARA MUNICIPAL - NOVEMBRO/1995
+                        </th>
+                        <td>
+                          <img title="Calendario" src="/icons/calendar3.svg" alt="Calendario" height="20rem" />
+                          &nbsp;23/11/1995
+                        </td>
+                        <td>
+                          <a href="/uploads/regimentoInterno.pdf" target="_blank">
+                            <img title="Abrir arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem" />
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+
+  </body>
+
+</html>

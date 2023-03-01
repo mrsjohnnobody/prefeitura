@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'materia'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+
+    <div class="container-fluid" style="background-color: var(--secondary-color);">
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Sessões' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color);">
+  
+          <!--TABLE-->
+          <div
+          class="card m-5 mt-3 d-flex justify-content"
+          >
+            <div class="row d-flex justify-content-center">
+              <div class="col-12">
+                <div class="card text-dark bg-light mb-3">
+                    <div class="card-header" style="background-color: var(--secondary-color);color: white;"><span class="fw-bold">Informações da matéria</span> </div>
+                    <div class="card-body">
+    
+                      <h5 class="card-title"><span class="fw-bold">Autor:</span>
+                        <% if (autores) { %>
+                          <% autores.forEach(autor => { %>
+                            
+                            <% if (autor.PrefeitoId) { %>
+                              <%=autor.PrefeitoName ? autor.PrefeitoName : null%>
+                              <%=autor.PrefeitoNickname ? '(' + autor.PrefeitoNickname + ')' : null%>,
+                              &nbsp;
+                            <% } %>
+      
+                            <% if (autor.ParlamentarId) { %>
+                              <%=autor.ParlamentarName ? autor.ParlamentarName : null%>
+                              <%=autor.ParlamentarNickname ? '(' + autor.ParlamentarNickname + ')' : null%>,
+                              &nbsp;
+                            <% } %>
+      
+                          <% }) %>
+                        <% } %>
+                      </h5>
+    
+                      <h5 class="card-title"><span class="fw-bold">Data:</span>
+                        <%= materia.Data ? new Date(materia.Data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                      </h5>
+    
+                      <p class="card-text"><span class="fw-bold">Resumo:</span>
+                        <%=materia.Resumo ? materia.Resumo : null%>
+                      </p>
+    
+                    </div>
+                </div>
+              </div>
+            </div>
+                <div
+                class="card-header"
+                style="background-color: var(--secondary-color); color: white; border-style: solid; border-color: var(--secondary-color)"
+                >
+                <div class="row">
+                    <div class="col-12">
+                    <h3>Trâmites</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div clas="d-flex justify-content-end">
+                      <span class="mb-1 btn btn-success" data-bs-toggle="modal" data-bs-target="#addTramiteModal">
+                        <img src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="20rem">
+                        &nbsp;
+                        Adicionar novo Trâmite
+                      </span>
+                    </div>
+                  </div>
+                  <table id="tramiteTable" class="table table-bordered">
+                      <thead
+                      class="table"
+                      style="background-color: var(--secondary-color); color: white"
+                      >
+                      <tr>
+                          <th class="col-1" scope="col">Data</th>
+                          <th class="col-5" scope="col">Sessão</th>
+                          <th class="col-2" scope="col">Expediente</th>
+                          <th class="col-1" scope="col">Fase</th>
+                          <th class="col-1" scope="col">Situação</th>
+                          <th class="col-1" scope="col">Ações</th>
+                      </tr>
+                      </thead>
+                      <tbody style="color: var(--secondary-color) color">
+                        <% for(var i=0; i < materia.Tramites.length; i++) {%>
+                          <tr id="tramiteIdItem_<%=materia.Tramites[i].id %>">
+                            <td>
+                              <%= materia.Tramites[i].Data ? new Date(materia.Tramites[i].Data).toLocaleDateString('pt-BR', { timeZone: 'UTC' }) : null %>
+                            </td>
+                            <td><%= sessao.Descricao%></td>
+                            <td><%= materia.Tramites[i].Expediente %></td>
+                            <td><%= materia.Tramites[i].Fase %></td>
+                            <td><%= materia.Tramites[i].Situacao %></td>
+                            <td>
+                              <a href="#" style="text-decoration: none;" data-bs-toggle="modal"
+                              data-bs-target="#deleteModal" 
+                              onclick="setIdForRemoveTramite('<%=materia.Tramites[i].id %>')">
+                                  <img title="Excluir Trâmite" src="/icons/x-circle-fill.svg" alt="Excluir Trâmite" height="20rem">
+                              </a>
+                            </td>
+                          </tr>
+                        <% } %>
+                      </tbody>
+                  </table>
+                </div>
+          </div>
+      
+          <!--MODAL ADD TRÂMITE-->
+          <div class="modal fade" id="addTramiteModal" tabindex="-1" aria-labelledby="AddTramiteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddTramiteLabel">Adicionar trâmite à matéria</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="addTramiteForm" class="needs-validation" action="/admin/addTramite" method="POST">
+                    <input id="materiaId" type="text" value="<%=materia.id%>" hidden>
+                    <div class="mb-1">
+                      <div class="row">
+                        <div class="col-12">
+                          <label for="expediente" class="col-form-label">Expediente:</label>
+                          <select required name="expediente" id="expediente" class="form-select"
+                            aria-label="Default select example">
+                            <option value="" selected>Selecione</option>
+                            <option value="1">Ordem do dia</option>
+                            <option value="2">Leitura das matérias</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label for="fase" class="col-form-label">Fase:</label>
+                          <select required name="fase" id="fase" class="form-select"
+                            aria-label="Default select example">
+                            <option value="" selected>Selecione</option>
+                            <option value="1">Arquivado</option>
+                            <option value="2">Em tramitação</option>
+                            <option value="3">Favorável</option>
+                            <option value="4">Não favorável</option>
+                            <option value="5">Protocolo</option>
+                            <option value="6">Pedido de visto</option>
+                            <option value="7">1° votação</option>
+                            <option value="8">2° votação</option>
+                            <option value="9">Substitutivas</option>
+                            <option value="10">Aditivas</option>
+                            <option value="11">Modificativas</option>
+                            <option value="12">Aglutinativas</option>
+                            <option value="13">Apresentação e leitura da matéria</option>
+                            <option value="14">Pedido de urgência</option>
+                            <option value="15">votação da ata</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label for="situacao" class="col-form-label">Situação:</label>
+                          <select required name="situacao" id="situacao" class="form-select"
+                            aria-label="Default select example">
+                            <option value="" selected>Selecione</option>
+                            <option value="1">Favorável</option>
+                            <option value="2">Não Favorável</option>
+                            <option value="3">Em tramitação</option>
+                          </select>
+                        </div>
+                        <div class="col-12">
+                          <label for="data" class="col-form-label">Data:</label>
+                          <input id="data" required name="data" class="form-control" type="date">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-success">Adicionar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Modal DELETE TRÂMITE-->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Remover Trâmite</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Realmente deseja excluir este Trâmite?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+
+    <script src="/script/admin/sessoes/materia.js"></script>
+    <style>
+        .nav-tabs .item-nav-tab{
+          color: white;
+          border: none
+        }
+  
+        .nav-tabs .nav-link.active{
+          background-color: var(--primary-color);
+          color: white;
+          border: none
+        }
+  
+        .nav-tabs .item-nav-tab:hover{
+          background-color: var(--primary-color);
+          border: none
+        }
+  
+        nav .navMaterias {
+          border: none
+        }
+    </style>
+  </body>
+</html>

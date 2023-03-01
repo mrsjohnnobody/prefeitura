@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <%- include("../global/head", {pageCss: 'sessoes'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %>
+    <%- include("../../partialViews/spinner"); %> 
+    <%- include("../../partialViews/header"); %> 
+    <%- include("../../partialViews/navbar", {activeNavItem: 'sessoesPage'}); %>
+
+    <div class="px-5">
+      <div class="contentForTable row mx-5 mb-3 pt-0 mt-4 shadow-sm">
+
+        <!-- FILTROS -->
+        <div class="container-fluid">
+          <div class="row mx-0">
+            <div class="col-12 p-5 d-flex justify-content-end">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                  aria-describedby="button-addon2">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--TABLE-->
+        <div class="container-fluid">
+          <div class="card text-center m-5 my-0 d-flex justify-content-center">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-12">
+                  <h3>
+                    Sessões da câmara
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table id="sessoesTable" class="table table-bordered">
+                <thead class="table">
+                  <tr>
+                    <th class="col-1" scope="col">N°</th>
+                    <th class="col-2" scope="col">Tipo</th>
+                    <th class="col-1"scope="col">Data</th>
+                    <th class="col-5" scope="col">Descrição</th>
+                    <th class="col-2"scope="col">Situação</th>
+                    <th class="col-2"scope="col">Ver</th>
+                  </tr>
+                </thead>
+                <tbody id="sessoesItems">
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!--PAGINATION-->
+          <input hidden id="totalPage" value="<%=pagination ? parseInt(pagination.totalPage) : 0 %>" />
+          <input hidden id="currentPage" value="<%=pagination ? parseInt(pagination.currentPage) : 0 %>" />
+          <input hidden id="totalItems" value="<%=pagination ? parseInt(pagination.totalItems) : 0 %>" />
+          <div class="container-fluid d-flex justify-content-center">
+            <div class="row">
+              <div class="col-10 p-3 pb-2 pt-5 d-flex justify-content">
+                <nav aria-label="Page navigation">    
+                  <ul id="pagination" class="pagination justify-content-center"></ul>
+                </nav>  
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/sessoes/sessoes.js"></script>
+  </body>
+</html>
