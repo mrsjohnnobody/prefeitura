@@ -112,8 +112,8 @@ function changePrincipalInformation() {
   });
 }
 
-function setIdForRedirectModal(id) {
-  $("#btnConfirmRedirect").attr("href", `/admin/editMedicao/${id}`);
+function setIdForRedirectModal(value) {
+  $("#btnConfirmRedirect").attr("href", `/admin/editMedicao/${value}`);
 }
 
 function createMedicao() {

@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <input id="obraId" value="<%=obras.id%>" hidden />
+          <input id="obraId" value="<%=obras.Medicoes.id%>" hidden />
           <nav class="navObras shadow-sm mx-5">
             <div
               class="nav nav-tabs"
@@ -471,7 +471,12 @@
                     action="/admin/addMedicao"
                     method="POST"
                   >
-                    <input id="obraId" type="text" value="" hidden />
+                    <input
+                      id="obraId"
+                      type="text"
+                      value="<%=obras.id%>"
+                      hidden
+                    />
                     <div class="mb-1">
                       <div class="row">
                         <div class="col-12">

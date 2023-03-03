@@ -38,32 +38,20 @@ function createObra() {
             loadPageAnimation(false);
 
             let newRow = `
-                    <tr id="obraIdItem_${result.obras.id}">
-                        <th scope="row">
-                            ${result.obras.dataAndamento}
-                        </th>
-                        <th scope="row">
-                            ${result.obras.secretaria}
-                        </th>
-                        <th scope="row">
-                            ${result.obras.objeto}
-                        </th>
-                        <th scope="row">
-                            ${result.obras.tipo}
-                        </th>   
-                        <th scope="row">
-                            ${result.obras.localExecucao}
-                        </th>   
-                        <th scope="row">
-                            ${result.obras.valorTotal}
-                        </th>   
-                        <th scope="row">
-                            ${result.obras.totalMed}
-                        </th>   
-                        <th scope="row">
-                            ${result.obras.percentualConcl}
-                        </th>
-                        <th scope="row">
+                  <tr id="obraIdItem_${result.obras.id}">
+                    <th scope="row">${result.obras.dataAndamento}</th>
+                    <th scope="row">
+                      <p>${result.obras.secretaria}</p>
+                      <p>${result.obras.objeto}</p>
+                    </th>
+                    <th scope="row">
+                      <p>${result.obras.tipo}</p>
+                      <p>${result.obras.localExecucao}</p>
+                    </th>
+                    <th scope="row">${result.obras.valorTotal}</th>
+                    <th scope="row">${result.obras.totalMed}</th>
+                    <th scope="row">${result.obras.percentualConcl}</th>
+                    <th scope="row">
                       <a
                         href="/admin/editObra/${result.obras.id}"
                         style="text-decoration: none"
@@ -90,8 +78,8 @@ function createObra() {
                         />
                       </span>
                     </th>
-                    </tr>
-                    `;
+                  </tr>
+                `;
 
             $("#obrasTable tbody").append(newRow);
           } else {

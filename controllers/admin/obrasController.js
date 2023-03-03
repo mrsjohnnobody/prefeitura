@@ -36,17 +36,6 @@ class ObrasController {
         percentualConcl,
       } = req.body;
 
-      console.log(
-        dataAndamento,
-        secretaria,
-        objeto,
-        tipo,
-        localExecucao,
-        valorTotal,
-        totalMed,
-        percentualConcl
-      );
-
       if (
         !dataAndamento ||
         !secretaria ||
