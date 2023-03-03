@@ -1,381 +1,230 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <%- include("../global/head", {pageCss: 'veiculos'}); %>
+<%- include("../global/head", {pageCss: 'veiculos' }); %>
 
   <body>
-    <%- include("../../partialViews/toastNotifications"); %> <%-
-    include("../../partialViews/spinner"); %>
+    <%- include("../../partialViews/toastNotifications"); %> <%- include("../../partialViews/spinner"); %>
 
-    <div
-      class="container-fluid"
-      style="background-color: var(--secondary-color)"
-    >
-      <div class="row">
-        <div class="col-3">
-          <%- include("../../partialViews/adminNavbar", { activeNavItem:
-          'Veiculos' })%>
-        </div>
-        <!-- CONTENT PAGE -->
-        <div class="col-9" style="background-color: var(--background-color)">
-          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Pesquisar"
-                aria-label="Pesquisar"
-                aria-describedby="button-addon2"
-              />
-
-              <a
-                href="/admin/addVeiculo"
-                type="button"
-                class="btn btn-success"
-                data-bs-toggle="modal"
-                data-bs-target="#addVeiculoModal"
-              >
-                <img
-                  title="Abrir documento principal"
-                  src="/icons/file-earmark-plus-fill.svg"
-                  alt="Arquivo PDF"
-                  height="20rem"
-                />
-                Cadastrar novo veiculo
-              </a>
+        <div class="container-fluid" style="background-color: var(--secondary-color)">
+          <div class="row">
+            <div class="col-3">
+              <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Veiculos' })%>
             </div>
-          </div>
+            <!-- CONTENT PAGE -->
+            <div class="col-9" style="background-color: var(--background-color)">
+              <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
+                    aria-describedby="button-addon2" />
 
-          <!--TABLE-->
-          <div
-            class="card m-5 mt-0 d-flex justify-content"
-            style="border-style: solid; border-color: var(--secondary-color)"
-          >
-            <div
-              class="card-header"
-              style="background-color: var(--secondary-color); color: white"
-            >
-              <div class="row">
-                <div class="col-12">
-                  <h3>Veiculos</h3>
+                  <a href="/admin/addVeiculo" type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#addVeiculoModal">
+                    <img title="Abrir documento principal" src="/icons/file-earmark-plus-fill.svg" alt="Arquivo PDF"
+                      height="20rem" />
+                    Cadastrar novo veiculo
+                  </a>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <table id="veiculosTable" class="table table-bordered">
-                <thead
-                  class="table"
-                  style="background-color: var(--secondary-color); color: white"
-                >
-                  <tr>
-                    <th class="col-3" scope="col">
-                      <p>Marca</p>
-                      <p>Modelo</p>
-                    </th>
-                    <th class="col-1" scope="col">Placa</th>
-                    <th class="col-3" scope="col">
-                      <p>Secretaria</p>
-                      <p>Finalidade</p>
-                    </th>
-                    <th class="col-1" scope="col">Tipo</th>
-                    <th class="col-2" scope="col">
-                      <p>Situacao</p>
-                      <p>Categoria</p>
-                    </th>
-                    <th class="col-1" scope="col">Acoes</th>
-                  </tr>
-                </thead>
-                <tbody style="color: var(--secondary-color) color">
-                  <% for(var i=0; i < veiculos.length; i++) {%>
-                  <tr id="veiculoIdItem_<%=veiculos[i].id %>">
-                    <th scope="row">
-                      <p><%=veiculos[i].marca%></p>
-                      <p><%=veiculos[i].modelo%></p>
-                    </th>
-                    <th scope="row"><%=veiculos[i].placa%></th>
-                    <th scope="row">
-                      <p><%=veiculos[i].secretaria%></p>
-                      <p><%=veiculos[i].finalidade%></p>
-                    </th>
-                    <th scope="row"><%=veiculos[i].tipo%></th>
-                    <th scope="row">
-                      <p><%=veiculos[i].situacao%></p>
-                      <p><%=veiculos[i].categoria%></p>
-                    </th>
-                    <th>
-                      <span
-                        data-bs-toggle="modal"
-                        data-bs-target="#confirmRedirectModal"
-                        onclick="setIdForRedirectModal('')"
-                        style="cursor: pointer"
-                      >
-                        <img
-                          title="Editar veiculo"
-                          src="/icons/pencil-fill.svg"
-                          alt="Editar medicao"
-                          height="20rem"
-                        />
-                      </span>
-                      <span
-                        style="text-decoration: none; cursor: pointer"
-                        onClick="setIdForRemoveVeiculo('<%=veiculos[i].id %>')"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteModal"
-                      >
-                        <img
-                          title="Excluir sessão"
-                          src="/icons/x-circle-fill.svg"
-                          alt="Excluir obra"
-                          height="20rem"
-                        />
-                      </span>
-                    </th>
-                  </tr>
-                  <% } %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <!-- Modal PARA CONFIRMAR REDIRECIONAMENTO-->
-          <div
-            class="modal fade"
-            id="confirmRedirectModal"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="confirmRedirectLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="confirmRedirectLabel">
-                    Lembrete para salvar alterações
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+
+              <!--TABLE-->
+              <div class="card m-5 mt-0 d-flex justify-content"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>Veiculos</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="modal-body">
-                  Ao selecionar a opção de "Editar Veiculo" você será
-                  redirecionado para outra pagina, certifique-se de que as
-                  alterações que foram feitas foram salvas, caso contrário
-                  salve-as primeiro para não perder as suas modificações.
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fechar
-                  </button>
-                  <a
-                    id="btnConfirmRedirect"
-                    type="button"
-                    class="btn btn-primary"
-                    >Editar veiculo</a
-                  >
+                <div class="card-body">
+                  <table id="veiculosTable" class="table table-bordered">
+                    <thead class="table" style="background-color: var(--secondary-color); color: white">
+                      <tr>
+                        <th class="col-3" scope="col">
+                          <p>Marca</p>
+                          <p>Modelo</p>
+                        </th>
+                        <th class="col-1" scope="col">Placa</th>
+                        <th class="col-3" scope="col">
+                          <p>Secretaria</p>
+                          <p>Finalidade</p>
+                        </th>
+                        <th class="col-1" scope="col">Tipo</th>
+                        <th class="col-2" scope="col">
+                          <p>Situacao</p>
+                          <p>Categoria</p>
+                        </th>
+                        <th class="col-1" scope="col">Acoes</th>
+                      </tr>
+                    </thead>
+                    <tbody style="color: var(--secondary-color) color">
+                      <% for(var i=0; i < veiculos.length; i++) {%>
+                        <tr id="veiculoIdItem_<%=veiculos[i].id %>">
+                          <th scope="row">
+                            <p>
+                              <%=veiculos[i].marca%>
+                            </p>
+                            <p>
+                              <%=veiculos[i].modelo%>
+                            </p>
+                          </th>
+                          <th scope="row">
+                            <%=veiculos[i].placa%>
+                          </th>
+                          <th scope="row">
+                            <p>
+                              <%=veiculos[i].secretaria%>
+                            </p>
+                            <p>
+                              <%=veiculos[i].finalidade%>
+                            </p>
+                          </th>
+                          <th scope="row">
+                            <%=veiculos[i].tipo%>
+                          </th>
+                          <th scope="row">
+                            <p>
+                              <%=veiculos[i].situacao%>
+                            </p>
+                            <p>
+                              <%=veiculos[i].categoria%>
+                            </p>
+                          </th>
+                          <th>
+                            <a href="/admin/editVeiculos/<%=veiculos[i].id %>">
+                              <img title="Editar veiculo" src="/icons/pencil-fill.svg" alt="Editar medicao"
+                                height="20rem" />
+                            </a>
+                            <span style="text-decoration: none; cursor: pointer"
+                              onClick="setIdForRemoveVeiculo('<%=veiculos[i].id %>')" data-bs-toggle="modal"
+                              data-bs-target="#deleteModal">
+                              <img title="Excluir sessão" src="/icons/x-circle-fill.svg" alt="Excluir obra"
+                                height="20rem" />
+                            </span>
+                          </th>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- Modal DELETE VEICULO-->
-          <div
-            class="modal fade"
-            id="deleteModal"
-            tabindex="-1"
-            aria-labelledby="deleteModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Excluir Veiculo
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  Deseja realmente excluir esse Veiculo?
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fechar
-                  </button>
-                  <a
-                    href="#"
-                    id="btnDeleteModal"
-                    type="button"
-                    class="btn btn-danger"
-                    >Excluir</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Modal ADD VEICULO-->
-          <div
-            class="modal fade"
-            id="addVeiculoModal"
-            tabindex="-1"
-            aria-labelledby="AddVeiculoLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="AddVeiculoLabel">
-                    Cadastrar Veiculo
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form
-                    id="veiculosForm"
-                    class="needs-validation"
-                    enctype="multipart/form-data"
-                  >
-                    <div class="mb-1">
-                      <div class="row">
-                        <div>
-                          <label for="marca" class="col-form-label"
-                            >Marca:</label
-                          >
-                          <input
-                            name="marca"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="marca"
-                          />
-                        </div>
-                        <div>
-                          <label for="modelo" class="col-form-label"
-                            >Modelo:</label
-                          >
-                          <input
-                            name="modelo"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="modelo"
-                          />
-                        </div>
-                        <div>
-                          <label for="placa" class="col-form-label"
-                            >Placa:</label
-                          >
-                          <input
-                            name="placa"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="placa"
-                          />
-                        </div>
-                        <div>
-                          <label for="secretaria" class="col-form-label"
-                            >Secretaria:</label
-                          >
-                          <input
-                            name="secretaria"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="secretaria"
-                          />
-                        </div>
-                        <div>
-                          <label for="finalidade" class="col-form-label"
-                            >Finalidade:</label
-                          >
-                          <input
-                            name="finalidade"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="finalidade"
-                          />
-                        </div>
-                        <div>
-                          <label for="tipo" class="col-form-label">Tipo:</label>
-                          <input
-                            name="tipo"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="tipo"
-                          />
-                        </div>
-                        <div>
-                          <label for="situacao" class="col-form-label"
-                            >Situacao:</label
-                          >
-                          <input
-                            name="situacao"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="situacao"
-                          />
-                        </div>
-                        <div>
-                          <label for="categoria" class="col-form-label"
-                            >Categoria:</label
-                          >
-                          <input
-                            name="categoria"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="categoria"
-                          />
-                        </div>
-                      </div>
+              <!-- Modal PARA CONFIRMAR REDIRECIONAMENTO-->
+              <div class="modal fade" id="confirmRedirectModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="confirmRedirectLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmRedirectLabel">
+                        Lembrete para salvar alterações
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Ao selecionar a opção de "Editar Veiculo" você será
+                      redirecionado para outra pagina, certifique-se de que as
+                      alterações que foram feitas foram salvas, caso contrário
+                      salve-as primeiro para não perder as suas modificações.
                     </div>
                     <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Fechar
                       </button>
-                      <button
-                        id="btnSubmit"
-                        type="submit"
-                        class="btn btn-success"
-                      >
-                        Cadastrar novo veiculo
-                      </button>
+                      <a id="btnConfirmRedirect" type="button" class="btn btn-primary">Editar veiculo</a>
                     </div>
-                  </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal DELETE VEICULO-->
+              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Excluir Veiculo
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Deseja realmente excluir esse Veiculo?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Fechar
+                      </button>
+                      <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal ADD VEICULO-->
+              <div class="modal fade" id="addVeiculoModal" tabindex="-1" aria-labelledby="AddVeiculoLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="AddVeiculoLabel">
+                        Cadastrar Veiculo
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="veiculosForm" class="needs-validation" enctype="multipart/form-data">
+                        <div class="mb-1">
+                          <div class="row">
+                            <div>
+                              <label for="marca" class="col-form-label">Marca:</label>
+                              <input name="marca" required type="text" class="form-control" id="marca" />
+                            </div>
+                            <div>
+                              <label for="modelo" class="col-form-label">Modelo:</label>
+                              <input name="modelo" required type="text" class="form-control" id="modelo" />
+                            </div>
+                            <div>
+                              <label for="placa" class="col-form-label">Placa:</label>
+                              <input name="placa" required type="text" class="form-control" id="placa" />
+                            </div>
+                            <div>
+                              <label for="secretaria" class="col-form-label">Secretaria:</label>
+                              <input name="secretaria" required type="text" class="form-control" id="secretaria" />
+                            </div>
+                            <div>
+                              <label for="finalidade" class="col-form-label">Finalidade:</label>
+                              <input name="finalidade" required type="text" class="form-control" id="finalidade" />
+                            </div>
+                            <div>
+                              <label for="tipo" class="col-form-label">Tipo:</label>
+                              <input name="tipo" required type="text" class="form-control" id="tipo" />
+                            </div>
+                            <div>
+                              <label for="situacao" class="col-form-label">Situacao:</label>
+                              <input name="situacao" required type="text" class="form-control" id="situacao" />
+                            </div>
+                            <div>
+                              <label for="categoria" class="col-form-label">Categoria:</label>
+                              <input name="categoria" required type="text" class="form-control" id="categoria" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Fechar
+                          </button>
+                          <button id="btnSubmit" type="submit" class="btn btn-success">
+                            Cadastrar novo veiculo
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <script src="/script/admin/global/global.js"></script>
-    <script src="/script/admin/veiculos/veiculos.js"></script>
+        <script src="/script/admin/global/global.js"></script>
+        <script src="/script/admin/veiculos/veiculos.js"></script>
   </body>
+
 </html>

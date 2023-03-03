@@ -1,672 +1,395 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <%- include("../global/head", {pageCss: 'obrasId'}); %>
+<%- include("../global/head", {pageCss: 'obrasId' }); %>
 
   <body>
-    <%- include("../../partialViews/toastNotifications"); %> <%-
-    include("../../partialViews/spinner"); %>
+    <%- include("../../partialViews/toastNotifications"); %> <%- include("../../partialViews/spinner"); %>
 
-    <div
-      class="container-fluid"
-      style="background-color: var(--secondary-color)"
-    >
-      <div class="row">
-        <div class="col-3">
-          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Obras'
-          })%>
-        </div>
-        <!-- CONTENT PAGE -->
-        <div class="col-9" style="background-color: var(--background-color)">
-          <div
-            class="card text-center m-5 mb-0 d-flex justify-content-center"
-            style="border-style: solid; border-color: var(--secondary-color)"
-          >
-            <div
-              class="card-header"
-              style="background-color: var(--secondary-color); color: white"
-            >
-              <div class="row">
-                <div class="col-12">
-                  <h3>EDIÇÃO DE OBRA</h3>
+        <div class="container-fluid" style="background-color: var(--secondary-color)">
+          <div class="row">
+            <div class="col-3">
+              <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Obras' })%>
+            </div>
+            <!-- CONTENT PAGE -->
+            <div class="col-9" style="background-color: var(--background-color)">
+              <div class="card text-center m-5 mb-0 d-flex justify-content-center"
+                style="border-style: solid; border-color: var(--secondary-color)">
+                <div class="card-header" style="background-color: var(--secondary-color); color: white">
+                  <div class="row">
+                    <div class="col-12">
+                      <h3>EDIÇÃO DE OBRA</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <input id="obraId" value="<%=obras.Medicoes.id%>" hidden />
-          <nav class="navObras shadow-sm mx-5">
-            <div
-              class="nav nav-tabs"
-              id="nav-tab"
-              role="tablist"
-              style="
+              <nav class="navObras shadow-sm mx-5">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist" style="
                 background-color: var(--secondary-color);
                 color: white;
                 border-radius: 5px 5px 0px 0px;
-              "
-            >
-              <button
-                class="nav-link active item-nav-tab"
-                id="nav-infoSessoes-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-infoSessoes"
-                type="button"
-                role="tab"
-                aria-controls="nav-infoSessoes"
-                aria-selected="true"
-              >
-                Informações da obra
-              </button>
-              <button
-                class="nav-link item-nav-tab"
-                id="nav-materia-tab"
-                data-bs-toggle="tab"
-                data-bs-target="#nav-materia"
-                type="button"
-                role="tab"
-                aria-controls="nav-materia"
-                aria-selected="false"
-              >
-                Medicoes
-              </button>
-            </div>
-            <div
-              class="tab-content"
-              id="nav-tabContent"
-              style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px"
-            >
-              <!-- OBRA -->
-              <div
-                class="tab-pane fade show active"
-                id="nav-infoSessoes"
-                role="tabpanel"
-                aria-labelledby="nav-infoSessoes-tab"
-              >
-                <div class="p-5">
-                  <h4 class="fw-bold">Editar informações da obra:</h4>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >DATA ANDAMENTO:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraDataAndamento"
-                        class="form-control"
-                        type="date"
-                        value="<%=obras.dataAndamento ? obras.dataAndamento : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraDataAndamento">
-                        <img
-                          class="obraBtnEdit"
-                          title="Editar data de andamento obra"
-                          src="/icons/pencil-fill.svg"
-                          alt="Editar data de andamento obra"
-                          height="20rem"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >SECRETARIA:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraSecretaria"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.secretaria ? obras.secretaria : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraSecretaria">
-                        <img
-                          class="obraBtnEdit"
-                          title="Editar secretaria da obra"
-                          src="/icons/pencil-fill.svg"
-                          alt="Editar secretaria da obra"
-                          height="20rem"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >OBJETO:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraObjeto"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.objeto ? obras.objeto : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraObjeto">
-                        <img
-                          class="obraBtnEdit"
-                          title="Editar objeto da obra"
-                          src="/icons/pencil-fill.svg"
-                          alt="Editar objeto da obra"
-                          height="20rem"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold">TIPO:</label>
-                    <div class="col-10">
-                      <input
-                        id="obraTipo"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.tipo ? obras.tipo : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraTipo">
-                        <img
-                          class="obraBtnEdit"
-                          title="Editar tipo da obra"
-                          src="/icons/pencil-fill.svg"
-                          alt="Editar tipo da obra"
-                          height="20rem"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >LOCAL DA OBRA:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraLocalExecucao"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.localExecucao ? obras.localExecucao : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraLocalExecucao">
-                        <img class=obraBtnEdit" title="Editar local de execucao
+              ">
+                  <button class="nav-link active item-nav-tab" id="nav-infoSessoes-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-infoSessoes" type="button" role="tab" aria-controls="nav-infoSessoes"
+                    aria-selected="true">
+                    Informações da obra
+                  </button>
+                  <button class="nav-link item-nav-tab" id="nav-materia-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-materia" type="button" role="tab" aria-controls="nav-materia"
+                    aria-selected="false">
+                    Medicoes
+                  </button>
+                </div>
+                <div class="tab-content" id="nav-tabContent"
+                  style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px">
+                  <!-- OBRA -->
+                  <div class="tab-pane fade show active" id="nav-infoSessoes" role="tabpanel"
+                    aria-labelledby="nav-infoSessoes-tab">
+                    <div class="p-5">
+                      <h4 class="fw-bold">Editar informações da obra:</h4>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">DATA ANDAMENTO:</label>
+                        <div class="col-10">
+                          <input id="obraDataAndamento" class="form-control" type="date"
+                            value="<%=obras.dataAndamento ? obras.dataAndamento : null%>"
+                            aria-label="Disabled input example" disabled readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraDataAndamento">
+                            <img class="obraBtnEdit" title="Editar data de andamento obra" src="/icons/pencil-fill.svg"
+                              alt="Editar data de andamento obra" height="20rem" />
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">SECRETARIA:</label>
+                        <div class="col-10">
+                          <input id="obraSecretaria" class="form-control" type="text"
+                            value="<%=obras.secretaria ? obras.secretaria : null%>" aria-label="Disabled input example"
+                            disabled readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraSecretaria">
+                            <img class="obraBtnEdit" title="Editar secretaria da obra" src="/icons/pencil-fill.svg"
+                              alt="Editar secretaria da obra" height="20rem" />
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">OBJETO:</label>
+                        <div class="col-10">
+                          <input id="obraObjeto" class="form-control" type="text"
+                            value="<%=obras.objeto ? obras.objeto : null%>" aria-label="Disabled input example" disabled
+                            readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraObjeto">
+                            <img class="obraBtnEdit" title="Editar objeto da obra" src="/icons/pencil-fill.svg"
+                              alt="Editar objeto da obra" height="20rem" />
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">TIPO:</label>
+                        <div class="col-10">
+                          <input id="obraTipo" class="form-control" type="text"
+                            value="<%=obras.tipo ? obras.tipo : null%>" aria-label="Disabled input example" disabled
+                            readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraTipo">
+                            <img class="obraBtnEdit" title="Editar tipo da obra" src="/icons/pencil-fill.svg"
+                              alt="Editar tipo da obra" height="20rem" />
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">LOCAL DA OBRA:</label>
+                        <div class="col-10">
+                          <input id="obraLocalExecucao" class="form-control" type="text"
+                            value="<%=obras.localExecucao ? obras.localExecucao : null%>"
+                            aria-label="Disabled input example" disabled readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraLocalExecucao">
+                            <img class=obraBtnEdit" title="Editar local de execucao
                         da obra" src="/icons/pencil-fill.svg" alt="Editar local
                         de execucao da obra" height="20rem" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >VALOR TOTAL:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraValorTotal"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.valorTotal ? obras.valorTotal : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraValorTotal">
-                        <img class=obraBtnEdit" title="Editar valor total da
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">VALOR TOTAL:</label>
+                        <div class="col-10">
+                          <input id="obraValorTotal" class="form-control" type="text"
+                            value="<%=obras.valorTotal ? obras.valorTotal : null%>" aria-label="Disabled input example"
+                            disabled readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraValorTotal">
+                            <img class=obraBtnEdit" title="Editar valor total da
                         obra" src="/icons/pencil-fill.svg" alt="Editar valor
                         total da obra" height="20rem" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >TOTAL MEDICOES:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraTotalMed"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.totalMed ? obras.totalMed : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraTotalMed">
-                        <img class=obraBtnEdit" title="Editar total medido da
+                          </a>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <label for="floatingTextarea" class="fw-bold">TOTAL MEDICOES:</label>
+                        <div class="col-10">
+                          <input id="obraTotalMed" class="form-control" type="text"
+                            value="<%=obras.totalMed ? obras.totalMed : null%>" aria-label="Disabled input example"
+                            disabled readonly />
+                        </div>
+                        <div class="col-2">
+                          <a href="#" id="editObraTotalMed">
+                            <img class=obraBtnEdit" title="Editar total medido da
                         obra" src="/icons/pencil-fill.svg" alt="Editar total
                         medido da obra" height="20rem" />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label for="floatingTextarea" class="fw-bold"
-                      >PERCENTUAL CONCLUIDO:</label
-                    >
-                    <div class="col-10">
-                      <input
-                        id="obraPercentualConcl"
-                        class="form-control"
-                        type="text"
-                        value="<%=obras.percentualConcl ? obras.percentualConcl : null%>"
-                        aria-label="Disabled input example"
-                        disabled
-                        readonly
-                      />
-                    </div>
-                    <div class="col-2">
-                      <a href="#" id="editObraPercentualConcl">
-                        <img class=obraBtnEdit" title="Editar percentual
-                        concluido da obra" src="/icons/pencil-fill.svg"
-                        alt="Editar percentual concluido da obra" height="20rem"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- MEDICOES -->
-              <div
-                class="tab-pane fade"
-                id="nav-materia"
-                role="tabpanel"
-                aria-labelledby="nav-materia-tab"
-              >
-                <div class="p-5">
-                  <h4 class="fw-bold">Editar medicoes:</h4>
-                  <table
-                    id="medicaoTable"
-                    class="table table-bordered table-striped"
-                    style="border-radius: 10px; overflow: hidden"
-                  >
-                    <thead
-                      class="table"
-                      style="
-                        background-color: var(--secondary-color);
-                        color: white;
-                      "
-                    >
-                      <tr>
-                        <th class="col-1" scope="col">Data medicao</th>
-                        <th class="col-1" scope="col">Data inicio</th>
-                        <th class="col-1" scope="col">Data final</th>
-                        <th class="col-2" scope="col">Valor medicao</th>
-                        <th class="col-3" scope="col">Empresa Responsavel</th>
-                        <th class="col-2" scope="col">CNPJ Empresa</th>
-                        <th class="col-2" scope="col">Acoes</th>
-                      </tr>
-                    </thead>
-                    <tbody style="color: var(--secondary-color) color">
-                      <% for(var i=0; i < obras.Medicoes.length; i++) {%>
-                      <tr id="medicoesIdItem_<%=obras.Medicoes[i].id %>">
-                        <td><%= obras.Medicoes[i].dataMedicao %></td>
-                        <td><%= obras.Medicoes[i].dataInicio %></td>
-                        <td><%= obras.Medicoes[i].dataFinal %></td>
-                        <td><%= obras.Medicoes[i].valorMedicao %></td>
-                        <td><%= obras.Medicoes[i].empresaResponsavel %></td>
-                        <td><%= obras.Medicoes[i].cnpjEmpresa %></td>
-                        <td>
-                          <span
-                            data-bs-toggle="modal"
-                            data-bs-target="#confirmRedirectModal"
-                            onclick="setIdForRedirectModal('')"
-                            style="cursor: pointer"
-                          >
-                            <img
-                              title="Editar medicao"
-                              src="/icons/pencil-fill.svg"
-                              alt="Editar medicao"
-                              height="20rem"
-                            />
-                          </span>
-                          <span
-                            style="text-decoration: none; cursor: pointer"
-                            onClick="setIdForRemoveMedicao('<%=obras.Medicoes[i].id %>')"
-                            data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                          >
-                            <img
-                              title="Excluir sessão"
-                              src="/icons/x-circle-fill.svg"
-                              alt="Excluir obra"
-                              height="20rem"
-                            />
-                          </span>
-                        </td>
-                      </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
-                  <div class="justify-content-end">
-                    <button
-                      type="button"
-                      class="btn btn-success m-0"
-                      data-bs-toggle="modal"
-                      data-bs-target="#addMedicaoModal"
-                    >
-                      <img
-                        src="/icons/plus-circle-fill.svg"
-                        alt="Arquivo PDF"
-                        height="20rem"
-                      />
-                      &nbsp; Adicionar nova medicao
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-          <div class="row p-5 pt-0 m-3 mt-2">
-            <div class="col-8"></div>
-            <div class="col-4 d-flex justify-content-end">
-              <button type="button" class="btn btn-danger m-0 me-3">
-                Cancelar edição
-              </button>
-              <button
-                id="btnSendRequest"
-                type="button"
-                class="btn btn-success m-0"
-              >
-                <img
-                  title="Abrir documento principal"
-                  src="/icons/send-fill.svg"
-                  alt="Arquivo PDF"
-                  height="20rem"
-                />
-                Salvar alterações
-              </button>
-            </div>
-          </div>
-          <!-- Modal PARA CONFIRMAR REDIRECIONAMENTO-->
-          <div
-            class="modal fade"
-            id="confirmRedirectModal"
-            data-bs-backdrop="static"
-            data-bs-keyboard="false"
-            tabindex="-1"
-            aria-labelledby="confirmRedirectLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="confirmRedirectLabel">
-                    Lembrete para salvar alterações
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  Ao selecionar a opção de "Editar Medicoes" você será
-                  redirecionado para outra pagina, certifique-se de que as
-                  alterações que foram feitas foram salvas, caso contrário
-                  salve-as primeiro para não perder as suas modificações.
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fechar
-                  </button>
-                  <a
-                    id="btnConfirmRedirect"
-                    type="button"
-                    class="btn btn-primary"
-                    >Editar medicoes</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--MODAL ADD MEDICAO-->
-          <div
-            class="modal fade"
-            id="addMedicaoModal"
-            tabindex="-1"
-            aria-labelledby="AddMedicaoLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="AddMedicaoLabel">
-                    Adicionar Medicao
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <form
-                    id="addMedicaoForm"
-                    class="needs-validation"
-                    action="/admin/addMedicao"
-                    method="POST"
-                  >
-                    <input
-                      id="obraId"
-                      type="text"
-                      value="<%=obras.id%>"
-                      hidden
-                    />
-                    <div class="mb-1">
+                          </a>
+                        </div>
+                      </div>
                       <div class="row">
-                        <div class="col-12">
-                          <label for="dataMedicao" class="col-form-label"
-                            >Data medicao:</label
-                          >
-                          <input
-                            name="dataMedicao"
-                            required
-                            type="date"
-                            class="form-control"
-                            id="dataMedicao"
-                          />
+                        <label for="floatingTextarea" class="fw-bold">PERCENTUAL CONCLUIDO:</label>
+                        <div class="col-10">
+                          <input id="obraPercentualConcl" class="form-control" type="text"
+                            value="<%=obras.percentualConcl ? obras.percentualConcl : null%>"
+                            aria-label="Disabled input example" disabled readonly />
                         </div>
-                        <div class="col-12">
-                          <label for="dataInicio" class="col-form-label"
-                            >Data Inicio:</label
-                          >
-                          <input
-                            id="dataInicio"
-                            required
-                            name="dataInicio"
-                            class="form-control"
-                            type="date"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label for="dataFinal" class="col-form-label"
-                            >Data Final:</label
-                          >
-                          <input
-                            name="dataFinal"
-                            required
-                            type="date"
-                            class="form-control"
-                            id="dataFinal"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label for="valorMedicao" class="col-form-label"
-                            >Valor Medicao (R$):</label
-                          >
-                          <input
-                            name="valorMedicao"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="valorMedicao"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label for="empresaResponsavel" class="col-form-label"
-                            >Empresa Responsavel:</label
-                          >
-                          <input
-                            name="empresaResponsavel"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="empresaResponsavel"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label for="cnpjEmpresa" class="col-form-label"
-                            >CNPJ Empresa:</label
-                          >
-                          <input
-                            name="cnpjEmpresa"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="cnpjEmpresa"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label
-                            for="responsavelTecnicoEmpresa"
-                            class="col-form-label"
-                            >Responsavel Tecnico Empresa:</label
-                          >
-                          <input
-                            name="responsavelTecnicoEmpresa"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="responsavelTecnicoEmpresa"
-                          />
-                        </div>
-                        <div class="col-12">
-                          <label
-                            for="responsavelTecnicoPrefeitura"
-                            class="col-form-label"
-                            >Responsavel Tecnico Prefeitura:</label
-                          >
-                          <input
-                            name="responsavelTecnicoPrefeitura"
-                            required
-                            type="text"
-                            class="form-control"
-                            id="responsavelTecnicoPrefeitura"
-                          />
+                        <div class="col-2">
+                          <a href="#" id="editObraPercentualConcl">
+                            <img class=obraBtnEdit" title="Editar percentual
+                        concluido da obra" src="/icons/pencil-fill.svg" alt="Editar percentual concluido da obra"
+                              height="20rem" />
+                          </a>
                         </div>
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                      >
-                        Fechar
-                      </button>
-                      <button type="submit" class="btn btn-success">
-                        Adicionar
-                      </button>
+                  </div>
+                  <!-- MEDICOES -->
+                  <div class="tab-pane fade" id="nav-materia" role="tabpanel" aria-labelledby="nav-materia-tab">
+                    <div class="p-5">
+                      <h4 class="fw-bold">Editar medicoes:</h4>
+                      <table id="medicaoTable" class="table table-bordered table-striped"
+                        style="border-radius: 10px; overflow: hidden">
+                        <thead class="table" style="
+                        background-color: var(--secondary-color);
+                        color: white;
+                      ">
+                          <tr>
+                            <th class="col-1" scope="col">Data medicao</th>
+                            <th class="col-1" scope="col">Data inicio</th>
+                            <th class="col-1" scope="col">Data final</th>
+                            <th class="col-2" scope="col">Valor medicao</th>
+                            <th class="col-3" scope="col">Empresa Responsavel</th>
+                            <th class="col-2" scope="col">CNPJ Empresa</th>
+                            <th class="col-2" scope="col">Acoes</th>
+                          </tr>
+                        </thead>
+                        <tbody style="color: var(--secondary-color) color">
+                          <% for(var i=0; i < obras.Medicoes.length; i++) {%>
+                            <tr id="medicoesIdItem_<%=obras.Medicoes[i].id %>">
+                              <td>
+                                <%- include("../../partialViews/formatDate", {date: obras.Medicoes[i].dataMedicao}); %>
+                              </td>
+                              <td>
+                                <%= obras.Medicoes[i].dataInicio %>
+                              </td>
+                              <td>
+                                <%= obras.Medicoes[i].dataFinal %>
+                              </td>
+                              <td>
+                                <%= obras.Medicoes[i].valorMedicao %>
+                              </td>
+                              <td>
+                                <%= obras.Medicoes[i].empresaResponsavel %>
+                              </td>
+                              <td>
+                                <%= obras.Medicoes[i].cnpjEmpresa %>
+                              </td>
+                              <td>
+                                <span data-bs-toggle="modal" data-bs-target="#confirmRedirectModal"
+                                  onclick="setIdForRedirectModal('<%=obras.Medicoes[i].id %>')" style="cursor: pointer">
+                                  <img title="Editar medicao" src="/icons/pencil-fill.svg" alt="Editar medicao"
+                                    height="20rem" />
+                                </span>
+                                <span style="text-decoration: none; cursor: pointer"
+                                  onClick="setIdForRemoveMedicao('<%=obras.Medicoes[i].id %>')" data-bs-toggle="modal"
+                                  data-bs-target="#deleteModal">
+                                  <img title="Excluir sessão" src="/icons/x-circle-fill.svg" alt="Excluir obra"
+                                    height="20rem" />
+                                </span>
+                              </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                      </table>
+                      <div class="justify-content-end">
+                        <button type="button" class="btn btn-success m-0" data-bs-toggle="modal"
+                          data-bs-target="#addMedicaoModal">
+                          <img src="/icons/plus-circle-fill.svg" alt="Arquivo PDF" height="20rem" />
+                          &nbsp; Adicionar nova medicao
+                        </button>
+                      </div>
                     </div>
-                  </form>
+                  </div>
+                </div>
+              </nav>
+              <div class="row p-5 pt-0 m-3 mt-2">
+                <div class="col-8"></div>
+                <div class="col-4 d-flex justify-content-end">
+                  <button type="button" class="btn btn-danger m-0 me-3">
+                    Cancelar edição
+                  </button>
+                  <button id="btnSendRequest" type="button" class="btn btn-success m-0">
+                    <img title="Abrir documento principal" src="/icons/send-fill.svg" alt="Arquivo PDF"
+                      height="20rem" />
+                    Salvar alterações
+                  </button>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- Modal DELETE MEDICAO-->
-          <div
-            class="modal fade"
-            id="deleteModal"
-            tabindex="-1"
-            aria-labelledby="deleteModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Remover Matéria
-                  </h5>
-                  <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
+              <!-- Modal PARA CONFIRMAR REDIRECIONAMENTO-->
+              <div class="modal fade" id="confirmRedirectModal" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="-1" aria-labelledby="confirmRedirectLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="confirmRedirectLabel">
+                        Lembrete para salvar alterações
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Ao selecionar a opção de "Editar Medicoes" você será
+                      redirecionado para outra pagina, certifique-se de que as
+                      alterações que foram feitas foram salvas, caso contrário
+                      salve-as primeiro para não perder as suas modificações.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Fechar
+                      </button>
+                      <a id="btnConfirmRedirect" type="button" class="btn btn-primary">Editar medicoes</a>
+                    </div>
+                  </div>
                 </div>
-                <div class="modal-body">
-                  Realmente deseja excluir esta Matéria?
+              </div>
+              <!--MODAL ADD MEDICAO-->
+              <div class="modal fade" id="addMedicaoModal" tabindex="-1" aria-labelledby="AddMedicaoLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="AddMedicaoLabel">
+                        Adicionar Medicao
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form id="addMedicaoForm" class="needs-validation" action="/admin/addMedicao" method="POST">
+                        <input id="obraId" type="text" value="<%=obras.id%>" hidden />
+                        <div class="mb-1">
+                          <div class="row">
+                            <div class="col-12">
+                              <label for="dataMedicao" class="col-form-label">Data medicao:</label>
+                              <input name="dataMedicao" required type="date" class="form-control" id="dataMedicao" />
+                            </div>
+                            <div class="col-12">
+                              <label for="dataInicio" class="col-form-label">Data Inicio:</label>
+                              <input id="dataInicio" required name="dataInicio" class="form-control" type="date" />
+                            </div>
+                            <div class="col-12">
+                              <label for="dataFinal" class="col-form-label">Data Final:</label>
+                              <input name="dataFinal" required type="date" class="form-control" id="dataFinal" />
+                            </div>
+                            <div class="col-12">
+                              <label for="valorMedicao" class="col-form-label">Valor Medicao (R$):</label>
+                              <input name="valorMedicao" required type="text" class="form-control" id="valorMedicao" />
+                            </div>
+                            <div class="col-12">
+                              <label for="empresaResponsavel" class="col-form-label">Empresa Responsavel:</label>
+                              <input name="empresaResponsavel" required type="text" class="form-control"
+                                id="empresaResponsavel" />
+                            </div>
+                            <div class="col-12">
+                              <label for="cnpjEmpresa" class="col-form-label">CNPJ Empresa:</label>
+                              <input name="cnpjEmpresa" required type="text" class="form-control" id="cnpjEmpresa" />
+                            </div>
+                            <div class="col-12">
+                              <label for="responsavelTecnicoEmpresa" class="col-form-label">Responsavel Tecnico
+                                Empresa:</label>
+                              <input name="responsavelTecnicoEmpresa" required type="text" class="form-control"
+                                id="responsavelTecnicoEmpresa" />
+                            </div>
+                            <div class="col-12">
+                              <label for="responsavelTecnicoPrefeitura" class="col-form-label">Responsavel Tecnico
+                                Prefeitura:</label>
+                              <input name="responsavelTecnicoPrefeitura" required type="text" class="form-control"
+                                id="responsavelTecnicoPrefeitura" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Fechar
+                          </button>
+                          <button type="submit" class="btn btn-success">
+                            Adicionar
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Fechar
-                  </button>
-                  <a
-                    href="#"
-                    id="btnDeleteModal"
-                    type="button"
-                    class="btn btn-danger"
-                    >Excluir</a
-                  >
+              </div>
+              <!-- Modal DELETE MEDICAO-->
+              <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Remover Matéria
+                      </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Realmente deseja excluir esta Matéria?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Fechar
+                      </button>
+                      <a href="#" id="btnDeleteModal" type="button" class="btn btn-danger">Excluir</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <script src="/script/admin/obras/obrasIdPage.js"></script>
+        <script src="/script/admin/obras/obrasIdPage.js"></script>
 
-    <style>
-      .nav-tabs .item-nav-tab {
-        color: white;
-        border: none;
-      }
+        <style>
+          .nav-tabs .item-nav-tab {
+            color: white;
+            border: none;
+          }
 
-      .nav-tabs .nav-link.active {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-      }
+          .nav-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+          }
 
-      .nav-tabs .item-nav-tab:hover {
-        background-color: var(--primary-color);
-        border: none;
-      }
+          .nav-tabs .item-nav-tab:hover {
+            background-color: var(--primary-color);
+            border: none;
+          }
 
-      nav .navObras {
-        border: none;
-      }
-    </style>
+          nav .navObras {
+            border: none;
+          }
+        </style>
   </body>
+
 </html>

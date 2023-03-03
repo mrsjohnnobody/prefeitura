@@ -77,30 +77,30 @@ function createVeiculo() {
             loadPageAnimation(false);
 
             let newRow = `
-                    <tr id="veiculoIdItem_${result.veiculos.id}">
+                    <tr id="veiculoIdItem_${result.veiculo.id}">
                         <th scope="row">
-                            ${result.veiculos.marca}
+                            ${result.veiculo.marca}
                         </th>
                         <th scope="row">
-                            ${result.veiculos.modelo}
+                            ${result.veiculo.modelo}
                         </th>
                         <th scope="row">
-                            ${result.veiculos.placa}
+                            ${result.veiculo.placa}
                         </th>
                         <th scope="row">
-                            ${result.veiculos.secretaria}
+                            ${result.veiculo.secretaria}
                         </th>   
                         <th scope="row">
-                            ${result.veiculos.finalidade}
+                            ${result.veiculo.finalidade}
                         </th>   
                         <th scope="row">
-                            ${result.veiculos.tipo}
+                            ${result.veiculo.tipo}
                         </th>   
                         <th scope="row">
-                            ${result.veiculos.situacao}
+                            ${result.veiculo.situacao}
                         </th>   
                         <th scope="row">
-                            ${result.veiculos.categoria}
+                            ${result.veiculo.categoria}
                         </th>                       
                        
                     </tr>

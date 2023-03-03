@@ -38,22 +38,22 @@ function createObra() {
             loadPageAnimation(false);
 
             let newRow = `
-                  <tr id="obraIdItem_${result.obras.id}">
-                    <th scope="row">${result.obras.dataAndamento}</th>
+                  <tr id="obraIdItem_${result.obra.id}">
+                    <th scope="row">${result.obra.dataAndamento}</th>
                     <th scope="row">
-                      <p>${result.obras.secretaria}</p>
-                      <p>${result.obras.objeto}</p>
+                      <p>${result.obra.secretaria}</p>
+                      <p>${result.obra.objeto}</p>
                     </th>
                     <th scope="row">
-                      <p>${result.obras.tipo}</p>
-                      <p>${result.obras.localExecucao}</p>
+                      <p>${result.obra.tipo}</p>
+                      <p>${result.obra.localExecucao}</p>
                     </th>
-                    <th scope="row">${result.obras.valorTotal}</th>
-                    <th scope="row">${result.obras.totalMed}</th>
-                    <th scope="row">${result.obras.percentualConcl}</th>
+                    <th scope="row">${result.obra.valorTotal}</th>
+                    <th scope="row">${result.obra.totalMed}</th>
+                    <th scope="row">${result.obra.percentualConcl}</th>
                     <th scope="row">
                       <a
-                        href="/admin/editObra/${result.obras.id}"
+                        href="/admin/editObra/${result.obra.id}"
                         style="text-decoration: none"
                       >
                         <img
@@ -66,7 +66,7 @@ function createObra() {
                       &nbsp;
                       <span
                         style="text-decoration: none; cursor: pointer"
-                        onClick="setIdForRemoveObra('${result.obras.id}')"
+                        onClick="setIdForRemoveObra('${result.obra.id}')"
                         data-bs-toggle="modal"
                         data-bs-target="#deleteModal"
                       >
