@@ -102,7 +102,7 @@ class ObrasController {
     }
 
     const obraValidate = await Obras.findOne({
-      where: { id: req.params.id, CamaraId: camara.id },
+      where: { id: id, CamaraId: camara.id },
     });
 
     if (!obraValidate) {
@@ -185,6 +185,45 @@ class ObrasController {
       return res
         .status(200)
         .json({ status: "success", message: "Obra editada com sucesso" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: "false",
+        message:
+          "Não foi possível realizar essa operação, tente novamente mais tarde",
+      });
+    }
+  }
+
+  async deleteObra(req, res) {
+    try {
+      const camara = await getInfoCamaraByUrl(req);
+
+      const id = req.params.id;
+
+      if (!id) {
+        return res.status(200).json({
+          status: "false",
+          message: "Não foi possível remover essa obra",
+        });
+      }
+
+      const obra = await Obras.findOne({
+        where: { id: id, CamaraId: camara.id },
+      });
+
+      if (!obra) {
+        return res.status(200).json({
+          status: "false",
+          message: "Nao foi possivel remover essa obra",
+        });
+      }
+
+      await obra.destroy();
+
+      return res
+        .status(200)
+        .json({ status: "success", message: "Obra removida com sucesso" });
     } catch (error) {
       console.log(error);
       return res.status(500).json({

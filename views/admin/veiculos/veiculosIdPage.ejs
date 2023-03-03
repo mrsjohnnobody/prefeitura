@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'veiculosId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %> <%-
+    include("../../partialViews/spinner"); %>
+
+    <div
+      class="container-fluid"
+      style="background-color: var(--secondary-color)"
+    >
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem:
+          'Veiculos' })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color)">
+          <div
+            class="card text-center m-5 mb-0 d-flex justify-content-center"
+            style="border-style: solid; border-color: var(--secondary-color)"
+          >
+            <div
+              class="card-header"
+              style="background-color: var(--secondary-color); color: white"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <h3>EDIÇÃO DE VEICULO N tal tal</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input id="veiculoId" value="<%=veiculos.id%>" hidden />
+          <nav class="navMedicoes shadow-sm mx-5">
+            <div
+              class="nav nav-tabs"
+              id="nav-tab"
+              role="tablist"
+              style="
+                background-color: var(--secondary-color);
+                color: white;
+                border-radius: 5px 5px 0px 0px;
+              "
+            ></div>
+            <div
+              class="tab-content"
+              id="nav-tabContent"
+              style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px"
+            >
+              <!-- VEICULOS -->
+              <div
+                class="tab-pane fade show active"
+                id="nav-infoSessoes"
+                role="tabpanel"
+                aria-labelledby="nav-infoSessoes-tab"
+              >
+                <div class="p-5">
+                  <h4 class="fw-bold">Editar informações do veiculo:</h4>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold">MARCA:</label>
+                    <div class="col-10">
+                      <input
+                        id="veiculosMarca"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.marca ? veiculos.marca : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosMarca">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar marca do veiculo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar marca do veiculo"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >MODELO:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="veiculosModelo"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.modelo ? veiculos.modelo : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosModelo">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar modelo do veiculo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar modelo do veiculo"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold">PLACA:</label>
+                    <div class="col-10">
+                      <input
+                        id="veiculosPlaca"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.placa ? veiculos.placa : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosPlaca">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar placa do veiculo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar placa do veiculo"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >SECRETARIA:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="veiculosSecretaria"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.secretaria ? veiculos.secretaria : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosSecretaria">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar secretaria responsavel"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar secretaria responsavel"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >FINALIDADE:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="veiculosFinalidade"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.finalidade ? veiculos.finalidade : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosFinalidade">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar finalidade"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar finalidade"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold">TIPO:</label>
+                    <div class="col-10">
+                      <input
+                        id="veiculosTipo"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.tipo ? veiculos.tipo : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosTipo">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar tipo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar tipo"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >SITUACAO:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="veiculosSituacao"
+                        class="form-control"
+                        type="text"
+                        value="<%=veiculos.situacao ? veiculos.situacao : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editVeiculosSituacao">
+                        <img
+                          class="veiculosBtnEdit"
+                          title="Editar situacao veiculo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar situacao veiculo"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <div class="row p-5 pt-0 m-3 mt-2">
+            <div class="col-8"></div>
+            <div class="col-4 d-flex justify-content-end">
+              <button type="button" class="btn btn-danger m-0 me-3">
+                Cancelar edição
+              </button>
+              <button
+                id="btnSendRequest"
+                type="button"
+                class="btn btn-success m-0"
+              >
+                <img
+                  title="Abrir documento principal"
+                  src="/icons/send-fill.svg"
+                  alt="Arquivo PDF"
+                  height="20rem"
+                />
+                Salvar alterações
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script/admin/veiculos/veiculosIdPage.js"></script>
+
+    <style>
+      .nav-tabs .item-nav-tab {
+        color: white;
+        border: none;
+      }
+
+      .nav-tabs .nav-link.active {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+      }
+
+      .nav-tabs .item-nav-tab:hover {
+        background-color: var(--primary-color);
+        border: none;
+      }
+
+      nav .navVeiculos {
+        border: none;
+      }
+    </style>
+  </body>
+</html>

@@ -195,7 +195,7 @@ function createMedicao() {
   });
 }
 
-function setIdForRemoveMateria(id) {
+function setIdForRemoveMedicao(id) {
   if (!id) return;
 
   $("#btnDeleteModal").off("click");
@@ -204,7 +204,7 @@ function setIdForRemoveMateria(id) {
     loadPageAnimation(true);
     $.ajax({
       type: "GET",
-      url: "/admin/deleteMateria/" + id,
+      url: "/admin/deleteMedicao/" + id,
       error: function (error) {
         loadPageAnimation(false);
 
@@ -223,7 +223,7 @@ function setIdForRemoveMateria(id) {
 
           loadToastNotification(result.message, "success");
 
-          $("#materiaIdItem_" + id).remove();
+          $("#medicaoIdItem_" + id).remove();
         } else {
           $("#deleteModal").modal("hide");
 

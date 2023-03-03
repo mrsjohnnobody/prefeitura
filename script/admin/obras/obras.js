@@ -107,3 +107,40 @@ function createObra() {
     loadPageAnimation(false);
   }
 }
+
+function setIdForRemoveObra(id) {
+  if (!id) {
+    return;
+  }
+
+  $("#btnDeleteModal").off("click");
+
+  $("#btnDeleteModal").click(function () {
+    loadPageAnimation(true);
+
+    $.ajax({
+      type: "GET",
+      url: "/admin/deleteObra/" + id,
+      error: function (error) {
+        $("#deleteModal").modal("hide");
+
+        loadToastNotification("Não foi possível remover esta obra", "danger");
+      },
+      success: function (result) {
+        if (result.status === "success") {
+          $("#deleteModal").modal("hide");
+
+          loadToastNotification(result.message, "success");
+
+          $("#obraIdItem_" + id).remove();
+        } else {
+          $("#deleteModal").modal("hide");
+
+          loadToastNotification(result.message, "danger");
+        }
+      },
+    });
+
+    loadPageAnimation(false);
+  });
+}

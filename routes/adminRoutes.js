@@ -247,6 +247,21 @@ routes.get(
 );
 routes.get("/noticias", checkCredentials, noticiaController.viewNoticias);
 routes.post("/addVeiculo", checkCredentials, veiculosController.createVeiculo);
+routes.get(
+  "/deleteVeiculo/:id",
+  checkCredentials,
+  veiculosController.deleteVeiculo
+);
+routes.post(
+  "/editVeiculos/:id",
+  checkCredentials,
+  veiculosController.editVeiculos
+);
+routes.get(
+  "/editVeiculos/:id",
+  checkCredentials,
+  veiculosController.viewVeiculosId
+);
 routes.get("/veiculos", checkCredentials, veiculosController.viewVeiculos);
 routes.post("/addMedicao", checkCredentials, medicoesController.createMedicao);
 routes.post(
@@ -259,7 +274,13 @@ routes.get(
   checkCredentials,
   medicoesController.viewMedicaoId
 );
+routes.get(
+  "/deleteMedicao/:id",
+  checkCredentials,
+  medicoesController.deleteMedicao
+);
 routes.post("/addObra", checkCredentials, obrasController.createObras);
+routes.get("/deleteObra/:id", checkCredentials, obrasController.deleteObra);
 routes.post("/editObra/:id", checkCredentials, obrasController.editObras);
 routes.get("/editObra/:id", checkCredentials, obrasController.viewObrasId);
 routes.get("/obras", checkCredentials, obrasController.viewObras);

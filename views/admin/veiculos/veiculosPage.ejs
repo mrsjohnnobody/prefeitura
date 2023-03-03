@@ -81,8 +81,7 @@
                       <p>Situacao</p>
                       <p>Categoria</p>
                     </th>
-                    <th class="col-1" scope="col">Editar</th>
-                    <th class="col-1" scope="col">Deletar</th>
+                    <th class="col-1" scope="col">Acoes</th>
                   </tr>
                 </thead>
                 <tbody style="color: var(--secondary-color) color">
@@ -102,28 +101,30 @@
                       <p><%=veiculos[i].situacao%></p>
                       <p><%=veiculos[i].categoria%></p>
                     </th>
-                    <th scope="row">
-                      <a href="/<%=veiculos[i].path %>" target="_blank">
+                    <th>
+                      <span
+                        data-bs-toggle="modal"
+                        data-bs-target="#confirmRedirectModal"
+                        onclick="setIdForRedirectModal('')"
+                        style="cursor: pointer"
+                      >
                         <img
-                          title="Abrir arquivo"
-                          src="/icons/pdf-icon.svg"
-                          alt="Arquivo PDF"
+                          title="Editar veiculo"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar medicao"
                           height="20rem"
                         />
-                      </a>
-                    </th>
-                    <th scope="row">
+                      </span>
                       <span
                         style="text-decoration: none; cursor: pointer"
-                        onclick="setIdForRemoveVeiculo('<%=veiculos[i].id %>')"
+                        onClick="setIdForRemoveVeiculo('<%=veiculos[i].id %>')"
                         data-bs-toggle="modal"
                         data-bs-target="#deleteModal"
                       >
                         <img
-                          class="licitacaoBtnEdit"
-                          title="Remover item"
+                          title="Excluir sessão"
                           src="/icons/x-circle-fill.svg"
-                          alt="Remover item"
+                          alt="Excluir obra"
                           height="20rem"
                         />
                       </span>
@@ -134,8 +135,54 @@
               </table>
             </div>
           </div>
-
-          <!-- Modal DELETE LEI-->
+          <!-- Modal PARA CONFIRMAR REDIRECIONAMENTO-->
+          <div
+            class="modal fade"
+            id="confirmRedirectModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="confirmRedirectLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="confirmRedirectLabel">
+                    Lembrete para salvar alterações
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  Ao selecionar a opção de "Editar Veiculo" você será
+                  redirecionado para outra pagina, certifique-se de que as
+                  alterações que foram feitas foram salvas, caso contrário
+                  salve-as primeiro para não perder as suas modificações.
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Fechar
+                  </button>
+                  <a
+                    id="btnConfirmRedirect"
+                    type="button"
+                    class="btn btn-primary"
+                    >Editar veiculo</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal DELETE VEICULO-->
           <div
             class="modal fade"
             id="deleteModal"
@@ -178,8 +225,7 @@
               </div>
             </div>
           </div>
-
-          <!-- Modal ADD LEI-->
+          <!-- Modal ADD VEICULO-->
           <div
             class="modal fade"
             id="addVeiculoModal"

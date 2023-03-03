@@ -3,41 +3,44 @@ $(document).ready(function () {
   // searchLei();
 });
 
-// function setIdForRemoveLei(id) {
-//   if (!id) return;
+function setIdForRemoveVeiculo(id) {
+  if (!id) return;
 
-//   $("#btnDeleteModal").off("click");
+  $("#btnDeleteModal").off("click");
 
-//   $("#btnDeleteModal").click(function () {
-//     loadPageAnimation(true);
-//     $.ajax({
-//       type: "GET",
-//       url: "/admin/deleteLei/" + id,
-//       error: function (error) {
-//         loadPageAnimation(false);
+  $("#btnDeleteModal").click(function () {
+    loadPageAnimation(true);
+    $.ajax({
+      type: "GET",
+      url: "/admin/deleteVeiculo/" + id,
+      error: function (error) {
+        loadPageAnimation(false);
 
-//         $("#deleteModal").modal("hide");
+        $("#deleteModal").modal("hide");
 
-//         loadToastNotification("Não foi possível remover esta lei", "danger");
-//       },
-//       success: function (result) {
-//         loadPageAnimation(false);
+        loadToastNotification(
+          "Não foi possível remover esse veiculo",
+          "danger"
+        );
+      },
+      success: function (result) {
+        loadPageAnimation(false);
 
-//         if (result.status === "success") {
-//           $("#deleteModal").modal("hide");
+        if (result.status === "success") {
+          $("#deleteModal").modal("hide");
 
-//           loadToastNotification(result.message, "success");
+          loadToastNotification(result.message, "success");
 
-//           $("#leiIdItem_" + id).remove();
-//         } else {
-//           $("#deleteModal").modal("hide");
+          $("#veiculosIdItem_" + id).remove();
+        } else {
+          $("#deleteModal").modal("hide");
 
-//           loadToastNotification(result.message, "danger");
-//         }
-//       },
-//     });
-//   });
-// }
+          loadToastNotification(result.message, "danger");
+        }
+      },
+    });
+  });
+}
 
 function createVeiculo() {
   try {
@@ -126,3 +129,7 @@ function createVeiculo() {
 //     });
 //   });
 // }
+
+function setIdForRedirectModal(value) {
+  $("#btnConfirmRedirect").attr("href", `/admin/editVeiculos/${value}`);
+}

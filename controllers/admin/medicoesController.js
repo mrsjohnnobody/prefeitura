@@ -189,6 +189,46 @@ class MedicoesController {
       });
     }
   }
+
+  async deleteMedicao(req, res) {
+    try {
+      const camara = await getInfoCamaraByUrl(req);
+
+      const id = req.params.id;
+
+      if (!id) {
+        return res.status(200).json({
+          status: "false",
+          message: "Não foi possível remover esta medicao",
+        });
+      }
+
+      const medicao = await Medicoes.findOne({
+        where: { id: id, CamaraId: camara.id },
+      });
+
+      if (!medicao) {
+        return res.status(200).json({
+          status: "false",
+          message: "Nao foi possivel remover esta medicao",
+        });
+      }
+
+      await medicao.destroy();
+
+      return res.status(200).json({
+        status: "success",
+        message: "Medicao removida com sucesso",
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        status: "false",
+        message:
+          "Não foi possível realizar essa operação, tente novamente mais tarde",
+      });
+    }
+  }
 }
 
 module.exports = new MedicoesController();

@@ -338,20 +338,19 @@
                               height="20rem"
                             />
                           </span>
-                          <a
-                            href="#"
-                            style="text-decoration: none"
+                          <span
+                            style="text-decoration: none; cursor: pointer"
+                            onClick="setIdForRemoveMedicao('<%=obras.Medicoes[i].id %>')"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal"
-                            onclick="setIdForRemoveMedicao('')"
                           >
                             <img
-                              title="Excluir Medicao"
+                              title="Excluir sessão"
                               src="/icons/x-circle-fill.svg"
-                              alt="Excluir Matéria"
+                              alt="Excluir obra"
                               height="20rem"
                             />
-                          </a>
+                          </span>
                         </td>
                       </tr>
                       <% } %>
