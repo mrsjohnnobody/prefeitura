@@ -3,6 +3,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../db/conn");
 
 const Camara = require("./Camara");
+const Medicoes = require("./Medicoes");
 
 const Obras = db.define("Obras", {
   dataAndamento: {
@@ -38,6 +39,12 @@ const Obras = db.define("Obras", {
     allowNull: false,
   },
 });
+
+Obras.hasMany(Medicoes, {
+  foreignKey: "ObraId",
+});
+
+Medicoes.belongsTo(Obras, { foreignKey: "ObraId" });
 
 Camara.hasMany(Obras, {
   foreignKey: "CamaraId",

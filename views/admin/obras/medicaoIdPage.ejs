@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'obrasId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %> <%-
+    include("../../partialViews/spinner"); %>
+
+    <div
+      class="container-fluid"
+      style="background-color: var(--secondary-color)"
+    >
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Obras'
+          })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color)">
+          <div
+            class="card text-center m-5 mb-0 d-flex justify-content-center"
+            style="border-style: solid; border-color: var(--secondary-color)"
+          >
+            <div
+              class="card-header"
+              style="background-color: var(--secondary-color); color: white"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <h3>EDIÇÃO DE MEDICAO N tal tal</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input id="medicaoId" value="<%=medicao.id%>" hidden />
+          <nav class="navMedicoes shadow-sm mx-5">
+            <div
+              class="nav nav-tabs"
+              id="nav-tab"
+              role="tablist"
+              style="
+                background-color: var(--secondary-color);
+                color: white;
+                border-radius: 5px 5px 0px 0px;
+              "
+            ></div>
+            <div
+              class="tab-content"
+              id="nav-tabContent"
+              style="background-color: #f6f6f6; border-radius: 0px 0px 5px 5px"
+            >
+              <!-- MEDICOES -->
+              <div
+                class="tab-pane fade show active"
+                id="nav-infoSessoes"
+                role="tabpanel"
+                aria-labelledby="nav-infoSessoes-tab"
+              >
+                <div class="p-5">
+                  <h4 class="fw-bold">Editar informações da medicao:</h4>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >DATA MEDICAO:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoDataMedicao"
+                        class="form-control"
+                        type="date"
+                        value="<%=medicao.dataMedicao ? medicao.dataMedicao : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoDataMedicao">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar data da medicao"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar data da medicao"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >DATA INICIO:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoDataInicio"
+                        class="form-control"
+                        type="date"
+                        value="<%=medicao.dataInicio ? medicao.dataInicio : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoDataInicio">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar data de inicio medicao"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar data de inicio medicao"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >DATA FINAL:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoDataFinal"
+                        class="form-control"
+                        type="date"
+                        value="<%=medicao.dataFinal ? medicao.dataFinal : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoDataFinal">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar data final da medicao"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar data final da medicao"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >VALOR MEDICAO:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoValorMedicao"
+                        class="form-control"
+                        type="text"
+                        value="<%=medicao.valorMedicao ? medicao.valorMedicao : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoValorMedicao">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar valor da medicao"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar valor da medicao"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >EMPRESA RESPONSAVEL:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoEmpresaResponsavel"
+                        class="form-control"
+                        type="text"
+                        value="<%=medicao.empresaResponsavel ? medicao.empresaResponsavel : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoEmpresaResponsavel">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar empresa responsavel"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar empresa responsavel"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >CNPJ EMPRESA:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoCnpjEmpresa"
+                        class="form-control"
+                        type="text"
+                        value="<%=medicao.cnpjEmpresa ? medicao.cnpjEmpresa : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoCnpjEmpresa">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar CNPJ da empresa prestadora"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar CNPJ da empresa prestadora"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >RESPONSAVEL TECNICO EMPRESA:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoResponsavelTecnicoEmpresa"
+                        class="form-control"
+                        type="text"
+                        value="<%=medicao.responsavelTecnicoEmpresa ? medicao.responsavelTecnicoEmpresa : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoResponsavelTecnicoEmpresa">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar responsavel tecnico da empresa prestadora"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar responsavel tecnico da empresa prestadora"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label for="floatingTextarea" class="fw-bold"
+                      >RESPONSAVEL TECNICO PREFEITURA:</label
+                    >
+                    <div class="col-10">
+                      <input
+                        id="medicaoResponsavelTecnicoPrefeitura"
+                        class="form-control"
+                        type="text"
+                        value="<%=medicao.responsavelTecnicoPrefeitura ? medicao.responsavelTecnicoPrefeitura : null%>"
+                        aria-label="Disabled input example"
+                        disabled
+                        readonly
+                      />
+                    </div>
+                    <div class="col-2">
+                      <a href="#" id="editMedicaoResponsavelTecnicoPrefeitura">
+                        <img
+                          class="medicaoBtnEdit"
+                          title="Editar responsavel tecnico da prefeitura"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar responsavel tecnico da prefeitura"
+                          height="20rem"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <div class="row p-5 pt-0 m-3 mt-2">
+            <div class="col-8"></div>
+            <div class="col-4 d-flex justify-content-end">
+              <button type="button" class="btn btn-danger m-0 me-3">
+                Cancelar edição
+              </button>
+              <button
+                id="btnSendRequest"
+                type="button"
+                class="btn btn-success m-0"
+              >
+                <img
+                  title="Abrir documento principal"
+                  src="/icons/send-fill.svg"
+                  alt="Arquivo PDF"
+                  height="20rem"
+                />
+                Salvar alterações
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script/admin/obras/medicaoIdPage.js"></script>
+
+    <style>
+      .nav-tabs .item-nav-tab {
+        color: white;
+        border: none;
+      }
+
+      .nav-tabs .nav-link.active {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+      }
+
+      .nav-tabs .item-nav-tab:hover {
+        background-color: var(--primary-color);
+        border: none;
+      }
+
+      nav .navMedicoes {
+        border: none;
+      }
+    </style>
+  </body>
+</html>

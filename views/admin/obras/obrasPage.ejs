@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'obras'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %> <%-
+    include("../../partialViews/spinner"); %>
+
+    <div
+      class="container-fluid"
+      style="background-color: var(--secondary-color)"
+    >
+      <div class="row">
+        <div class="col-3">
+          <%- include("../../partialViews/adminNavbar", { activeNavItem: 'Obras'
+          })%>
+        </div>
+        <!-- CONTENT PAGE -->
+        <div class="col-9" style="background-color: var(--background-color)">
+          <div class="row mx-4 mb-4 p-3 pt-0 mt-4">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Pesquisar"
+                aria-label="Pesquisar"
+                aria-describedby="button-addon2"
+              />
+              <a
+                href="/admin/addObra"
+                type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#addObraModal"
+              >
+                <img
+                  title="Abrir documento principal"
+                  src="/icons/file-earmark-plus-fill.svg"
+                  alt="Arquivo PDF"
+                  height="20rem"
+                />
+                Cadastrar nova obra
+              </a>
+            </div>
+          </div>
+
+          <!--TABLE-->
+          <div
+            class="card m-5 mt-0 d-flex justify-content"
+            style="border-style: solid; border-color: var(--secondary-color)"
+          >
+            <div
+              class="card-header"
+              style="background-color: var(--secondary-color); color: white"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <h3>Obras</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table id="obrasTable" class="table table-bordered">
+                <thead
+                  class="table"
+                  style="background-color: var(--secondary-color); color: white"
+                >
+                  <tr>
+                    <th class="col-3" scope="col">Data andamento</th>
+                    <th class="col-1" scope="col">
+                      <p>Secretaria</p>
+                      <p>Objeto</p>
+                    </th>
+                    <th class="col-3" scope="col">
+                      <p>Tipo</p>
+                      <p>Local obra</p>
+                    </th>
+                    <th class="col-1" scope="col">Valor total (R$)</th>
+                    <th class="col-2" scope="col">Total medição (R$)</th>
+                    <th class="col-1" scope="col">Percentual (%)</th>
+                    <th class="col-1" scope="col">Acoes</th>
+                  </tr>
+                </thead>
+                <tbody style="color: var(--secondary-color) color">
+                  <% for(var i=0; i < obras.length; i++) {%>
+                  <tr id="obraIdItem_<%=obras[i].id %>">
+                    <th scope="row"><%=obras[i].dataAndamento%></th>
+                    <th scope="row">
+                      <p><%=obras[i].secretaria%></p>
+                      <p><%=obras[i].objeto%></p>
+                    </th>
+                    <th scope="row">
+                      <p><%=obras[i].tipo%></p>
+                      <p><%=obras[i].localExecucao%></p>
+                    </th>
+                    <th scope="row"><%=obras[i].valorTotal%></th>
+                    <th scope="row"><%=obras[i].totalMed%></th>
+                    <th scope="row"><%=obras[i].percentualConcl%></th>
+                    <th scope="row">
+                      <a
+                        href="/admin/editObra/<%=obras[i].id%>"
+                        style="text-decoration: none"
+                      >
+                        <img
+                          title="Editar Sessão"
+                          src="/icons/pencil-fill.svg"
+                          alt="Editar obra"
+                          height="20rem"
+                        />
+                      </a>
+                      &nbsp;
+                      <span
+                        style="text-decoration: none; cursor: pointer"
+                        onClick="setIdForRemoveObra('${result.obras.id}')"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteModal"
+                      >
+                        <img
+                          title="Excluir sessão"
+                          src="/icons/x-circle-fill.svg"
+                          alt="Excluir obra"
+                          height="20rem"
+                        />
+                      </span>
+                    </th>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Modal DELETE LEI-->
+          <div
+            class="modal fade"
+            id="deleteModal"
+            tabindex="-1"
+            aria-labelledby="deleteModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Excluir Obra
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  Deseja realmente excluir essa Obra?
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Fechar
+                  </button>
+                  <a
+                    href="#"
+                    id="btnDeleteModal"
+                    type="button"
+                    class="btn btn-danger"
+                    >Excluir</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal ADD LEI-->
+          <div
+            class="modal fade"
+            id="addObraModal"
+            tabindex="-1"
+            aria-labelledby="AddObraLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="AddObraLabel">Cadastrar Obra</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <form
+                    id="obrasForm"
+                    class="needs-validation"
+                    enctype="multipart/form-data"
+                  >
+                    <div class="mb-1">
+                      <div class="row">
+                        <div>
+                          <label for="dataAndamento" class="col-form-label"
+                            >Data andamento:</label
+                          >
+                          <input
+                            name="dataAndamento"
+                            required
+                            type="date"
+                            class="form-control"
+                            id="dataAndamento"
+                          />
+                        </div>
+                        <div>
+                          <label for="secretaria" class="col-form-label"
+                            >Secretaria:</label
+                          >
+                          <input
+                            name="secretaria"
+                            required
+                            type="text"
+                            class="form-control"
+                            id="secretaria"
+                          />
+                        </div>
+                        <div>
+                          <label for="objeto" class="col-form-label"
+                            >Objeto:</label
+                          >
+                          <input
+                            name="objeto"
+                            required
+                            type="text"
+                            class="form-control"
+                            id="objeto"
+                          />
+                        </div>
+                        <div>
+                          <label for="tipo" class="col-form-label">Tipo:</label>
+                          <input
+                            name="tipo"
+                            required
+                            type="text"
+                            class="form-control"
+                            id="tipo"
+                          />
+                        </div>
+                        <div>
+                          <label for="localExecucao" class="col-form-label"
+                            >Local obra:</label
+                          >
+                          <input
+                            name="localExecucao"
+                            required
+                            type="text"
+                            class="form-control"
+                            id="localExecucao"
+                          />
+                        </div>
+                        <div>
+                          <label for="valorTotal" class="col-form-label"
+                            >Valor Total (R$):</label
+                          >
+                          <input
+                            name="valorTotal"
+                            required
+                            type="number"
+                            class="form-control"
+                            id="valorTotal"
+                          />
+                        </div>
+                        <div>
+                          <label for="totalMed" class="col-form-label"
+                            >Total medicao (R$):</label
+                          >
+                          <input
+                            name="totalMed"
+                            required
+                            type="number"
+                            class="form-control"
+                            id="totalMed"
+                          />
+                        </div>
+                        <div>
+                          <label for="percentualConcl" class="col-form-label"
+                            >Percentual (%):</label
+                          >
+                          <input
+                            name="percentualConcl"
+                            required
+                            type="number"
+                            class="form-control"
+                            id="percentualConcl"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Fechar
+                      </button>
+                      <button
+                        id="btnSubmit"
+                        type="submit"
+                        class="btn btn-success"
+                      >
+                        Cadastrar nova obra
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script/admin/global/global.js"></script>
+    <script src="/script/admin/obras/obras.js"></script>
+  </body>
+</html>

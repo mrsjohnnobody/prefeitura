@@ -1,10 +1,17 @@
-const getInfoCamaraByUrl = require('../../helpers/getInfoCamaraByUrl')
+// MODELS
+const Veiculos = require("../../models/Veiculos");
+
+const getInfoCamaraByUrl = require("../../helpers/getInfoCamaraByUrl");
 
 class veiculosController {
-  async viewveiculos(req, res) {
-    const camara = await getInfoCamaraByUrl(req)
+  async viewVeiculos(req, res) {
+    const camara = await getInfoCamaraByUrl(req);
 
-    res.render("user/veiculos/veiculosPage", { camara } );
+    const veiculos = await Veiculos.findAll({
+      where: { CamaraId: camara.id },
+    });
+
+    res.render("user/veiculos/veiculosPage", { veiculos, camara });
   }
 }
 

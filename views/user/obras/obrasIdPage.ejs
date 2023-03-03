@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <%- include("../global/head", {pageCss: 'obrasId'}); %>
+
+  <body>
+    <%- include("../../partialViews/toastNotifications"); %> <%-
+    include("../../partialViews/spinner"); %> <%-
+    include("../../partialViews/header"); %> <%-
+    include("../../partialViews/navbar", {activeNavItem: 'Obras'}); %>
+
+    <div class="container-fluid">
+      <input type="text" hidden id="obrasId" value="<%= obras.id %> " />
+      <div
+        class="row m-2 mx-5 p-5"
+        style="background-color: #e9e9e9; border-radius: 8px; height: 58vh"
+      >
+        <div class="row card m-0" style="max-height: 28vh">
+          <div class="row g-0">
+            <div
+              class="col-sm-2 d-flex justify-content-center align-items-center"
+            >
+              <img
+                class="img-thumbnail"
+                src="https://www.crateus.ce.gov.br/imagens/obras.png"
+                height="250vh"
+                width="120"
+              />
+            </div>
+            <div class="col-sm-10">
+              <div class="card-body">
+                <h4><%= obras.objeto %></h4>
+                <div>
+                  <i class="fa fa-square"></i>
+                  <span class="fw-bold">DATA:</span>
+                  <%= obras.dataAndamento %>
+                </div>
+                <div>
+                  <span>
+                    <i class="fa fa-square"></i>
+                    <span class="fw-bold">SECRETARIA:</span>
+                    <%= obras.secretaria %>
+                  </span>
+                </div>
+                <div>
+                  <i class="fa fa-square"></i>
+                  <span class="fw-bold">TIPO:</span>
+                  <%= obras.tipo %>
+                </div>
+                <div>
+                  <i class="fa fa-square"></i>
+                  <span class="fw-bold">FONTE:</span>
+                  <%= obras.fonte %>
+                </div>
+                <div>
+                  <i class="fa fa-square"></i>
+                  <span class="fw-bold">LOCAL:</span>
+                  <%= obras.localExecucao %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row card m-0" style="max-height: 28vh">
+          <div class="row g-0">
+            <div class="col-sm-10">
+              <div class="card-body">
+                <div class="p-3 mb-2 bg-info" style="width: 150vh; height: 5vh">
+                  <ul class="list-inline text-center align-items-center">
+                    <li class="list-inline-item fw-bold text-light">
+                      VALOR TOTAL TOTAL DA OBRA:
+                    </li>
+                    <li class="list-inline-item fw-bold text-light">
+                      R$ <%= obras.valorTotal %>
+                    </li>
+                  </ul>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="p-2 bg-success">
+                    <span>TOTAL DE MEDIÇÕES: </span>
+                    <span>R$ <%= obras.totalMed %></span>
+                  </div>
+                  <div class="p-2 bg-success">
+                    <span>SALDO DA OBRA: </span>
+                    <span>R$ <%= obras.saldoObra %></span>
+                  </div>
+                  <div class="p-2 bg-success">
+                    <span>PERCENTUAL DA OBRA: </span>
+                    <span><%= obras.percentualConcl %> %</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="m-2 mx-5 p-5 pb-3"
+            style="background-color: #e9e9e9; border-radius: 8px"
+          >
+            <nav class="navSessoes shadow-sm mb-4">
+              <div
+                class="nav nav-tabs"
+                id="nav-tab"
+                role="tablist"
+                style="
+                  background-color: var(--secondary-color);
+                  color: white;
+                  border-radius: 5px 5px 0px 0px;
+                "
+              >
+                <button
+                  class="nav-link active item-nav-tab"
+                  id="nav-infoSessoes-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-infoSessoes"
+                  type="button"
+                  role="tab"
+                  aria-controls="nav-infoSessoes"
+                  aria-selected="true"
+                >
+                  MEDICOES
+                </button>
+                <button
+                  class="nav-link item-nav-tab"
+                  id="nav-chamada-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-chamada"
+                  type="button"
+                  role="tab"
+                  aria-controls="nav-chamada"
+                  aria-selected="false"
+                >
+                  CONTRATOS
+                </button>
+              </div>
+              <div
+                class="tab-content"
+                id="nav-tabContent"
+                style="
+                  background-color: #f6f6f6;
+                  border-radius: 0px 0px 5px 5px;
+                "
+              >
+                <!-- MEDICOES -->
+                <div
+                  class="tab-pane fade show active"
+                  id="nav-infoSessoes"
+                  role="tabpanel"
+                  aria-labelledby="nav-infoSessoes-tab"
+                >
+                  <div class="p-5">
+                    <div class="row">
+                      <% for(var i=0; i < obras.Medicoes.length; i++) {%>
+                      <label for="floatingTextarea" class="fw-bold"
+                        ><%= obras.Medicoes[i].dataMedicao %></label
+                      >
+                      <% } %>
+                      <div class="col-10">
+                        <input
+                          id="sessaoNumero"
+                          class="form-control"
+                          type="text"
+                          value=""
+                          aria-label="Disabled input example"
+                          disabled
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="floatingTextarea" class="fw-bold"
+                        >Tipo da sessão:</label
+                      >
+                      <div class="col-10">
+                        <select
+                          id="tipo"
+                          name="tipo"
+                          required
+                          class="form-select"
+                          aria-label=".form-select-sm"
+                          disabled
+                          readonly
+                        >
+                          <option value="">Selecione</option>
+                          <option value="1">Extra-Ordinária</option>
+                          <option value="2">Audiência pública</option>
+                          <option value="3">Solene</option>
+                          <option value="4">
+                            Abertura de período legislativo
+                          </option>
+                          <option value="5">
+                            Encerramento de período legislativo
+                          </option>
+                          <option value="6">Intinerante</option>
+                          <option value="7">Sessão administrativa</option>
+                          <option value="8">>Sessão especial</option>
+                          <option value="9">>Ordinária</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="floatingTextarea" class="fw-bold"
+                        >Situação da sessão:</label
+                      >
+                      <div class="col-10">
+                        <select
+                          id="situacao"
+                          name="modality"
+                          required
+                          class="form-select"
+                          aria-label=".form-select-sm"
+                          disabled
+                          readonly
+                        >
+                          <option value="">Selecione</option>
+                          <option value="1">Aberta</option>
+                          <option value="2">Fechada</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="floatingTextarea" class="fw-bold"
+                        >Data da sessão:</label
+                      >
+                      <div class="col-10">
+                        <input
+                          id="sessaoData"
+                          class="form-control"
+                          type="date"
+                          value=""
+                          aria-label="Disabled input example"
+                          disabled
+                          readonly
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <label for="floatingTextarea" class="fw-bold"
+                        >Descrição da sessão:</label
+                      >
+                      <div class="col-10">
+                        <textarea
+                          id="sessaoDescricao"
+                          rows="4"
+                          class="form-control"
+                          type="text"
+                          aria-label="Disabled input example"
+                          disabled
+                          readonly
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- CONTRATOS -->
+                <div
+                  class="tab-pane fade"
+                  id="nav-chamada"
+                  role="tabpanel"
+                  aria-labelledby="nav-chamada-tab"
+                >
+                  <div class="p-5">
+                    <table
+                      id="tableChamadaForm"
+                      class="table table-bordered table-striped"
+                      style="border-radius: 10px; overflow: hidden"
+                    >
+                      <thead
+                        class="table"
+                        style="
+                          background-color: var(--secondary-color);
+                          color: white;
+                        "
+                      >
+                        <tr>
+                          <th class="col-3 text-nowrap" scope="col">Cargo</th>
+                          <th class="col-6" scope="col">Nome</th>
+                          <th class="col-2" scope="col">Situação</th>
+                        </tr>
+                      </thead>
+                      <tbody style="color: var(--secondary-color) color">
+                        <tr>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
+    <script src="/script/user/global/global.js"></script>
+    <script src="/script/utilities/chartjs/chart.js"></script>
+    <script src="/script/user/parlamentar/parlamentarId.js"></script>
+  </body>
+</html>

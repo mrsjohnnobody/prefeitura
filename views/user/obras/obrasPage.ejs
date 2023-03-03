@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <%- include("../global/head", {pageCss: 'veiculos'}); %>
+  <%- include("../global/head", {pageCss: 'obras'}); %>
 
   <body>
     <%- include("../../partialViews/header"); %> <%-
-    include("../../partialViews/navbar", { activeNavItem:
-    "Transparencia-Veiculos" }); %>
+    include("../../partialViews/navbar", { activeNavItem: "Transparencia-Obras"
+    }); %>
 
     <div class="px-5">
       <div
@@ -54,7 +54,7 @@
             >
               <div class="row">
                 <div class="col-12">
-                  <h3>Lista de Veiculos</h3>
+                  <h3>Lista de Obras</h3>
                 </div>
               </div>
             </div>
@@ -65,31 +65,30 @@
                   style="background-color: var(--secondary-color); color: white"
                 >
                   <tr>
-                    <th class="col-2" scope="col">Marca/Modelo</th>
-                    <th class="col-2" scope="col">Placa</th>
-                    <th class="col-3" scope="col">Secretaria/Finalidade</th>
-                    <th class="col-2" scope="col">Tipo</th>
-                    <th class="col-2" scope="col">Situacao/Categoria</th>
-                    <th class="col-1" scope="col">Acoes</th>
+                    <th class="col-2" scope="col">Data andamento</th>
+                    <th class="col-2" scope="col">Secretaria/Objeto</th>
+                    <th class="col-3" scope="col">Tipo/Local Obra</th>
+                    <th class="col-2" scope="col">Valor total (R$)</th>
+                    <th class="col-2" scope="col">Total medição (R$)</th>
+                    <th class="col-1" scope="col">Percentual (%)</th>
+                    <th class="col-1" scope="col">Ação</th>
                   </tr>
                 </thead>
                 <tbody style="color: var(--secondary-color) color">
-                  <% for(var i=0; i < veiculos.length; i++) {%>
+                  <% for(var i=0; i < obras.length; i++) {%>
                   <tr>
+                    <th scope="row"><%=obras[i].dataAndamento%></th>
                     <th scope="row">
-                      <p><%=veiculos[i].marca %></p>
-                      <p><%=veiculos[i].modelo %></p>
+                      <p><%=obras[i].secretaria%></p>
+                      <p><%=obras[i].objeto%></p>
                     </th>
-                    <th scope="row"><%=veiculos[i].placa %></th>
                     <th scope="row">
-                      <p><%=veiculos[i].secretaria %></p>
-                      <p><%=veiculos[i].finalidade %></p>
+                      <p><%=obras[i].tipo%></p>
+                      <p><%=obras[i].localExecucao%></p>
                     </th>
-                    <th scope="row"><%=veiculos[i].tipo %></th>
-                    <th scope="row">
-                      <p><%=veiculos[i].situacao %></p>
-                      <p><%=veiculos[i].categoria %></p>
-                    </th>
+                    <th scope="row"><%=obras[i].valorTotal%></th>
+                    <th scope="row"><%=obras[i].totalMed%></th>
+                    <th scope="row"><%=obras[i].percentualConcl%></th>
                   </tr>
                   <% } %>
                 </tbody>

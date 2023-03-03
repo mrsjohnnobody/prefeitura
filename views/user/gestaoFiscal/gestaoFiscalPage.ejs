@@ -1,84 +1,109 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<%- include("../global/head", {pageCss: 'gestaoFiscal'}); %>
+  <%- include("../global/head", {pageCss: 'gestaoFiscal'}); %>
 
   <body>
-    <%- include("../../partialViews/header"); %>
-      <%- include("../../partialViews/navbar", { activeNavItem: "GestaoFiscalPage" }); %>
-        <div class="px-5">
-          <div class="row mx-5 mb-3 pt-0 mt-4 shadow-sm" style="background-color: #ebebeb; border-radius: 8px">
-            <!-- FILTROS -->
-            <div class="container-fluid">
-              <div class="row mx-0">
-                <div class="col-12 p-5 d-flex justify-content-end">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar"
-                      aria-describedby="button-addon2">
+    <%- include("../../partialViews/header"); %> <%-
+    include("../../partialViews/navbar", { activeNavItem: "GestaoFiscalPage" });
+    %>
+    <div class="px-5">
+      <div
+        class="row mx-5 mb-3 pt-0 mt-4 shadow-sm"
+        style="background-color: #ebebeb; border-radius: 8px"
+      >
+        <!-- FILTROS -->
+        <div class="container-fluid">
+          <div class="row mx-0">
+            <div class="col-12 p-5 d-flex justify-content-end">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Pesquisar"
+                  aria-label="Pesquisar"
+                  aria-describedby="button-addon2"
+                />
 
-                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
-                      <img class="search" src="/img/search.svg" alt="" style="height:23px">
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!--TABLE-->
-            <div class="container-fluid">
-              <div class="card text-center m-5 mt-0 d-flex justify-content-center"
-                style="border-style: solid;border-color: var(--secondary-color)">
-                <div class="card-header" style="background-color: var(--secondary-color); color: white">
-                  <div class="row">
-                    <div class="col-12">
-                      <h3>
-                        Relatórios de Gestão Fiscal
-                      </h3>
-                    </div>
-                  </div>
-
-
-                </div>
-                <div class="card-body">
-                  <table class="table table-bordered">
-                    <thead class="table" style="background-color:var(--secondary-color); color: white">
-                      <tr>
-                        <th class="col-5" scope="col">Nome</th>
-                        <th class="col-2" scope="col">Quadrimestre/ANO</th>
-                        <th class="col-2" scope="col">Data de cadastro</th>
-                        <th class="col-1" scope="col">Ver Relatório</th>
-                      </tr>
-                    </thead>
-                    <tbody style="color:var(--secondary-color) color">
-                      <% for(var i=0; i < gestaofiscal.length; i++) {%>
-                        <tr>
-                          <th scope="row">
-                            <%=gestaofiscal[i].nome %>
-                          </th>
-                          <td>
-                            <%=gestaofiscal[i].quadrimestre %>/<%= gestaofiscal[i].ano %>
-                          </td>
-                          <td>
-                            <%=gestaofiscal[i].dataCadastro != "0000-00-00" ? new Date(gestaofiscal[i].dataCadastro).toLocaleDateString('pt-BR', {
-                              timeZone: 'UTC' }) : "" %>
-                          </td>
-                          <td>
-                            <a href="/<%=gestaofiscal[i].path %>" target="_blank">
-                              <img title="Abrir arquivo" src="/icons/pdf-icon.svg" alt="Arquivo PDF" height="20rem">
-                            </a>
-                          </td>
-                        </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
-                </div>
+                <button
+                  class="btn btn-outline-primary"
+                  type="button"
+                  id="button-addon2"
+                >
+                  <img
+                    class="search"
+                    src="/img/search.svg"
+                    alt=""
+                    style="height: 23px"
+                  />
+                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <%- include("../../partialViews/footer"); %>
+        <!--TABLE-->
+        <div class="container-fluid">
+          <div
+            class="card text-center m-5 mt-0 d-flex justify-content-center"
+            style="border-style: solid; border-color: var(--secondary-color)"
+          >
+            <div
+              class="card-header"
+              style="background-color: var(--secondary-color); color: white"
+            >
+              <div class="row">
+                <div class="col-12">
+                  <h3>Relatórios de Gestão Fiscal</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead
+                  class="table"
+                  style="background-color: var(--secondary-color); color: white"
+                >
+                  <tr>
+                    <th class="col-5" scope="col">Nome</th>
+                    <th class="col-2" scope="col">Quadrimestre/ANO</th>
+                    <th class="col-2" scope="col">Data de cadastro</th>
+                    <th class="col-1" scope="col">Ver Relatório</th>
+                  </tr>
+                </thead>
+                <tbody style="color: var(--secondary-color) color">
+                  <% for(var i=0; i < gestaofiscal.length; i++) {%>
+                  <tr>
+                    <th scope="row"><%=gestaofiscal[i].nome %></th>
+                    <td>
+                      <%=gestaofiscal[i].quadrimestre %>/<%= gestaofiscal[i].ano
+                      %>
+                    </td>
+                    <td>
+                      <%=gestaofiscal[i].dataCadastro != "0000-00-00" ? new
+                      Date(gestaofiscal[i].dataCadastro).toLocaleDateString('pt-BR',
+                      { timeZone: 'UTC' }) : "" %>
+                    </td>
+                    <td>
+                      <a href="/<%=gestaofiscal[i].path %>" target="_blank">
+                        <img
+                          title="Abrir arquivo"
+                          src="/icons/pdf-icon.svg"
+                          alt="Arquivo PDF"
+                          height="20rem"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include("../../partialViews/footer"); %>
     <script src="/script/user/global/global.js"></script>
-
   </body>
-
 </html>
