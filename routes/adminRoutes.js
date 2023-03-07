@@ -18,6 +18,8 @@ const diariasController = require("../controllers/admin/diariasController");
 const veiculosController = require("../controllers/admin/veiculosController");
 const obrasController = require("../controllers/admin/obrasController");
 const medicoesController = require("../controllers/admin/medicoesController");
+const secretariasController = require("../controllers/admin/secretariasController");
+const secretariosController = require("../controllers/admin/secretariosController");
 
 //MIDDLEWARE
 const checkCredentials = require("../helpers/checkCredentials");
@@ -284,6 +286,36 @@ routes.get("/deleteObra/:id", checkCredentials, obrasController.deleteObra);
 routes.post("/editObra/:id", checkCredentials, obrasController.editObras);
 routes.get("/editObra/:id", checkCredentials, obrasController.viewObrasId);
 routes.get("/obras", checkCredentials, obrasController.viewObras);
+routes.post(
+  "/addSecretario",
+  checkCredentials,
+  secretariosController.createSecretario
+);
+routes.get(
+  "/editSecretario/:id",
+  checkCredentials,
+  secretariosController.viewSecretarioId
+);
+routes.post(
+  "/editSecretaria/:id",
+  checkCredentials,
+  secretariasController.editSecretaria
+);
+routes.get(
+  "/editSecretaria/:id",
+  checkCredentials,
+  secretariasController.viewSecretariaId
+);
+routes.post(
+  "/addSecretaria",
+  checkCredentials,
+  secretariasController.createSecretaria
+);
+routes.get(
+  "/secretarias",
+  checkCredentials,
+  secretariasController.viewSecretarias
+);
 routes.get("/home", checkCredentials, homeController.viewHome);
 routes.get("/logout", loginController.Logout);
 routes.post("/login", loginController.Login);
